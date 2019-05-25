@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "a6d236c6-b2a7-4e82-a078-9b84375e304e",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "oven_door": {
+      "ver": "1.0.3",
+      "uuid": "21b634e8-a833-4049-a655-cb7db8bf1ea6",
+      "rawTextureUuid": "a6d236c6-b2a7-4e82-a078-9b84375e304e",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 848,
+      "height": 196,
+      "rawWidth": 848,
+      "rawHeight": 196,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -1,0 +1,55 @@
+
+milk.png
+size: 567,236
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+milk
+  rotate: true
+  xy: 2, 2
+  size: 232, 310
+  orig: 232, 310
+  offset: 0, 0
+  index: -1
+milk_eye_1
+  rotate: false
+  xy: 404, 18
+  size: 19, 21
+  orig: 19, 21
+  offset: 0, 0
+  index: -1
+milk_eye_2
+  rotate: false
+  xy: 425, 20
+  size: 19, 19
+  orig: 19, 19
+  offset: 0, 0
+  index: -1
+milk_face_1
+  rotate: false
+  xy: 314, 6
+  size: 32, 33
+  orig: 32, 33
+  offset: 0, 0
+  index: -1
+milk_face_2
+  rotate: false
+  xy: 377, 13
+  size: 25, 26
+  orig: 25, 26
+  offset: 0, 0
+  index: -1
+milk_mouse
+  rotate: false
+  xy: 348, 12
+  size: 27, 27
+  orig: 27, 27
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: false
+  xy: 314, 41
+  size: 251, 193
+  orig: 251, 193
+  offset: 0, 0
+  index: -1

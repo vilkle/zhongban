@@ -1,0 +1,104 @@
+
+shubinggan_pai.png
+size: 1051,253
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+arm_1
+  rotate: true
+  xy: 449, 53
+  size: 198, 125
+  orig: 198, 125
+  offset: 0, 0
+  index: -1
+arm_2
+  rotate: true
+  xy: 798, 89
+  size: 162, 118
+  orig: 162, 118
+  offset: 0, 0
+  index: -1
+body
+  rotate: false
+  xy: 134, 18
+  size: 313, 233
+  orig: 313, 233
+  offset: 0, 0
+  index: -1
+ear_1
+  rotate: false
+  xy: 883, 3
+  size: 76, 84
+  orig: 76, 84
+  offset: 0, 0
+  index: -1
+ear_2
+  rotate: false
+  xy: 798, 2
+  size: 83, 85
+  orig: 83, 85
+  offset: 0, 0
+  index: -1
+eye_1
+  rotate: true
+  xy: 619, 26
+  size: 37, 35
+  orig: 37, 35
+  offset: 0, 0
+  index: -1
+eye_2
+  rotate: true
+  xy: 656, 26
+  size: 37, 34
+  orig: 37, 34
+  offset: 0, 0
+  index: -1
+glass
+  rotate: true
+  xy: 715, 68
+  size: 183, 81
+  orig: 183, 81
+  offset: 0, 0
+  index: -1
+gloves
+  rotate: true
+  xy: 918, 97
+  size: 154, 131
+  orig: 154, 131
+  offset: 0, 0
+  index: -1
+hair
+  rotate: true
+  xy: 2, 8
+  size: 243, 130
+  orig: 243, 130
+  offset: 0, 0
+  index: -1
+heat
+  rotate: true
+  xy: 576, 65
+  size: 186, 137
+  orig: 186, 137
+  offset: 0, 0
+  index: -1
+leye
+  rotate: false
+  xy: 449, 3
+  size: 33, 48
+  orig: 33, 48
+  offset: 0, 0
+  index: -1
+nose_1
+  rotate: false
+  xy: 484, 4
+  size: 102, 47
+  orig: 102, 47
+  offset: 0, 0
+  index: -1
+reye
+  rotate: false
+  xy: 588, 19
+  size: 29, 44
+  orig: 29, 44
+  offset: 0, 0
+  index: -1

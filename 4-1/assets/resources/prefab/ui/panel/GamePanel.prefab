@@ -39,20 +39,29 @@
       },
       {
         "__id__": 35
+      },
+      {
+        "__id__": 38
+      },
+      {
+        "__id__": 41
+      },
+      {
+        "__id__": 44
       }
     ],
     "_active": true,
     "_level": 1,
     "_components": [
       {
-        "__id__": 38
+        "__id__": 47
       },
       {
-        "__id__": 39
+        "__id__": 48
       }
     ],
     "_prefab": {
-      "__id__": 40
+      "__id__": 49
     },
     "_opacity": 255,
     "_color": {
@@ -933,8 +942,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -537,
-      "y": 266,
+      "x": -528,
+      "y": 319,
       "z": 0
     },
     "_scale": {
@@ -1025,7 +1034,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 50,
-      "height": 154
+      "height": 155.02
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1059,31 +1068,43 @@
     "_id": ""
   },
   {
-    "__type__": "cc.Sprite",
+    "__type__": "sp.Skeleton",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 29
     },
     "_enabled": true,
-    "_spriteFrame": {
-      "__uuid__": "232ecbec-751e-4a88-9088-9443fce19e6d"
+    "paused": false,
+    "defaultSkin": "",
+    "defaultAnimation": "",
+    "_preCacheMode": 0,
+    "_cacheMode": 0,
+    "loop": true,
+    "premultipliedAlpha": true,
+    "timeScale": 1,
+    "_accTime": 0,
+    "_playCount": 0,
+    "_frameCache": null,
+    "_curFrame": null,
+    "_skeletonCache": null,
+    "_animationName": {
+      "0": "p",
+      "1": "a",
+      "2": "o"
     },
-    "_type": 0,
-    "_sizeMode": 1,
-    "_fillType": 0,
-    "_fillCenter": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
+    "_animationQueue": [],
+    "_headAniInfo": null,
+    "_playTimes": 0,
+    "_isAniComplete": true,
+    "_N$skeletonData": {
+      "__uuid__": "0c51dc0d-2c02-4c7a-9005-7b2479c37a80"
     },
-    "_fillStart": 0,
-    "_fillRange": 0,
-    "_isTrimmedMode": true,
-    "_state": 0,
-    "_atlas": null,
-    "_srcBlendFactor": 770,
-    "_dstBlendFactor": 771,
+    "_N$_defaultCacheMode": 0,
+    "_N$debugSlots": false,
+    "_N$debugBones": false,
+    "_N$useTint": false,
+    "_N$enableBatch": false,
     "_id": ""
   },
   {
@@ -1125,8 +1146,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 119,
-      "height": 151
+      "width": 277,
+      "height": 158.72
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1135,8 +1156,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -640,
-      "y": 385,
+      "x": -722,
+      "y": 303,
       "z": 0
     },
     "_scale": {
@@ -1160,31 +1181,39 @@
     "_id": ""
   },
   {
-    "__type__": "cc.Sprite",
+    "__type__": "sp.Skeleton",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 32
     },
     "_enabled": true,
-    "_spriteFrame": {
-      "__uuid__": "4e9b910f-83e1-4e2d-8407-6cfb19e6e763"
+    "paused": false,
+    "defaultSkin": "",
+    "defaultAnimation": "",
+    "_preCacheMode": 0,
+    "_cacheMode": 0,
+    "loop": true,
+    "premultipliedAlpha": true,
+    "timeScale": 1,
+    "_accTime": 0,
+    "_playCount": 0,
+    "_frameCache": null,
+    "_curFrame": null,
+    "_skeletonCache": null,
+    "_animationName": null,
+    "_animationQueue": [],
+    "_headAniInfo": null,
+    "_playTimes": 0,
+    "_isAniComplete": true,
+    "_N$skeletonData": {
+      "__uuid__": "872f38ba-1c21-4151-9d0b-3653fc6ecebd"
     },
-    "_type": 0,
-    "_sizeMode": 1,
-    "_fillType": 0,
-    "_fillCenter": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_fillStart": 0,
-    "_fillRange": 0,
-    "_isTrimmedMode": true,
-    "_state": 0,
-    "_atlas": null,
-    "_srcBlendFactor": 770,
-    "_dstBlendFactor": 771,
+    "_N$_defaultCacheMode": 0,
+    "_N$debugSlots": false,
+    "_N$debugBones": false,
+    "_N$useTint": false,
+    "_N$enableBatch": false,
     "_id": ""
   },
   {
@@ -1195,12 +1224,12 @@
     "asset": {
       "__uuid__": "32f855fb-ac45-4a70-9924-652cc84cf88d"
     },
-    "fileId": "5at0r3s/FFLL0vt/sEVeK0",
+    "fileId": "e7SeT5A49AoL+Fiq2mfLFh",
     "sync": false
   },
   {
     "__type__": "cc.Node",
-    "_name": "sange",
+    "_name": "cloud1",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -1226,8 +1255,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 184,
-      "height": 159
+      "width": 190,
+      "height": 53
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1236,8 +1265,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -769,
-      "y": 393,
+      "x": -291,
+      "y": 441,
       "z": 0
     },
     "_scale": {
@@ -1269,7 +1298,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "10c06f66-17fe-4f99-aefc-b9144e8f66d5"
+      "__uuid__": "320ff413-2bda-411d-8445-bb2ecf809a92"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -1296,7 +1325,326 @@
     "asset": {
       "__uuid__": "32f855fb-ac45-4a70-9924-652cc84cf88d"
     },
-    "fileId": "e7SeT5A49AoL+Fiq2mfLFh",
+    "fileId": "09jRCXEChNwJRPIQK0lmF3",
+    "sync": false
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "cloud2",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 1
+    },
+    "_children": [],
+    "_active": true,
+    "_level": 2,
+    "_components": [
+      {
+        "__id__": 39
+      }
+    ],
+    "_prefab": {
+      "__id__": 40
+    },
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 126,
+      "height": 45
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_position": {
+      "__type__": "cc.Vec3",
+      "x": 388,
+      "y": 428,
+      "z": 0
+    },
+    "_scale": {
+      "__type__": "cc.Vec3",
+      "x": 1,
+      "y": 1,
+      "z": 1
+    },
+    "_rotationX": 0,
+    "_rotationY": 0,
+    "_quat": {
+      "__type__": "cc.Quat",
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "groupIndex": 0,
+    "_id": ""
+  },
+  {
+    "__type__": "cc.Sprite",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 38
+    },
+    "_enabled": true,
+    "_spriteFrame": {
+      "__uuid__": "908822c1-9f40-4931-870e-3ff7139af184"
+    },
+    "_type": 0,
+    "_sizeMode": 1,
+    "_fillType": 0,
+    "_fillCenter": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_fillStart": 0,
+    "_fillRange": 0,
+    "_isTrimmedMode": true,
+    "_state": 0,
+    "_atlas": null,
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
+    "_id": ""
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 1
+    },
+    "asset": {
+      "__uuid__": "32f855fb-ac45-4a70-9924-652cc84cf88d"
+    },
+    "fileId": "2fb6ArsItL77tHYZVFZIT3",
+    "sync": false
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "cactus1",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 1
+    },
+    "_children": [],
+    "_active": true,
+    "_level": 2,
+    "_components": [
+      {
+        "__id__": 42
+      }
+    ],
+    "_prefab": {
+      "__id__": 43
+    },
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 92,
+      "height": 91
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_position": {
+      "__type__": "cc.Vec3",
+      "x": 419,
+      "y": 360,
+      "z": 0
+    },
+    "_scale": {
+      "__type__": "cc.Vec3",
+      "x": 1,
+      "y": 1,
+      "z": 1
+    },
+    "_rotationX": 0,
+    "_rotationY": 0,
+    "_quat": {
+      "__type__": "cc.Quat",
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "groupIndex": 0,
+    "_id": ""
+  },
+  {
+    "__type__": "sp.Skeleton",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 41
+    },
+    "_enabled": true,
+    "paused": false,
+    "defaultSkin": "",
+    "defaultAnimation": "",
+    "_preCacheMode": 0,
+    "_cacheMode": 0,
+    "loop": true,
+    "premultipliedAlpha": true,
+    "timeScale": 1,
+    "_accTime": 0,
+    "_playCount": 0,
+    "_frameCache": null,
+    "_curFrame": null,
+    "_skeletonCache": null,
+    "_animationName": null,
+    "_animationQueue": [],
+    "_headAniInfo": null,
+    "_playTimes": 0,
+    "_isAniComplete": true,
+    "_N$skeletonData": {
+      "__uuid__": "a38b53f3-a970-43da-b733-a630d30d3ce6"
+    },
+    "_N$_defaultCacheMode": 0,
+    "_N$debugSlots": false,
+    "_N$debugBones": false,
+    "_N$useTint": false,
+    "_N$enableBatch": false,
+    "_id": ""
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 1
+    },
+    "asset": {
+      "__uuid__": "32f855fb-ac45-4a70-9924-652cc84cf88d"
+    },
+    "fileId": "30EUa1felN4Z0x5mdzSSUU",
+    "sync": false
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "cactus2",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 1
+    },
+    "_children": [],
+    "_active": true,
+    "_level": 2,
+    "_components": [
+      {
+        "__id__": 45
+      }
+    ],
+    "_prefab": {
+      "__id__": 46
+    },
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 57,
+      "height": 57
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_position": {
+      "__type__": "cc.Vec3",
+      "x": 9,
+      "y": 354,
+      "z": 0
+    },
+    "_scale": {
+      "__type__": "cc.Vec3",
+      "x": 1,
+      "y": 1,
+      "z": 1
+    },
+    "_rotationX": 0,
+    "_rotationY": 0,
+    "_quat": {
+      "__type__": "cc.Quat",
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "groupIndex": 0,
+    "_id": ""
+  },
+  {
+    "__type__": "sp.Skeleton",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 44
+    },
+    "_enabled": true,
+    "paused": false,
+    "defaultSkin": "",
+    "defaultAnimation": "",
+    "_preCacheMode": 0,
+    "_cacheMode": 0,
+    "loop": true,
+    "premultipliedAlpha": true,
+    "timeScale": 1,
+    "_accTime": 0,
+    "_playCount": 0,
+    "_frameCache": null,
+    "_curFrame": null,
+    "_skeletonCache": null,
+    "_animationName": null,
+    "_animationQueue": [],
+    "_headAniInfo": null,
+    "_playTimes": 0,
+    "_isAniComplete": true,
+    "_N$skeletonData": {
+      "__uuid__": "634f0ad2-ba2a-439d-bfab-fa3078637afa"
+    },
+    "_N$_defaultCacheMode": 0,
+    "_N$debugSlots": false,
+    "_N$debugBones": false,
+    "_N$useTint": false,
+    "_N$enableBatch": false,
+    "_id": ""
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 1
+    },
+    "asset": {
+      "__uuid__": "32f855fb-ac45-4a70-9924-652cc84cf88d"
+    },
+    "fileId": "dae/efyRNEhqJEnjLBfwtL",
     "sync": false
   },
   {
@@ -1336,6 +1684,21 @@
     },
     "yige": {
       "__id__": 29
+    },
+    "cloud1": {
+      "__id__": 35
+    },
+    "cloud2": {
+      "__id__": 38
+    },
+    "cactus1": {
+      "__id__": 41
+    },
+    "cactus2": {
+      "__id__": 44
+    },
+    "erge": {
+      "__id__": 32
     },
     "_id": ""
   },

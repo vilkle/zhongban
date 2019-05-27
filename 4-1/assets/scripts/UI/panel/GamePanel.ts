@@ -27,6 +27,18 @@ export default class GamePanel extends BaseUI {
     private end2 : cc.Node = null;
     @property(cc.Node)
     private yige : cc.Node = null;
+    @property(cc.Node)
+    private cloud1 : cc.Node = null;
+    @property(cc.Node)
+    private cloud2 : cc.Node = null;
+    @property(cc.Node)
+    private cactus1 : cc.Node = null;
+    @property(cc.Node)
+    private cactus2 : cc.Node = null;
+    @property(cc.Node)
+    private erge : cc.Node = null;
+
+
     _textureIdMapRenderTexture = {}
     isBreak : boolean = true;
     isBreak1 : boolean = true;
@@ -35,6 +47,12 @@ export default class GamePanel extends BaseUI {
 
     start() {
         this.addListenerOnRound1();
+        this.initBackground();
+    }
+
+    initBackground() {
+        this.cloud1.runAction(cc.repeatForever(cc.sequence(cc.moveBy(30, cc.v2(400, 0)), cc.moveBy(30, cc.v2(-400, 0)))));
+        this.cloud2.runAction(cc.repeatForever(cc.sequence(cc.moveBy(30, cc.v2(300, 0)), cc.moveBy(30, cc.v2(-300, 0)))));
     }
 
     addListenerOnRound1() {
@@ -44,6 +62,8 @@ export default class GamePanel extends BaseUI {
             }else if(this.start2.getBoundingBox().contains(this.node.convertToNodeSpaceAR(e.currentTouch._point))) {
                 this.isBreak1 = false;
             }
+            this.yige.opacity = 255;
+            this.yige.getComponent(sp.Skeleton).setAnimation(0, 'tiao', false);
         }.bind(this));
         this.bg.on(cc.Node.EventType.TOUCH_MOVE, function(e) {
             let posInBg = this.node.convertToNodeSpaceAR(e.currentTouch._point);
@@ -76,18 +96,26 @@ export default class GamePanel extends BaseUI {
                 else{
                     data = rt.readPixels(null, rect.x + posInRect.x, rect.y + rect.height - posInRect.y, 1, 1)
                 }
-                if (data[3] <= 0 && this.isOver == false) {
-                    if(!this.isBreak) {
-                        this.isBreak = true;
-                        this.yige.setPosition(cc.v2(95, -90));
-                        cc.log('back1');
-                        this.mask._graphics.clear();
+                if (data[3] <= 0) {
+                    if(!this.isOver) {
+                        if(!this.isOver1) {
+                            if(!this.isBreak) {
+                                this.isBreak = true;
+                                this.yige.setPosition(cc.v2(95, -90));
+                                this.yige.opacity = 0;
+                                this.mask._graphics.clear();
+                            }
+                        }
                     }
                 }
                 else {
                     if(!this.isBreak) {
                         this.commonFunc(e, this.mask);
-                        this.yige.setPosition(posInBg);
+                        cc.log('---------------------',this.isOver);
+                        if(this.isOver1 == false) {
+                            this.yige.setPosition(posInBg);
+                            this.yige.getComponent(sp.Skeleton).addAnimation(0, 'pao', false);
+                        }
                         if(this.end1.getBoundingBox().contains(this.node.convertToNodeSpaceAR(e.currentTouch._point))) {
                             this.isOver = true;
                         }
@@ -123,20 +151,27 @@ export default class GamePanel extends BaseUI {
                 else{
                     data = rt.readPixels(null, rect1.x + posInRect1.x, rect1.y + rect1.height - posInRect1.y, 1, 1)
                 }
-                if (data[3] <= 0 && this.isOver1 == false) {
-                    if(!this.isBreak1) {
-                        this.isBreak1 = true;
-                        this.yige.setPosition(cc.v2(95, -90));
-                        this.mask1._graphics.clear();
-                        cc.log('back2');
+                if (data[3] <= 0) {
+                    if(!this.isOver1) {
+                        if(!this.isBreak1) {
+                            this.isBreak1 = true;
+                            this.yige.setPosition(cc.v2(95, -90));
+                            this.yige.opacity = 0;
+                            this.mask1._graphics.clear();
+                        }
                     }
                 }
                 else {
                     if(!this.isBreak1) {
                         this.commonFunc(e,this.mask1);
-                        this.yige.setPosition(posInBg);
+                        if(!this.isOver1) {
+                            this.yige.setPosition(posInBg);
+                            this.yige.getComponent(sp.Skeleton).addAnimation(0, 'pao', false);
+                        }
                         if(this.end2.getBoundingBox().contains(this.node.convertToNodeSpaceAR(e.currentTouch._point))) {
                             this.isOver1 = true;
+                            this.yige.getComponent(sp.Skeleton).setAnimation(0, 'tiao', false);
+                            cc.log('-------------', this.isOver1);
                         }
                     }
             }
@@ -144,18 +179,18 @@ export default class GamePanel extends BaseUI {
         }.bind(this));
 
         this.bg.on(cc.Node.EventType.TOUCH_END, function(e) {
-            if(!this.isOver&&this.isBreak) {
+            if(this.isOver == false) {
                 this.isBreak = true;
                 this.mask._graphics.clear();
-                this.yige.setPosition(cc.v2(95, -90));
-                cc.log('back3')
+                //this.yige.setPosition(cc.v2(95, -90));
             }
-            if(!this.isOver1&&this.isBreak1) {
+            if(this.isOver1 == false) {
                 this.isBreak1 = true;
                 this.mask1._graphics.clear();
                 this.yige.setPosition(cc.v2(95, -90));
-                cc.log('back4')
+                this.yige.opacity = 0;
             }
+           
         }.bind(this));
         this.round1.node.on(cc.Node.EventType.TOUCH_CANCEL, function(e) {
 

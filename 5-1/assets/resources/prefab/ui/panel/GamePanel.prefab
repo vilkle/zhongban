@@ -2557,7 +2557,7 @@
     "defaultAnimation": "idle0",
     "_preCacheMode": 0,
     "_cacheMode": 0,
-    "loop": true,
+    "loop": false,
     "premultipliedAlpha": true,
     "timeScale": 1,
     "_accTime": 0,
@@ -2568,7 +2568,7 @@
     "_animationName": "idle0",
     "_animationQueue": [],
     "_headAniInfo": null,
-    "_playTimes": 0,
+    "_playTimes": 1,
     "_isAniComplete": true,
     "_N$skeletonData": {
       "__uuid__": "47a79e24-5ec9-4f73-8205-af7ffa070a3c"

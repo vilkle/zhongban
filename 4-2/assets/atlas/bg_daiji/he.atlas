@@ -1,0 +1,27 @@
+
+he.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+he
+  rotate: true
+  xy: 2, 2
+  size: 472, 602
+  orig: 472, 602
+  offset: 0, 0
+  index: -1
+he_yuan_1
+  rotate: false
+  xy: 606, 361
+  size: 76, 46
+  orig: 76, 46
+  offset: 0, 0
+  index: -1
+he_yuan_2
+  rotate: false
+  xy: 606, 409
+  size: 113, 65
+  orig: 113, 65
+  offset: 0, 0
+  index: -1

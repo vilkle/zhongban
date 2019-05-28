@@ -1,0 +1,104 @@
+
+miya.png
+size: 1138,302
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+body
+  rotate: true
+  xy: 866, 112
+  size: 188, 127
+  orig: 188, 127
+  offset: 0, 0
+  index: -1
+ear1
+  rotate: false
+  xy: 995, 2
+  size: 141, 147
+  orig: 141, 147
+  offset: 0, 0
+  index: -1
+ear2
+  rotate: false
+  xy: 995, 151
+  size: 140, 149
+  orig: 140, 149
+  offset: 0, 0
+  index: -1
+eye1
+  rotate: false
+  xy: 804, 26
+  size: 64, 75
+  orig: 64, 75
+  offset: 0, 0
+  index: -1
+eye2
+  rotate: false
+  xy: 870, 35
+  size: 63, 75
+  orig: 63, 75
+  offset: 0, 0
+  index: -1
+face1
+  rotate: false
+  xy: 344, 4
+  size: 67, 25
+  orig: 67, 25
+  offset: 0, 0
+  index: -1
+face2
+  rotate: false
+  xy: 413, 4
+  size: 67, 25
+  orig: 67, 25
+  offset: 0, 0
+  index: -1
+hair1
+  rotate: false
+  xy: 530, 3
+  size: 144, 98
+  orig: 144, 98
+  offset: 0, 0
+  index: -1
+hair2
+  rotate: false
+  xy: 676, 12
+  size: 126, 89
+  orig: 126, 89
+  offset: 0, 0
+  index: -1
+hair3
+  rotate: false
+  xy: 344, 31
+  size: 184, 269
+  orig: 184, 269
+  offset: 0, 0
+  index: -1
+hand1
+  rotate: true
+  xy: 530, 103
+  size: 197, 166
+  orig: 197, 166
+  offset: 0, 0
+  index: -1
+hand2
+  rotate: true
+  xy: 698, 103
+  size: 197, 166
+  orig: 197, 166
+  offset: 0, 0
+  index: -1
+head
+  rotate: false
+  xy: 2, 2
+  size: 340, 298
+  orig: 340, 298
+  offset: 0, 0
+  index: -1
+zui0
+  rotate: false
+  xy: 482, 11
+  size: 44, 18
+  orig: 44, 18
+  offset: 0, 0
+  index: -1

@@ -23,9 +23,9 @@ export default class GamePanel extends BaseUI {
     @property(cc.Button)
     private submitButton : cc.Button = null;
     @property(sp.Skeleton)
-    private bearSpine : cc.Node = null;
+    private bearSpine : sp.Skeleton = null;
     @property(sp.Skeleton)
-    private milkSpine : cc.Node = null; 
+    private milkSpine : sp.Skeleton = null; 
     @property(cc.Node)
     private bubble : cc.Node = null;
     @property(cc.Node)
@@ -33,11 +33,25 @@ export default class GamePanel extends BaseUI {
     private enableSelect : boolean = false;
     private answerArr : Array<cc.Node> = new Array<cc.Node>();
     private checkpointIndex : number = 0;
+    private randomNum : number = 0;
     onLoad() {
         this.initAnswerArr();
         this.mask.on(cc.Node.EventType.TOUCH_START, function(e){
             e.stopPropagation();
         });
+        setInterval(function(){
+            this.randomNum += 1;
+            if(this.randomNum %4){
+                this.milkSpine.addAnimation(0, 'idle0', false);
+            }else {
+                this.milkSpine.addAnimation(0, 'idle1', false);
+            }
+            if(this.randomNum %5) {
+                this.bearSpine.addAnimation(0, 'idle1', false);
+            }else {
+                this.bearSpine.addAnimation(0, 'idle2', false);
+            }
+        }.bind(this), 1000);
     }
 
     start() {
@@ -109,6 +123,7 @@ export default class GamePanel extends BaseUI {
         this.boardNode.getChildByName('answer3').active = false;
         this.plateNode1.runAction(cc.sequence( cc.moveBy(0.6, cc.v2(0, 800)), cc.callFunc(function(){
             //this.round2();
+            this.enableSelect = true;
             this.mask.active = false;
         }.bind(this))));
 
@@ -127,6 +142,7 @@ export default class GamePanel extends BaseUI {
                         this.reset();
                         //this.round3();
                         this.mask.active = false;
+                        this.enableSelect = true;
                         cc.log('action over');
                     }.bind(this))));
                 }.bind(this))));
@@ -144,7 +160,8 @@ export default class GamePanel extends BaseUI {
                         this.boardNode.getChildByName('pic3').active = true;
                         this.boardNode.getChildByName('answer3').active = true;
                         this.reset();
-                        this.mask = false;
+                        this.mask.active = false;
+                        this.enableSelect = true;
                         cc.log('action over');
                     }.bind(this))));
                 }.bind(this))));
@@ -213,6 +230,8 @@ export default class GamePanel extends BaseUI {
         if(this.checkpointIndex == 1) {
             if(this.boardNode.getChildByName('answer1').getChildByName('answer').getComponent(cc.Sprite).spriteFrame == this.answerNode.getChildByName('3').getComponent(cc.Sprite).spriteFrame&&this.boardNode.getChildByName('answer1').getChildByName('answer').opacity == 255) {
                 if(this.boardNode.getChildByName('answer2').getChildByName('answer').getComponent(cc.Sprite).spriteFrame == this.answerNode.getChildByName('2').getComponent(cc.Sprite).spriteFrame&&this.boardNode.getChildByName('answer2').getChildByName('answer').opacity == 255) {
+                    this.plateNode1.getChildByName('right').active = true;
+                    this.submitButton.interactable = false;
                     return true;
                 }else {
                     return false;
@@ -224,6 +243,8 @@ export default class GamePanel extends BaseUI {
             if(this.boardNode.getChildByName('answer1').getChildByName('answer').getComponent(cc.Sprite).spriteFrame == this.answerNode.getChildByName('3').getComponent(cc.Sprite).spriteFrame&&this.boardNode.getChildByName('answer1').getChildByName('answer').opacity == 255) {
                 if(this.boardNode.getChildByName('answer2').getChildByName('answer').getComponent(cc.Sprite).spriteFrame == this.answerNode.getChildByName('3').getComponent(cc.Sprite).spriteFrame&&this.boardNode.getChildByName('answer2').getChildByName('answer').opacity == 255) {
                     if(this.boardNode.getChildByName('answer3').getChildByName('answer').getComponent(cc.Sprite).spriteFrame == this.answerNode.getChildByName('5').getComponent(cc.Sprite).spriteFrame&&this.boardNode.getChildByName('answer3').getChildByName('answer').opacity == 255) {
+                        this.plateNode2.getChildByName('right').active = true;
+                        this.submitButton.interactable = false;
                         return true;
                     }else {
                         return false;
@@ -238,6 +259,8 @@ export default class GamePanel extends BaseUI {
             if(this.boardNode.getChildByName('answer1').getChildByName('answer').getComponent(cc.Sprite).spriteFrame == this.answerNode.getChildByName('3').getComponent(cc.Sprite).spriteFrame&&this.boardNode.getChildByName('answer1').getChildByName('answer').opacity == 255) {
                 if(this.boardNode.getChildByName('answer2').getChildByName('answer').getComponent(cc.Sprite).spriteFrame == this.answerNode.getChildByName('2').getComponent(cc.Sprite).spriteFrame&&this.boardNode.getChildByName('answer2').getChildByName('answer').opacity == 255) {
                     if(this.boardNode.getChildByName('answer3').getChildByName('answer').getComponent(cc.Sprite).spriteFrame == this.answerNode.getChildByName('7').getComponent(cc.Sprite).spriteFrame&&this.boardNode.getChildByName('answer3').getChildByName('answer').opacity == 255) {
+                        this.plateNode3.getChildByName('right').active = true;
+                        this.submitButton.interactable = false;
                         return true;
                     }else {
                         return false;
@@ -252,22 +275,29 @@ export default class GamePanel extends BaseUI {
     }
 
     submit() {
-        if(this.isRight()) {
-            if(this.checkpointIndex == 1){
-                setTimeout(() => {
-                    this.round2();
-                }, 2000);
-            }else if(this.checkpointIndex == 2) {
-                setTimeout(() => {
-                    this.round3();
-                }, 2000);
-            }else if(this.checkpointIndex == 3) {
-                this.success();
+        cc.log('------------');
+        if(this.enableSelect) {
+            if(this.isRight()) {
+                this.enableSelect = false;
+                if(this.checkpointIndex == 1){
+                    setTimeout(() => {
+                        this.round2();
+                    }, 2000);
+                }else if(this.checkpointIndex == 2) {
+                    setTimeout(() => {
+                        this.round3();
+                    }, 2000);
+                }else if(this.checkpointIndex == 3) {
+                    this.success();
+                }
+            }else {
+                this.enableSelect = true;
             }
         }
     }
 
     success() {
+        cc.log('-------------------mask active is true');
         this.mask.active = true;
     }
 

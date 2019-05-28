@@ -1,0 +1,41 @@
+
+shu1.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+1_shu_1
+  rotate: false
+  xy: 437, 110
+  size: 163, 142
+  orig: 163, 142
+  offset: 0, 0
+  index: -1
+1_shu_2
+  rotate: false
+  xy: 239, 81
+  size: 196, 171
+  orig: 196, 171
+  offset: 0, 0
+  index: -1
+1_shu_3
+  rotate: false
+  xy: 2, 47
+  size: 235, 205
+  orig: 235, 205
+  offset: 0, 0
+  index: -1
+1_shugan
+  rotate: false
+  xy: 2, 2
+  size: 40, 43
+  orig: 40, 43
+  offset: 0, 0
+  index: -1
+1_ying
+  rotate: false
+  xy: 602, 167
+  size: 217, 85
+  orig: 217, 85
+  offset: 0, 0
+  index: -1

@@ -63,7 +63,9 @@ export default class GamePanel extends BaseUI {
                 this.isBreak1 = false;
             }
             this.yige.opacity = 255;
-            this.yige.getComponent(sp.Skeleton).setAnimation(0, 'tiao', false);
+            if(!this.isOver1) {
+                this.yige.getComponent(sp.Skeleton).setAnimation(0, 'tiao', false);
+            }
         }.bind(this));
         this.bg.on(cc.Node.EventType.TOUCH_MOVE, function(e) {
             let posInBg = this.node.convertToNodeSpaceAR(e.currentTouch._point);
@@ -170,8 +172,7 @@ export default class GamePanel extends BaseUI {
                         }
                         if(this.end2.getBoundingBox().contains(this.node.convertToNodeSpaceAR(e.currentTouch._point))) {
                             this.isOver1 = true;
-                            this.yige.getComponent(sp.Skeleton).setAnimation(0, 'tiao', false);
-                            cc.log('-------------', this.isOver1);
+                            this.yige.getComponent(sp.Skeleton).setAnimation(0, 'daiji', false);
                         }
                     }
             }
@@ -202,7 +203,6 @@ export default class GamePanel extends BaseUI {
         var point = event.touch.getLocation();
         point = this.node.convertToNodeSpaceAR(point);
         var graphics = mask._graphics;
-        console.log("xxxx:",graphics)
         var color = cc.color(0, 0, 0, 255);
         //graphics.rect(point.x,point.y,200,200)
         graphics.ellipse(point.x,point.y,70, 70)

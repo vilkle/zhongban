@@ -142,8 +142,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 2016,
-      "height": 983
+      "width": 1994,
+      "height": 960
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1077,7 +1077,7 @@
     "_enabled": true,
     "paused": false,
     "defaultSkin": "",
-    "defaultAnimation": "",
+    "defaultAnimation": "daiji",
     "_preCacheMode": 0,
     "_cacheMode": 0,
     "loop": true,
@@ -1088,11 +1088,7 @@
     "_frameCache": null,
     "_curFrame": null,
     "_skeletonCache": null,
-    "_animationName": {
-      "0": "p",
-      "1": "a",
-      "2": "o"
-    },
+    "_animationName": "daiji",
     "_animationQueue": [],
     "_headAniInfo": null,
     "_playTimes": 0,
@@ -1190,7 +1186,7 @@
     "_enabled": true,
     "paused": false,
     "defaultSkin": "",
-    "defaultAnimation": "",
+    "defaultAnimation": "animation",
     "_preCacheMode": 0,
     "_cacheMode": 0,
     "loop": true,
@@ -1201,7 +1197,7 @@
     "_frameCache": null,
     "_curFrame": null,
     "_skeletonCache": null,
-    "_animationName": null,
+    "_animationName": "animation",
     "_animationQueue": [],
     "_headAniInfo": null,
     "_playTimes": 0,
@@ -1467,8 +1463,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 419,
-      "y": 360,
+      "x": 696,
+      "y": 342,
       "z": 0
     },
     "_scale": {
@@ -1501,7 +1497,7 @@
     "_enabled": true,
     "paused": false,
     "defaultSkin": "",
-    "defaultAnimation": "",
+    "defaultAnimation": "animation",
     "_preCacheMode": 0,
     "_cacheMode": 0,
     "loop": true,
@@ -1512,7 +1508,7 @@
     "_frameCache": null,
     "_curFrame": null,
     "_skeletonCache": null,
-    "_animationName": null,
+    "_animationName": "animation",
     "_animationQueue": [],
     "_headAniInfo": null,
     "_playTimes": 0,
@@ -1576,8 +1572,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 9,
-      "y": 354,
+      "x": -121,
+      "y": 348,
       "z": 0
     },
     "_scale": {
@@ -1610,7 +1606,7 @@
     "_enabled": true,
     "paused": false,
     "defaultSkin": "",
-    "defaultAnimation": "",
+    "defaultAnimation": "animation",
     "_preCacheMode": 0,
     "_cacheMode": 0,
     "loop": true,
@@ -1621,7 +1617,7 @@
     "_frameCache": null,
     "_curFrame": null,
     "_skeletonCache": null,
-    "_animationName": null,
+    "_animationName": "animation",
     "_animationQueue": [],
     "_headAniInfo": null,
     "_playTimes": 0,

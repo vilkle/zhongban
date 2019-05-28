@@ -1,6 +1,8 @@
 import { BaseUI } from "../BaseUI";
 import { NetWork } from "../../Http/NetWork";
 import {UIHelp} from "../../Utils/UIHelp";
+import {AudioManager} from "../../Manager/AudioManager"
+
 const { ccclass, property } = cc._decorator;
 
 @ccclass
@@ -21,6 +23,8 @@ export default class GamePanel extends BaseUI {
     private corn : cc.SpriteFrame = null;
     @property(cc.Node)
     private itemNode : cc.Node = null;
+    @property(sp.Skeleton)
+    private mouse : sp.Skeleton = null;
     @property(cc.Node)
     private kaoxiangNode : cc.Node = null;
     @property(cc.Node)
@@ -31,6 +35,13 @@ export default class GamePanel extends BaseUI {
     private isTouch : boolean = false;
     onLoad() {
         this.round1(5);
+        this.mouse.node.on(cc.Node.EventType.TOUCH_START, function(e){
+            if(this.mouse.node.getBoundingBox().contains(this.node.convertToNodeSpaceAR(e.currentTouch._point))) {
+                this.mouse.setAnimation(0, 'talk', false);
+                AudioManager.getInstance().stopAll();
+                //AudioManager.getInstance().playSound();
+            }
+        }.bind(this));
     }
 
     start() {
@@ -54,15 +65,16 @@ export default class GamePanel extends BaseUI {
             } 
         }.bind(this), 3000);
         this.checkpointIndex ++;
-        this.guoNode.active = true;
-        this.kaoxiangNode.active = false;
+        this.guoNode.runAction(cc.moveBy(1.33, cc.v2(-1600, 0)));
         for(let i = 1; i <= 9; i++) {
             var bgItem : cc.Node = this.itemNode.getChildByName(i.toString());
             if(i <= num) {
                 bgItem.active = true;
                 bgItem.getComponent(cc.Sprite).spriteFrame = this.corn;
+                bgItem.setScale(0);
+                bgItem.runAction(cc.scaleTo(0.2,1,1));
                 this.removeListener(bgItem);
-                this.addListener(bgItem, num, this.guoNode, this.popcorn);
+                this.addListener(bgItem, i, num, this.guoNode, this.popcorn);
             }else { 
                 bgItem.active = false;
             }
@@ -80,15 +92,17 @@ export default class GamePanel extends BaseUI {
             } 
         }.bind(this), 3000);
         this.checkpointIndex ++;
-        this.guoNode.active = true;
-        this.kaoxiangNode.active = false;
+        // this.guoNode.active = true;
+        // this.kaoxiangNode.active = false;
         for(let i = 1; i <= 9; i++) {
             var bgItem : cc.Node = this.itemNode.getChildByName(i.toString());
             if(i <= num) {
                 bgItem.active = true;
+                bgItem.setScale(0);
+                bgItem.runAction(cc.scaleTo(0.2,1,1));
                 bgItem.getComponent(cc.Sprite).spriteFrame = this.egg;
                 this.removeListener(bgItem);
-                this.addListener(bgItem, num, this.guoNode, this.omelette);
+                this.addListener(bgItem, i, num, this.guoNode, this.omelette);
             }else { 
                 bgItem.active = false;
             }
@@ -106,15 +120,20 @@ export default class GamePanel extends BaseUI {
             } 
         }.bind(this), 3000);
         this.checkpointIndex ++;
-        this.guoNode.active = false;
-        this.kaoxiangNode.active = true;
+        var seq = cc.sequence(cc.moveBy(1.33,cc.v2(1600, 0)), cc.callFunc(function(){
+            this.kaoxiangNode.runAction(cc.moveBy(1.33, cc.v2(-1600, 0)));
+        }.bind(this)));
+        this.guoNode.runAction(seq);
+       
         for(let i = 1; i <= 9; i++) {
             var bgItem : cc.Node = this.itemNode.getChildByName(i.toString());
             if(i <= num) {
                 bgItem.active = true;
+                bgItem.setScale(0);
+                bgItem.runAction(cc.scaleTo(0.2,1,1));
                 bgItem.getComponent(cc.Sprite).spriteFrame = this.bread;
                 this.removeListener(bgItem);
-                this.addListener(bgItem, num, this.kaoxiangNode, this.toast);
+                this.addListener(bgItem, i, num, this.kaoxiangNode, this.toast);
             }else { 
                 bgItem.active = false;
             }
@@ -132,15 +151,16 @@ export default class GamePanel extends BaseUI {
             } 
         }.bind(this), 3000);
         this.checkpointIndex ++;
-        this.guoNode.active = false;
-        this.kaoxiangNode.active = true;
+       
         for(let i = 1; i <= 9; i++) {
             var bgItem : cc.Node = this.itemNode.getChildByName(i.toString());
             if(i <= num) {
                 bgItem.active = true;
+                bgItem.setScale(0);
+                bgItem.runAction(cc.scaleTo(0.2,1,1));
                 bgItem.getComponent(cc.Sprite).spriteFrame = this.bread;
                 this.removeListener(bgItem);
-                this.addListener(bgItem, num, this.kaoxiangNode, this.toast);
+                this.addListener(bgItem, i, num, this.kaoxiangNode, this.toast);
             }else { 
                 bgItem.active = false;
             }
@@ -158,15 +178,16 @@ export default class GamePanel extends BaseUI {
             } 
         }.bind(this), 3000);
         this.checkpointIndex ++;
-        this.guoNode.active = false;
-        this.kaoxiangNode.active = true;
+      
         for(let i = 1; i <= 9; i++) {
             var bgItem : cc.Node = this.itemNode.getChildByName(i.toString());
             if(i <= num) {
                 bgItem.active = true;
+                bgItem.setScale(0);
+                bgItem.runAction(cc.scaleTo(0.2,1,1));
                 bgItem.getComponent(cc.Sprite).spriteFrame = this.bread;
                 this.removeListener(bgItem);
-                this.addListener(bgItem, num, this.kaoxiangNode, this.toast);
+                this.addListener(bgItem, i, num, this.kaoxiangNode, this.toast);
             }else { 
                 bgItem.active = false;
             }
@@ -214,7 +235,7 @@ export default class GamePanel extends BaseUI {
         item.off(cc.Node.EventType.TOUCH_END);
         item.off(cc.Node.EventType.TOUCH_CANCEL);
     }
-    addListener(item : cc.Node, totalNum : number, dirNode : cc.Node, dirFrame : cc.SpriteFrame) {
+    addListener(item : cc.Node, IndexNum : number, totalNum : number, dirNode : cc.Node, dirFrame : cc.SpriteFrame) {
         item.on(cc.Node.EventType.TOUCH_START, function(e){
             this.isTouch = true;
             for(let i = 1; i <= totalNum; i++) {
@@ -223,32 +244,65 @@ export default class GamePanel extends BaseUI {
             }
         }.bind(this));
         item.on(cc.Node.EventType.TOUCH_MOVE, function(e){
-            for(let i = 1; i <= totalNum; i++) {
-                let node = this.itemNode.getChildByName(i.toString());
+            if(IndexNum <= 5) {
+                for(let i = 1; i <= 5; i++) {
+                    let node = this.itemNode.getChildByName(i.toString());
+                    let delta = e.touch.getDelta();
+                    let x = node.x;
+                    let y = node.y;
+                    node.setPosition(cc.v2(x+delta.x, y+delta.y));
+                }
+            }else {
+                let node = this.itemNode.getChildByName(IndexNum.toString());
                 let delta = e.touch.getDelta();
                 let x = node.x;
                 let y = node.y;
                 node.setPosition(cc.v2(x+delta.x, y+delta.y));
             }
+           
         }.bind(this));
         item.on(cc.Node.EventType.TOUCH_END, function(e){
             if(dirNode.getChildByName('boundingbox').getBoundingBox().contains(dirNode.convertToNodeSpaceAR(e.currentTouch._point))) {
-                for(let i = 1; i <= totalNum; i++) {
-                    let dirnode = dirNode.getChildByName(i.toString());
+                if(IndexNum <= 5) {
+                    for(let i = 1; i <= 5; i++) {
+                        let dirnode = dirNode.getChildByName(i.toString());
+                        dirnode.getComponent(cc.Sprite).spriteFrame = item.getComponent(cc.Sprite).spriteFrame;
+                        dirnode.active = true;
+                        dirnode.runAction(cc.sequence(cc.scaleTo(0.133, 0, 0), cc.callFunc(function(){
+                            dirnode.getComponent(cc.Sprite).spriteFrame = dirFrame;
+                        }.bind(this)), cc.scaleTo(0.3, 1.3, 1.3),cc.scaleTo(0.433, 1, 1)));
+                        let node = this.itemNode.getChildByName(i.toString());
+                        node.setPosition(this.oriPosArr[i - 1]);
+                        node.active = false
+                    }
+                    if(totalNum == 5) {
+                        this.success();
+                    }
+                }else {
+                    let dirnode = dirNode.getChildByName(IndexNum.toString());
                     dirnode.getComponent(cc.Sprite).spriteFrame = dirFrame;
                     dirnode.active = true;
-                    let node = this.itemNode.getChildByName(i.toString());
-                    node.setPosition(this.oriPosArr[i - 1]);
-                    node.active = false
-                }
-                this.success();
+                    dirnode.runAction(cc.sequence(cc.scaleTo(0.133, 0, 0), cc.callFunc(function(){
+                        dirnode.getComponent(cc.Sprite).spriteFrame = dirFrame;
+                    }.bind(this)), cc.scaleTo(0.3, 1.3, 1.3),cc.scaleTo(0.433, 1, 1)));
+                    let node = this.itemNode.getChildByName(IndexNum.toString());
+                    node.setPosition(this.oriPosArr[IndexNum - 1]);
+                    node.active = false;
+                    if(IndexNum == totalNum) {
+                        this.success();
+                    }
+                }   
             }else {
-                for(let i = 1; i <= totalNum; i++) {
-                    let node = this.itemNode.getChildByName(i.toString());
-                    node.setPosition(this.oriPosArr[i - 1]);
+                if(IndexNum <= 5) {
+                    for(let i = 1; i <= 5; i++) {
+                        let node = this.itemNode.getChildByName(i.toString());
+                        node.setPosition(this.oriPosArr[i - 1]);
+                    }
+                }else {
+                    let node = this.itemNode.getChildByName(IndexNum.toString());
+                        node.setPosition(this.oriPosArr[IndexNum - 1]);
                 }
             }
-            
         }.bind(this));
         item.on(cc.Node.EventType.TOUCH_CANCEL, function(e){
 

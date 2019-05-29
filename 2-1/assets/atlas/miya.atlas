@@ -1,0 +1,139 @@
+
+miya.png
+size: 538,523
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+leaf_12
+  rotate: true
+  xy: 2, 49
+  size: 472, 345
+  orig: 472, 345
+  offset: 0, 0
+  index: -1
+miya_arm_left
+  rotate: false
+  xy: 2, 7
+  size: 79, 40
+  orig: 79, 40
+  offset: 0, 0
+  index: -1
+miya_arm_right
+  rotate: false
+  xy: 83, 9
+  size: 77, 38
+  orig: 77, 38
+  offset: 0, 0
+  index: -1
+miya_body
+  rotate: true
+  xy: 349, 297
+  size: 102, 130
+  orig: 102, 130
+  offset: 0, 0
+  index: -1
+miya_ear_left
+  rotate: false
+  xy: 481, 334
+  size: 55, 65
+  orig: 55, 65
+  offset: 0, 0
+  index: -1
+miya_ear_right
+  rotate: true
+  xy: 476, 239
+  size: 56, 59
+  orig: 56, 59
+  offset: 0, 0
+  index: -1
+miya_eye_1_01
+  rotate: false
+  xy: 162, 17
+  size: 20, 30
+  orig: 20, 30
+  offset: 0, 0
+  index: -1
+miya_eye_1_02
+  rotate: false
+  xy: 184, 28
+  size: 15, 19
+  orig: 15, 19
+  offset: 0, 0
+  index: -1
+miya_eye_1_03
+  rotate: false
+  xy: 181, 5
+  size: 8, 10
+  orig: 8, 10
+  offset: 0, 0
+  index: -1
+miya_eye_1_04
+  rotate: false
+  xy: 184, 17
+  size: 7, 9
+  orig: 7, 9
+  offset: 0, 0
+  index: -1
+miya_face
+  rotate: true
+  xy: 438, 143
+  size: 90, 95
+  orig: 90, 95
+  offset: 0, 0
+  index: -1
+miya_hair_01
+  rotate: true
+  xy: 483, 464
+  size: 57, 53
+  orig: 57, 53
+  offset: 0, 0
+  index: -1
+miya_hair_02
+  rotate: false
+  xy: 483, 413
+  size: 51, 49
+  orig: 51, 49
+  offset: 0, 0
+  index: -1
+miya_hair_03
+  rotate: false
+  xy: 438, 33
+  size: 73, 108
+  orig: 73, 108
+  offset: 0, 0
+  index: -1
+miya_head
+  rotate: false
+  xy: 349, 401
+  size: 132, 120
+  orig: 132, 120
+  offset: 0, 0
+  index: -1
+miya_leg
+  rotate: false
+  xy: 349, 235
+  size: 125, 60
+  orig: 125, 60
+  offset: 0, 0
+  index: -1
+miya_mouth
+  rotate: false
+  xy: 83, 2
+  size: 6, 5
+  orig: 6, 5
+  offset: 0, 0
+  index: -1
+miya_saih_02
+  rotate: false
+  xy: 162, 5
+  size: 17, 10
+  orig: 17, 10
+  offset: 0, 0
+  index: -1
+miya_shadow
+  rotate: true
+  xy: 349, 41
+  size: 192, 87
+  orig: 192, 87
+  offset: 0, 0
+  index: -1

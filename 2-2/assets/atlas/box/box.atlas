@@ -1,0 +1,41 @@
+
+box.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+box_body
+  rotate: false
+  xy: 2, 2
+  size: 293, 183
+  orig: 293, 183
+  offset: 0, 0
+  index: -1
+box_gai_F
+  rotate: false
+  xy: 592, 126
+  size: 295, 59
+  orig: 295, 59
+  offset: 0, 0
+  index: -1
+box_gai_L
+  rotate: false
+  xy: 297, 30
+  size: 77, 76
+  orig: 77, 76
+  offset: 0, 0
+  index: -1
+box_gai_R
+  rotate: false
+  xy: 376, 36
+  size: 83, 70
+  orig: 83, 70
+  offset: 0, 0
+  index: -1
+box_gai_shadow
+  rotate: false
+  xy: 297, 108
+  size: 293, 77
+  orig: 293, 77
+  offset: 0, 0
+  index: -1

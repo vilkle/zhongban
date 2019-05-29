@@ -1,0 +1,90 @@
+
+qianj.png
+size: 1677,819
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+leaf_01
+  rotate: false
+  xy: 1431, 83
+  size: 86, 190
+  orig: 86, 190
+  offset: 0, 0
+  index: -1
+leaf_02
+  rotate: true
+  xy: 1489, 534
+  size: 283, 186
+  orig: 283, 186
+  offset: 0, 0
+  index: -1
+leaf_03
+  rotate: true
+  xy: 360, 12
+  size: 229, 276
+  orig: 229, 276
+  offset: 0, 0
+  index: -1
+leaf_04
+  rotate: true
+  xy: 2, 2
+  size: 239, 356
+  orig: 239, 356
+  offset: 0, 0
+  index: -1
+leaf_05
+  rotate: false
+  xy: 1182, 40
+  size: 247, 201
+  orig: 247, 201
+  offset: 0, 0
+  index: -1
+leaf_06
+  rotate: false
+  xy: 924, 27
+  size: 256, 214
+  orig: 256, 214
+  offset: 0, 0
+  index: -1
+leaf_07
+  rotate: true
+  xy: 638, 24
+  size: 217, 284
+  orig: 217, 284
+  offset: 0, 0
+  index: -1
+leaf_08
+  rotate: true
+  xy: 1331, 388
+  size: 429, 156
+  orig: 429, 156
+  offset: 0, 0
+  index: -1
+leaf_09
+  rotate: true
+  xy: 1331, 275
+  size: 111, 199
+  orig: 111, 199
+  offset: 0, 0
+  index: -1
+leaf_10
+  rotate: true
+  xy: 1519, 94
+  size: 104, 85
+  orig: 104, 85
+  offset: 0, 0
+  index: -1
+leaf_11
+  rotate: false
+  xy: 2, 243
+  size: 1327, 574
+  orig: 1327, 574
+  offset: 0, 0
+  index: -1
+stone
+  rotate: true
+  xy: 1532, 200
+  size: 332, 85
+  orig: 332, 85
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,118 @@
+
+piaochong.png
+size: 1984,352
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+dian1_right
+  rotate: false
+  xy: 328, 2
+  size: 175, 348
+  orig: 175, 348
+  offset: 0, 0
+  index: -1
+dian_01
+  rotate: false
+  xy: 505, 2
+  size: 175, 348
+  orig: 175, 348
+  offset: 0, 0
+  index: -1
+dianshu_2_left
+  rotate: false
+  xy: 682, 2
+  size: 175, 348
+  orig: 175, 348
+  offset: 0, 0
+  index: -1
+dianshu_2_right
+  rotate: false
+  xy: 1390, 3
+  size: 175, 347
+  orig: 175, 347
+  offset: 0, 0
+  index: -1
+dianshu_3_left
+  rotate: false
+  xy: 859, 2
+  size: 175, 348
+  orig: 175, 348
+  offset: 0, 0
+  index: -1
+dianshu_3_right
+  rotate: false
+  xy: 1213, 3
+  size: 175, 347
+  orig: 175, 347
+  offset: 0, 0
+  index: -1
+dianshu_4_left
+  rotate: false
+  xy: 1036, 2
+  size: 175, 348
+  orig: 175, 348
+  offset: 0, 0
+  index: -1
+dianshu_4_right
+  rotate: false
+  xy: 1567, 3
+  size: 175, 347
+  orig: 175, 347
+  offset: 0, 0
+  index: -1
+ladybug_body
+  rotate: false
+  xy: 2, 16
+  size: 324, 334
+  orig: 324, 334
+  offset: 0, 0
+  index: -1
+ladybug_chuj
+  rotate: false
+  xy: 1882, 87
+  size: 99, 109
+  orig: 99, 109
+  offset: 0, 0
+  index: -1
+ladybug_eye_1_01
+  rotate: false
+  xy: 1942, 45
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+ladybug_eye_1_02
+  rotate: false
+  xy: 1868, 12
+  size: 72, 73
+  orig: 72, 73
+  offset: 0, 0
+  index: -1
+ladybug_head
+  rotate: false
+  xy: 1744, 247
+  size: 176, 103
+  orig: 176, 103
+  offset: 0, 0
+  index: -1
+ladybug_leg_01
+  rotate: true
+  xy: 1744, 35
+  size: 105, 122
+  orig: 105, 122
+  offset: 0, 0
+  index: -1
+ladybug_leg_02
+  rotate: true
+  xy: 1922, 198
+  size: 152, 54
+  orig: 152, 54
+  offset: 0, 0
+  index: -1
+ladybug_leg_03
+  rotate: true
+  xy: 1744, 142
+  size: 103, 136
+  orig: 103, 136
+  offset: 0, 0
+  index: -1

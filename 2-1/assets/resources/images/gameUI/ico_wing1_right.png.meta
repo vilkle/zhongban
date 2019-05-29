@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "dced2e5e-10ee-47e4-8521-cf3db30f57ab",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "ico_wing1_right": {
+      "ver": "1.0.3",
+      "uuid": "d30f6e06-904c-4bde-9cf8-4467a7d68d6c",
+      "rawTextureUuid": "dced2e5e-10ee-47e4-8521-cf3db30f57ab",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 175,
+      "height": 347,
+      "rawWidth": 175,
+      "rawHeight": 347,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

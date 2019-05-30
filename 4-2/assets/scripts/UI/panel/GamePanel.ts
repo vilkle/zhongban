@@ -25,32 +25,31 @@ export default class GamePanel extends BaseUI {
     }
 
     addListenerOnAmazeBg() {
-        let startPoint = cc.v2(0, 0);
         this.point.on(cc.Node.EventType.TOUCH_START, function(e){
             var point = e.touch.getLocation();
             point = this.amazeBg.convertToNodeSpaceAR(point);
-            startPoint = point;
            
             //this._addCircle(point);
 
         }.bind(this));
         this.point.on(cc.Node.EventType.TOUCH_MOVE, function(e){
-            var point = e.touch.getLocation();
-            point = this.amazeBg.convertToNodeSpaceAR(point);
-            if(Math.abs(point.x - startPoint.x)>Math.abs(point.y - startPoint.y)) {
-                if(point.x > startPoint.x) {
+            
+            var point = this.amazeBg.convertToNodeSpaceAR(e.touch.getLocation());
+            var previousePoint =this.amazeBg.convertToNodeSpaceAR(e.touch.getPreviousLocation());
+            if(Math.abs(point.x - previousePoint.x)>Math.abs(point.y - previousePoint.y)) {
+                if(point.x > previousePoint.x) {
                     this.direction = 3;
                 }else {
                     this.direction = 1;
                 }
             }else {
-                if(point.y > startPoint.y) {
+                if(point.y > previousePoint.y) {
                     this.direction = 2;
                 }else {
                     this.direction = 4;
                 }
             }
-            cc.log(point, startPoint, this.long, this.direction);
+            cc.log(point, previousePoint, this.long, this.direction);
             var pointMask = cc.v2(0 , 0);
             var num = Math.floor(this.long / 75)
             cc.log('-------------',num);
@@ -83,7 +82,7 @@ export default class GamePanel extends BaseUI {
             }
             // cc.log(this.direction);
             // this._addCircle(point);
-            startPoint = point;
+           
         }.bind(this));
         this.point.on(cc.Node.EventType.TOUCH_END, function(e){}.bind(this));
         this.point.on(cc.Node.EventType.TOUCH_CANCEL, function(e){}.bind(this));

@@ -1,0 +1,139 @@
+
+mouse.png
+size: 732,525
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+m_body
+  rotate: false
+  xy: 2, 4
+  size: 399, 519
+  orig: 399, 519
+  offset: 0, 0
+  index: -1
+m_ear1
+  rotate: true
+  xy: 561, 220
+  size: 118, 113
+  orig: 118, 113
+  offset: 0, 0
+  index: -1
+m_ear2
+  rotate: true
+  xy: 623, 407
+  size: 116, 104
+  orig: 116, 104
+  offset: 0, 0
+  index: -1
+m_eye1
+  rotate: false
+  xy: 561, 112
+  size: 105, 106
+  orig: 105, 106
+  offset: 0, 0
+  index: -1
+m_eye2
+  rotate: false
+  xy: 668, 111
+  size: 57, 57
+  orig: 57, 57
+  offset: 0, 0
+  index: -1
+m_eye3
+  rotate: false
+  xy: 514, 4
+  size: 96, 95
+  orig: 96, 95
+  offset: 0, 0
+  index: -1
+m_eye4
+  rotate: false
+  xy: 651, 58
+  size: 49, 51
+  orig: 49, 51
+  offset: 0, 0
+  index: -1
+m_f1
+  rotate: true
+  xy: 676, 292
+  size: 63, 41
+  orig: 63, 41
+  offset: 0, 0
+  index: -1
+m_f2
+  rotate: true
+  xy: 676, 227
+  size: 63, 41
+  orig: 63, 41
+  offset: 0, 0
+  index: -1
+m_hair
+  rotate: true
+  xy: 668, 170
+  size: 48, 62
+  orig: 48, 62
+  offset: 0, 0
+  index: -1
+m_hair2
+  rotate: true
+  xy: 623, 357
+  size: 48, 101
+  orig: 48, 101
+  offset: 0, 0
+  index: -1
+m_hand1
+  rotate: false
+  xy: 403, 340
+  size: 218, 183
+  orig: 218, 183
+  offset: 0, 0
+  index: -1
+m_hand2
+  rotate: false
+  xy: 403, 101
+  size: 156, 237
+  orig: 156, 237
+  offset: 0, 0
+  index: -1
+m_m1
+  rotate: false
+  xy: 651, 34
+  size: 34, 22
+  orig: 34, 22
+  offset: 0, 0
+  index: -1
+m_m2
+  rotate: false
+  xy: 687, 34
+  size: 35, 18
+  orig: 35, 18
+  offset: 0, 0
+  index: -1
+m_nose
+  rotate: false
+  xy: 403, 5
+  size: 109, 94
+  orig: 109, 94
+  offset: 0, 0
+  index: -1
+m_zui
+  rotate: true
+  xy: 612, 36
+  size: 74, 37
+  orig: 74, 37
+  offset: 0, 0
+  index: -1
+m_zui1
+  rotate: true
+  xy: 702, 54
+  size: 55, 22
+  orig: 55, 22
+  offset: 0, 0
+  index: -1
+m_zui2
+  rotate: false
+  xy: 612, 2
+  size: 20, 32
+  orig: 20, 32
+  offset: 0, 0
+  index: -1

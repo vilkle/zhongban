@@ -1,0 +1,160 @@
+
+miya.png
+size: 441,269
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+miya_body
+  rotate: true
+  xy: 318, 143
+  size: 124, 121
+  orig: 124, 121
+  offset: 0, 0
+  index: -1
+miya_ear1
+  rotate: false
+  xy: 191, 45
+  size: 64, 67
+  orig: 64, 67
+  offset: 0, 0
+  index: -1
+miya_ear2
+  rotate: false
+  xy: 126, 35
+  size: 63, 68
+  orig: 63, 68
+  offset: 0, 0
+  index: -1
+miya_eye1
+  rotate: true
+  xy: 388, 56
+  size: 30, 35
+  orig: 30, 35
+  offset: 0, 0
+  index: -1
+miya_eye2
+  rotate: true
+  xy: 126, 2
+  size: 31, 34
+  orig: 31, 34
+  offset: 0, 0
+  index: -1
+miya_f1
+  rotate: false
+  xy: 2, 4
+  size: 32, 13
+  orig: 32, 13
+  offset: 0, 0
+  index: -1
+miya_f2
+  rotate: false
+  xy: 36, 4
+  size: 32, 13
+  orig: 32, 13
+  offset: 0, 0
+  index: -1
+miya_foot1
+  rotate: true
+  xy: 196, 2
+  size: 41, 48
+  orig: 41, 48
+  offset: 0, 0
+  index: -1
+miya_foot2
+  rotate: true
+  xy: 246, 4
+  size: 39, 48
+  orig: 39, 48
+  offset: 0, 0
+  index: -1
+miya_hair1
+  rotate: true
+  xy: 2, 19
+  size: 83, 122
+  orig: 83, 122
+  offset: 0, 0
+  index: -1
+miya_hair2
+  rotate: false
+  xy: 296, 2
+  size: 58, 42
+  orig: 58, 42
+  offset: 0, 0
+  index: -1
+miya_hair3
+  rotate: true
+  xy: 257, 46
+  size: 66, 46
+  orig: 66, 46
+  offset: 0, 0
+  index: -1
+miya_hand1
+  rotate: true
+  xy: 305, 53
+  size: 59, 47
+  orig: 59, 47
+  offset: 0, 0
+  index: -1
+miya_hand2
+  rotate: true
+  xy: 162, 2
+  size: 31, 32
+  orig: 31, 32
+  offset: 0, 0
+  index: -1
+miya_hand3
+  rotate: true
+  xy: 354, 71
+  size: 52, 32
+  orig: 52, 32
+  offset: 0, 0
+  index: -1
+miya_hand4
+  rotate: false
+  xy: 356, 23
+  size: 31, 31
+  orig: 31, 31
+  offset: 0, 0
+  index: -1
+miya_hao
+  rotate: true
+  xy: 388, 88
+  size: 35, 42
+  orig: 35, 42
+  offset: 0, 0
+  index: -1
+miya_head
+  rotate: true
+  xy: 182, 114
+  size: 153, 134
+  orig: 153, 134
+  offset: 0, 0
+  index: -1
+miya_paizi
+  rotate: true
+  xy: 48, 105
+  size: 162, 132
+  orig: 162, 132
+  offset: 0, 0
+  index: -1
+miya_paizi2
+  rotate: false
+  xy: 2, 104
+  size: 44, 163
+  orig: 44, 163
+  offset: 0, 0
+  index: -1
+miya_shadow
+  rotate: false
+  xy: 318, 125
+  size: 112, 16
+  orig: 112, 16
+  offset: 0, 0
+  index: -1
+miya_zui
+  rotate: true
+  xy: 70, 7
+  size: 10, 8
+  orig: 10, 8
+  offset: 0, 0
+  index: -1

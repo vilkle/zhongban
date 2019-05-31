@@ -42,9 +42,10 @@ export class AudioManager
                 audioIdCbk(audioID)
             }
             if(endCbk){
-                cc.audioEngine.setFinishCallback(audioID, endCbk)
+                cc.audioEngine.setFinishCallback(audioID, endCbk(audioID));
             }
-		});
+            return audioID;
+        });
     }
 
     /**
@@ -105,6 +106,10 @@ export class AudioManager
             }
 		    cc.audioEngine.playMusic(clip, true);
 		});
+    }
+
+    public stopBGM() {
+        cc.audioEngine.stopMusic();
     }
 
     /**

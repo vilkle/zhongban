@@ -2,6 +2,9 @@ import { BaseUI } from "../BaseUI";
 import { NetWork } from "../../Http/NetWork";
 import { isString } from "../../collections/util";
 import {AudioManager} from "../../Manager/AudioManager"
+import {ConstValue} from "../../Data/ConstValue"
+import { UIManager } from "../../Manager/UIManager";
+import UploadAndReturnPanel from "../panel/UploadAndReturnPanel"
 
 const { ccclass, property } = cc._decorator;
 
@@ -37,6 +40,9 @@ export default class GamePanel extends BaseUI {
     protected static className = "GamePanel";
 
     onLoad() {
+        if(ConstValue.IS_TEACHER) {
+            UIManager.getInstance().openUI(UploadAndReturnPanel);
+        }
         this.answerArr[0] = this.a;
         this.answerArr[1] = this.b;
         this.answerArr[2] = this.c;
@@ -51,11 +57,15 @@ export default class GamePanel extends BaseUI {
     }
 
     start() {
+        if (ConstValue.IS_EDITIONS) {
+            courseware.page.sendToParent('clickSubmit', 2);
+            courseware.page.sendToParent('addLog', { eventType: 'clickSubmit', eventValue: 2 });
+        }
         AudioManager.getInstance().playSound('sfx_lbugopn', false);
         AudioManager.getInstance().playBGM('bgm_laydbug');
         this.round1();
     }
-ss
+
     round1() {
         this.checkpointNum = 1;
         this.piaochong.setSkin('1_2');
@@ -65,7 +75,7 @@ ss
                 this.enableClick = true;
                 this.piaochong.setAnimation(0, 'stand_left', true);
                 
-                AudioManager.getInstance().playSound('point1', false);
+                AudioManager.getInstance().playSound('point1', false, 1,function(id) {this.audioArr.push(id)}.bind(this), function(id){this.audioArr.filter(item=>item!==id);}.bind(this));
                 for(let i = 0; i < this.answerArr.length; i++) {
                     this.answerArr[i].node.runAction(cc.fadeIn(0.2));
                 }
@@ -85,7 +95,7 @@ ss
                 this.enableClick = true;
                 this.piaochong.setAnimation(0, 'stand_left', true);
                
-                AudioManager.getInstance().playSound('point2', false);
+                AudioManager.getInstance().playSound('point2', false, 1,function(id) {this.audioArr.push(id)}.bind(this), function(id){this.audioArr.filter(item=>item!==id);}.bind(this));
                 for(let i = 0; i < this.answerArr.length; i++) {
                     this.answerArr[i].node.runAction(cc.fadeIn(0.2));
                 }
@@ -105,7 +115,7 @@ ss
                 this.enableClick = true;
                 this.piaochong.setAnimation(0, 'stand_left', true);
                 
-                AudioManager.getInstance().playSound('point3', false);
+                AudioManager.getInstance().playSound('point3', false, 1,function(id) {this.audioArr.push(id)}.bind(this), function(id){this.audioArr.filter(item=>item!==id);}.bind(this));
                 for(let i = 0; i < this.answerArr.length; i++) {
                     this.answerArr[i].node.runAction(cc.fadeIn(0.2));
                 }
@@ -125,7 +135,7 @@ ss
                 this.enableClick = true;
                 this.piaochong.setAnimation(0, 'stand_left', true);
                
-                AudioManager.getInstance().playSound('point4', false);
+                AudioManager.getInstance().playSound('point4', false, 1,function(id) {this.audioArr.push(id)}.bind(this), function(id){this.audioArr.filter(item=>item!==id);}.bind(this));
                 for(let i = 0; i < this.answerArr.length; i++) {
                     this.answerArr[i].node.runAction(cc.fadeIn(0.2));
                 }
@@ -145,7 +155,7 @@ ss
                 this.enableClick = true;
                 this.piaochong.setAnimation(0, 'stand_left', true);
                 
-                AudioManager.getInstance().playSound('point5', false);
+                AudioManager.getInstance().playSound('point5', false, 1,function(id) {this.audioArr.push(id)}.bind(this), function(id){this.audioArr.filter(item=>item!==id);}.bind(this));
                 for(let i = 0; i < this.answerArr.length; i++) {
                     this.answerArr[i].node.runAction(cc.fadeIn(0.2));
                 }
@@ -276,6 +286,10 @@ ss
     }
 
     gameEnd() {
+        if (ConstValue.IS_EDITIONS) {
+            courseware.page.sendToParent('clickSubmit', 1);
+            courseware.page.sendToParent('addLog', { eventType: 'clickSubmit', eventValue: 1 });
+        }
         AudioManager.getInstance().stopBGM();
         cc.log('---------gameEnd');
     }

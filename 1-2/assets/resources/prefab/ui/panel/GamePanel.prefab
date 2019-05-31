@@ -227,8 +227,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 647.73,
-      "height": 606.58
+      "width": 639,
+      "height": 595
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -478,7 +478,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -615,
+      "x": 1385,
       "y": -157,
       "z": 0
     },
@@ -1620,7 +1620,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -39,
+      "x": 1961,
       "y": -158,
       "z": 0
     },
@@ -2762,7 +2762,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 547,
+      "x": 2547,
       "y": -155,
       "z": 0
     },
@@ -3976,7 +3976,7 @@
     "_enabled": true,
     "paused": false,
     "defaultSkin": "",
-    "defaultAnimation": "idle",
+    "defaultAnimation": "idle1",
     "_preCacheMode": 0,
     "_cacheMode": 0,
     "loop": true,
@@ -3987,7 +3987,7 @@
     "_frameCache": null,
     "_curFrame": null,
     "_skeletonCache": null,
-    "_animationName": "idle",
+    "_animationName": "idle1",
     "_animationQueue": [],
     "_headAniInfo": null,
     "_playTimes": 0,

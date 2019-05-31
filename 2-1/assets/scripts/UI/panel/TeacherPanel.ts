@@ -3,7 +3,9 @@ import { UIManager } from "../../Manager/UIManager";
 import SubmissionPanel from "./SubmissionPanel";
 import { NetWork } from "../../Http/NetWork";
 import { UIHelp } from "../../Utils/UIHelp";
-
+import GamePanel from "./GamePanel";
+import {ListenerManager} from "../../Manager/ListenerManager"
+import {ListenerType} from "../../Data/ListenerType"
 const { ccclass, property } = cc._decorator;
 
 @ccclass
@@ -22,7 +24,8 @@ export default class TeacherPanel extends BaseUI {
 
     //上传课件按钮
     onBtnSaveClicked() {
-        UIManager.getInstance().showUI(SubmissionPanel);
+        UIManager.getInstance().openUI(GamePanel);
+        ListenerManager.getInstance().trigger(ListenerType.OnEditStateSwitching, {state: 1});
     }
 
     getNet() {

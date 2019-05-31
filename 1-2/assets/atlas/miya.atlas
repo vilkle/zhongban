@@ -1,159 +1,180 @@
 
 miya.png
-size: 441,269
+size: 237,523
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-miya_body
+5
   rotate: true
-  xy: 318, 143
+  xy: 136, 207
+  size: 35, 42
+  orig: 35, 42
+  offset: 0, 0
+  index: -1
+6
+  rotate: true
+  xy: 142, 3
+  size: 29, 39
+  orig: 29, 39
+  offset: 0, 0
+  index: -1
+7
+  rotate: true
+  xy: 188, 13
+  size: 31, 40
+  orig: 31, 40
+  offset: 0, 0
+  index: -1
+8
+  rotate: false
+  xy: 203, 368
+  size: 30, 39
+  orig: 30, 39
+  offset: 0, 0
+  index: -1
+miya_body
+  rotate: false
+  xy: 2, 35
   size: 124, 121
   orig: 124, 121
   offset: 0, 0
   index: -1
 miya_ear1
   rotate: false
-  xy: 191, 45
+  xy: 138, 454
   size: 64, 67
   orig: 64, 67
   offset: 0, 0
   index: -1
 miya_ear2
   rotate: false
-  xy: 126, 35
+  xy: 138, 384
   size: 63, 68
   orig: 63, 68
   offset: 0, 0
   index: -1
 miya_eye1
   rotate: true
-  xy: 388, 56
+  xy: 105, 2
   size: 30, 35
   orig: 30, 35
   offset: 0, 0
   index: -1
 miya_eye2
   rotate: true
-  xy: 126, 2
+  xy: 2, 2
   size: 31, 34
   orig: 31, 34
   offset: 0, 0
   index: -1
 miya_f1
   rotate: false
-  xy: 2, 4
+  xy: 138, 369
   size: 32, 13
   orig: 32, 13
   offset: 0, 0
   index: -1
 miya_f2
-  rotate: false
-  xy: 36, 4
+  rotate: true
+  xy: 222, 489
   size: 32, 13
   orig: 32, 13
   offset: 0, 0
   index: -1
 miya_foot1
-  rotate: true
-  xy: 196, 2
+  rotate: false
+  xy: 176, 96
   size: 41, 48
   orig: 41, 48
   offset: 0, 0
   index: -1
 miya_foot2
-  rotate: true
-  xy: 246, 4
+  rotate: false
+  xy: 188, 46
   size: 39, 48
   orig: 39, 48
   offset: 0, 0
   index: -1
 miya_hair1
-  rotate: true
-  xy: 2, 19
+  rotate: false
+  xy: 136, 244
   size: 83, 122
   orig: 83, 122
   offset: 0, 0
   index: -1
 miya_hair2
   rotate: false
-  xy: 296, 2
+  xy: 128, 34
   size: 58, 42
   orig: 58, 42
   offset: 0, 0
   index: -1
 miya_hair3
   rotate: true
-  xy: 257, 46
+  xy: 128, 78
   size: 66, 46
   orig: 66, 46
   offset: 0, 0
   index: -1
 miya_hand1
   rotate: true
-  xy: 305, 53
+  xy: 167, 146
   size: 59, 47
   orig: 59, 47
   offset: 0, 0
   index: -1
 miya_hand2
   rotate: true
-  xy: 162, 2
+  xy: 38, 2
   size: 31, 32
   orig: 31, 32
   offset: 0, 0
   index: -1
 miya_hand3
-  rotate: true
-  xy: 354, 71
+  rotate: false
+  xy: 180, 210
   size: 52, 32
   orig: 52, 32
   offset: 0, 0
   index: -1
 miya_hand4
   rotate: false
-  xy: 356, 23
+  xy: 72, 2
   size: 31, 31
   orig: 31, 31
   offset: 0, 0
   index: -1
-miya_hao
-  rotate: true
-  xy: 388, 88
-  size: 35, 42
-  orig: 35, 42
-  offset: 0, 0
-  index: -1
 miya_head
   rotate: true
-  xy: 182, 114
+  xy: 2, 368
   size: 153, 134
   orig: 153, 134
   offset: 0, 0
   index: -1
 miya_paizi
   rotate: true
-  xy: 48, 105
+  xy: 2, 204
   size: 162, 132
   orig: 162, 132
   offset: 0, 0
   index: -1
 miya_paizi2
-  rotate: false
-  xy: 2, 104
+  rotate: true
+  xy: 2, 158
   size: 44, 163
   orig: 44, 163
   offset: 0, 0
   index: -1
 miya_shadow
-  rotate: false
-  xy: 318, 125
+  rotate: true
+  xy: 204, 409
   size: 112, 16
   orig: 112, 16
   offset: 0, 0
   index: -1
 miya_zui
-  rotate: true
-  xy: 70, 7
+  rotate: false
+  xy: 172, 374
   size: 10, 8
   orig: 10, 8
   offset: 0, 0

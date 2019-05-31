@@ -1,6 +1,9 @@
 import { BaseUI } from "../BaseUI";
 import { NetWork } from "../../Http/NetWork";
 import {UIHelp} from "../../Utils/UIHelp";
+import {ConstValue} from "../../Data/ConstValue"
+import { UIManager } from "../../Manager/UIManager";
+import UploadAndReturnPanel from "./UploadAndReturnPanel";
 
 const { ccclass, property } = cc._decorator;
 
@@ -52,9 +55,16 @@ export default class GamePanel extends BaseUI {
                 this.bearSpine.addAnimation(0, 'idle2', false);
             }
         }.bind(this), 1000);
+        if(ConstValue.IS_TEACHER) {
+            UIManager.getInstance().openUI(UploadAndReturnPanel);
+        }
     }
 
     start() {
+        if (ConstValue.IS_EDITIONS) {
+            courseware.page.sendToParent('clickSubmit', 2);
+            courseware.page.sendToParent('addLog', { eventType: 'clickSubmit', eventValue: 2 });
+        }
         this.round1();
         this.addListenerOnBubble();
     }
@@ -299,6 +309,10 @@ export default class GamePanel extends BaseUI {
     success() {
         cc.log('-------------------mask active is true');
         this.mask.active = true;
+        if (ConstValue.IS_EDITIONS) {
+            courseware.page.sendToParent('clickSubmit', 2);
+            courseware.page.sendToParent('addLog', { eventType: 'clickSubmit', eventValue: 2 });
+        }
     }
 
     setPanel() {

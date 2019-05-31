@@ -2,6 +2,8 @@ import { BaseUI } from "../BaseUI";
 import { UIManager } from "../../Manager/UIManager";
 import GamePanel from "./GamePanel";
 import SubmissionPanel from "./SubmissionPanel";
+import {ListenerManager} from "../../Manager/ListenerManager"
+import {ListenerType} from "../../Data/ListenerType"
 
 
 const { ccclass, property } = cc._decorator;
@@ -18,9 +20,10 @@ export default class UploadAndReturnPanel extends BaseUI {
     onFanHui() {
         UIManager.getInstance().closeUI(GamePanel);
         UIManager.getInstance().closeUI(UploadAndReturnPanel);
+        ListenerManager.getInstance().trigger(ListenerType.OnEditStateSwitching, {state: 0})
     }
 
     onTiJiao() {
-        UIManager.getInstance().showUI(SubmissionPanel);
+        //UIManager.getInstance().showUI(SubmissionPanel);
     }
 }

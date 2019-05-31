@@ -1,5 +1,8 @@
 import { BaseUI } from "../BaseUI";
 import { NetWork } from "../../Http/NetWork";
+import {ConstValue} from "../../Data/ConstValue"
+import { UIManager } from "../../Manager/UIManager";
+import UploadAndReturnPanel from "./UploadAndReturnPanel";
 
 const { ccclass, property } = cc._decorator;
 
@@ -46,6 +49,15 @@ export default class GamePanel extends BaseUI {
     isOver1 : boolean = false;
 
     start() {
+        if (ConstValue.IS_EDITIONS) {
+            courseware.page.sendToParent('clickSubmit', 2);
+            courseware.page.sendToParent('addLog', { eventType: 'clickSubmit', eventValue: 2 });
+        }
+        if(ConstValue.IS_TEACHER) {
+            UIManager.getInstance().openUI(UploadAndReturnPanel);
+        }else {
+            
+        }
         this.addListenerOnRound1();
         this.initBackground();
     }
@@ -173,6 +185,10 @@ export default class GamePanel extends BaseUI {
                         if(this.end2.getBoundingBox().contains(this.node.convertToNodeSpaceAR(e.currentTouch._point))) {
                             this.isOver1 = true;
                             this.yige.getComponent(sp.Skeleton).setAnimation(0, 'daiji', false);
+                            if (ConstValue.IS_EDITIONS) {
+                                courseware.page.sendToParent('clickSubmit', 1);
+                                courseware.page.sendToParent('addLog', { eventType: 'clickSubmit', eventValue: 1 });
+                            }
                         }
                     }
             }

@@ -4,5 +4,5 @@ export class ConstValue {
     public static readonly CONFIG_FILE_DIR = "config/";
     public static readonly PREFAB_UI_DIR = "prefab/ui/panel/";
     public static readonly AUDIO_DIR = "audio/";
-    public static readonly CoursewareKey = "";//每个课件唯一的key 24位随机字符串 可用随机密码生成器来生成。
+    public static readonly CoursewareKey = "C1ZMPF51$7q!$ogsN$3iA913";//每个课件唯一的key 24位随机字符串 可用随机密码生成器来生成。
 }

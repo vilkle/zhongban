@@ -2,6 +2,9 @@ import { BaseUI } from "../BaseUI";
 import { NetWork } from "../../Http/NetWork";
 import {UIHelp} from "../../Utils/UIHelp";
 import {AudioManager} from "../../Manager/AudioManager"
+import {ConstValue} from "../../Data/ConstValue"
+import { UIManager } from "../../Manager/UIManager";
+import UploadAndReturnPanel from "../panel/UploadAndReturnPanel"
 
 const { ccclass, property } = cc._decorator;
 
@@ -33,7 +36,13 @@ export default class GamePanel extends BaseUI {
     private checkpointIndex : number = 0;
     private checkpointNum : number = 5;
     private isTouch : boolean = false;
+    private answerNum : number = 0;
     onLoad() {
+        if(ConstValue.IS_TEACHER) {
+            UIManager.getInstance().openUI(UploadAndReturnPanel);
+        }else [
+
+        ]
         this.round1(5);
         this.mouse.node.on(cc.Node.EventType.TOUCH_START, function(e){
             if(this.mouse.node.getBoundingBox().contains(this.node.convertToNodeSpaceAR(e.currentTouch._point))) {
@@ -45,6 +54,10 @@ export default class GamePanel extends BaseUI {
     }
 
     start() {
+        if (ConstValue.IS_EDITIONS) {
+            courseware.page.sendToParent('clickSubmit', 2);
+            courseware.page.sendToParent('addLog', { eventType: 'clickSubmit', eventValue: 2 });
+        }
     }
 
     onDestroy() {
@@ -59,9 +72,10 @@ export default class GamePanel extends BaseUI {
     }
 
     round1(num : number) {
+        this.answerNum = 0;
         setTimeout(function(){
             if(this.isTouch == false) {
-                cc.log('---------------3s');
+            
             } 
         }.bind(this), 3000);
         this.checkpointIndex ++;
@@ -86,14 +100,14 @@ export default class GamePanel extends BaseUI {
     }
 
     round2(num : number) {
+        this.answerNum = 0;
         setTimeout(function(){
             if(this.isTouch == false) {
-                cc.log('---------------3s');
+            
             } 
         }.bind(this), 3000);
         this.checkpointIndex ++;
-        // this.guoNode.active = true;
-        // this.kaoxiangNode.active = false;
+    
         for(let i = 1; i <= 9; i++) {
             var bgItem : cc.Node = this.itemNode.getChildByName(i.toString());
             if(i <= num) {
@@ -114,9 +128,10 @@ export default class GamePanel extends BaseUI {
     }
 
     round3(num : number) {
+        this.answerNum = 0;
         setTimeout(function(){
             if(this.isTouch == false) {
-                cc.log('---------------3s');
+                
             } 
         }.bind(this), 3000);
         this.checkpointIndex ++;
@@ -145,9 +160,10 @@ export default class GamePanel extends BaseUI {
     }
 
     round4(num : number) {
+        this.answerNum = 0;
         setTimeout(function(){
             if(this.isTouch == false) {
-                cc.log('---------------3s');
+               
             } 
         }.bind(this), 3000);
         this.checkpointIndex ++;
@@ -172,9 +188,10 @@ export default class GamePanel extends BaseUI {
     }
 
     round5(num : number) {
+        this.answerNum = 0;
         setTimeout(function(){
             if(this.isTouch == false) {
-                cc.log('---------------3s');
+               
             } 
         }.bind(this), 3000);
         this.checkpointIndex ++;
@@ -227,7 +244,10 @@ export default class GamePanel extends BaseUI {
     }
 
     gameEnd() {
-
+        if (ConstValue.IS_EDITIONS) {
+            courseware.page.sendToParent('clickSubmit', 1);
+            courseware.page.sendToParent('addLog', { eventType: 'clickSubmit', eventValue: 1 });
+        }
     }
     removeListener(item : cc.Node) {
         item.off(cc.Node.EventType.TOUCH_START);
@@ -250,13 +270,16 @@ export default class GamePanel extends BaseUI {
                     let delta = e.touch.getDelta();
                     let x = node.x;
                     let y = node.y;
+                 
                     node.setPosition(cc.v2(x+delta.x, y+delta.y));
+                  
                 }
             }else {
                 let node = this.itemNode.getChildByName(IndexNum.toString());
                 let delta = e.touch.getDelta();
                 let x = node.x;
                 let y = node.y;
+
                 node.setPosition(cc.v2(x+delta.x, y+delta.y));
             }
            
@@ -268,27 +291,41 @@ export default class GamePanel extends BaseUI {
                         let dirnode = dirNode.getChildByName(i.toString());
                         dirnode.getComponent(cc.Sprite).spriteFrame = item.getComponent(cc.Sprite).spriteFrame;
                         dirnode.active = true;
-                        dirnode.runAction(cc.sequence(cc.scaleTo(0.133, 0, 0), cc.callFunc(function(){
-                            dirnode.getComponent(cc.Sprite).spriteFrame = dirFrame;
-                        }.bind(this)), cc.scaleTo(0.3, 1.3, 1.3),cc.scaleTo(0.433, 1, 1)));
+                        // dirnode.runAction(cc.sequence(cc.scaleTo(0.133, 0, 0), cc.callFunc(function(){
+                        //     dirnode.getComponent(cc.Sprite).spriteFrame = dirFrame;
+                        // }.bind(this)), cc.scaleTo(0.3, 1.3, 1.3),cc.scaleTo(0.433, 1, 1)));
                         let node = this.itemNode.getChildByName(i.toString());
                         node.setPosition(this.oriPosArr[i - 1]);
                         node.active = false
+                        this.answerNum ++;
                     }
-                    if(totalNum == 5) {
+                    if(this.answerNum == totalNum) {
+                        for(let i = 1; i <= totalNum; i++) {
+                            let itemNode = dirNode.getChildByName(i.toString());
+                            itemNode.runAction(cc.sequence(cc.scaleTo(0.133, 0, 0), cc.callFunc(function(){
+                                itemNode.getComponent(cc.Sprite).spriteFrame = dirFrame;
+                            }.bind(this)), cc.scaleTo(0.3, 1.3, 1.3),cc.scaleTo(0.433, 1, 1)));
+                        }
                         this.success();
                     }
                 }else {
+                    this.answerNum++;
                     let dirnode = dirNode.getChildByName(IndexNum.toString());
-                    dirnode.getComponent(cc.Sprite).spriteFrame = dirFrame;
+                    dirnode.getComponent(cc.Sprite).spriteFrame = item.getComponent(cc.Sprite).spriteFrame;
                     dirnode.active = true;
-                    dirnode.runAction(cc.sequence(cc.scaleTo(0.133, 0, 0), cc.callFunc(function(){
-                        dirnode.getComponent(cc.Sprite).spriteFrame = dirFrame;
-                    }.bind(this)), cc.scaleTo(0.3, 1.3, 1.3),cc.scaleTo(0.433, 1, 1)));
+                    // dirnode.runAction(cc.sequence(cc.scaleTo(0.133, 0, 0), cc.callFunc(function(){
+                    //     dirnode.getComponent(cc.Sprite).spriteFrame = dirFrame;
+                    // }.bind(this)), cc.scaleTo(0.3, 1.3, 1.3),cc.scaleTo(0.433, 1, 1)));
                     let node = this.itemNode.getChildByName(IndexNum.toString());
                     node.setPosition(this.oriPosArr[IndexNum - 1]);
                     node.active = false;
-                    if(IndexNum == totalNum) {
+                    if(this.answerNum == totalNum) {
+                        for(let i = 1; i <= totalNum; i++) {
+                            let itemNode = dirNode.getChildByName(i.toString());
+                            itemNode.runAction(cc.sequence(cc.scaleTo(0.133, 0, 0), cc.callFunc(function(){
+                                itemNode.getComponent(cc.Sprite).spriteFrame = dirFrame;
+                            }.bind(this)), cc.scaleTo(0.3, 1.3, 1.3),cc.scaleTo(0.433, 1, 1)));
+                        }
                         this.success();
                     }
                 }   

@@ -24,23 +24,24 @@ export  class AffirmTips extends BaseUI {
     @property(sp.Skeleton)
     private sp_lightAnimator: sp.Skeleton= null; // 光动画
 
-    private callback = null;
+    private callbackClose = null;
+    private callbackOk = null;
     private type:number;
     start () {
 
     }
 
     //type 成功 1 失败 2
-    init(type:number,des:string,callback:any) {
+    init(type: number, des: string, btnCloselDes?: string, btnOkDes?: string, callbackClose ?: any,callbackOk ?: any) {
         this.title.node.active = false;
         this.des.node.active = true;
 
         this.type = type;
-        this.callback = callback;
+        this.callbackClose = callbackClose;
         //console.log("到了初始化");
         //Tools.playSpine(this.sp_BgAnimator, "fault", false);
         this.des.string =des;
-        this.callback = callback;
+        this.callbackOk = callbackOk;
        
 
     }

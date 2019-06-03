@@ -32,28 +32,60 @@ export default class GamePanel extends BaseUI {
     private kaoxiangNode : cc.Node = null;
     @property(cc.Node)
     private guoNode : cc.Node = null;
+    @property(cc.Node)
+    private mouseBoundingBox : cc.Node = null;
     private oriPosArr : Array<cc.Vec2> = Array<cc.Vec2>();
+    private audioArr : Array<number> = Array<number>();
     private checkpointIndex : number = 0;
     private checkpointNum : number = 5;
     private isTouch : boolean = false;
     private answerNum : number = 0;
+    private audioEnable : boolean = false;
     onLoad() {
         if(ConstValue.IS_TEACHER) {
             UIManager.getInstance().openUI(UploadAndReturnPanel);
-        }else [
-
-        ]
+        }
+        AudioManager.getInstance().playBGM('bgm_kitchen');
+        AudioManager.getInstance().playSound('我们来做点吃的吧：', false, 1, function(){}, function(){
+            AudioManager.getInstance().playSound('能做几个爆米花',false,1,function(id){this.audioArr.push(id)}.bind(this), function(id){this.audioArr.filter(item =>item !== id); this.audioEnable = true;}.bind(this));
+        }.bind(this));
         this.round1(5);
-        this.mouse.node.on(cc.Node.EventType.TOUCH_START, function(e){
-            if(this.mouse.node.getBoundingBox().contains(this.node.convertToNodeSpaceAR(e.currentTouch._point))) {
+        this.mouseBoundingBox.on(cc.Node.EventType.TOUCH_START, function(e){
+            if(this.mouseBoundingBox.getBoundingBox().contains(this.node.convertToNodeSpaceAR(e.currentTouch._point))) {
                 this.mouse.setAnimation(0, 'talk', false);
-                AudioManager.getInstance().stopAll();
-                //AudioManager.getInstance().playSound();
+                if(!this.audioEnable) {
+                    return;
+                }
+                if(this.checkpointIndex == 1) {
+                    this.stopAll();
+                    AudioManager.getInstance().playSound('能做几个爆米花',false,1,function(id){this.audioArr.push(id)}.bind(this), function(id){this.audioArr.filter(item =>item !== id); this.audioEnable = true;}.bind(this));
+                }else if(this.checkpointIndex == 2) {
+                    this.stopAll();
+                    AudioManager.getInstance().playSound('能做几个煎鸡蛋',false,1,function(id){this.audioArr.push(id)}.bind(this), function(id){this.audioArr.filter(item =>item !== id); this.audioEnable = true;}.bind(this));
+                }else if(this.checkpointIndex == 3) {
+                    this.stopAll();
+                    AudioManager.getInstance().playSound('能做几个烤面包',false,1,function(id){this.audioArr.push(id)}.bind(this), function(id){this.audioArr.filter(item =>item !== id); this.audioEnable = true;}.bind(this));
+                }else if(this.checkpointIndex == 4) {
+                    this.stopAll();
+                    AudioManager.getInstance().playSound('能做几个爆米花',false,1,function(id){this.audioArr.push(id)}.bind(this), function(id){this.audioArr.filter(item =>item !== id); this.audioEnable = true;}.bind(this));
+                }else if(this.checkpointIndex == 5) {
+                    this.stopAll();
+                    AudioManager.getInstance().playSound('能做几个煎鸡蛋',false,1,function(id){this.audioArr.push(id)}.bind(this), function(id){this.audioArr.filter(item =>item !== id); this.audioEnable = true;}.bind(this));
+                }
             }
         }.bind(this));
     }
 
+    stopAll() {
+        this.audioEnable = false;
+        for(let i = 0; i < this.audioArr.length; i++) {
+            AudioManager.getInstance().stopAudio(this.audioArr[i]);
+        }
+        this.audioArr = [];
+    }
+
     start() {
+       
         if (ConstValue.IS_EDITIONS) {
             courseware.page.sendToParent('clickSubmit', 2);
             courseware.page.sendToParent('addLog', { eventType: 'clickSubmit', eventValue: 2 });
@@ -93,13 +125,15 @@ export default class GamePanel extends BaseUI {
                 bgItem.active = false;
             }
         }
-        for(let i = 1; i <= 6; i++) {
+        for(let i = 1; i <= 9; i++) {
             var guoItem = this.guoNode.getChildByName(i.toString());
             guoItem.active = false;
         }
     }
 
     round2(num : number) {
+        this.stopAll();
+        AudioManager.getInstance().playSound('能做几个煎鸡蛋',false,1,function(id){this.audioArr.push(id)}.bind(this), function(id){this.audioArr.filter(item =>item !== id); this.audioEnable = true;}.bind(this));
         this.answerNum = 0;
         setTimeout(function(){
             if(this.isTouch == false) {
@@ -121,7 +155,7 @@ export default class GamePanel extends BaseUI {
                 bgItem.active = false;
             }
         }
-        for(let i = 1; i <= 6; i++) {
+        for(let i = 1; i <= 9; i++) {
             var guoItem = this.guoNode.getChildByName(i.toString());
             guoItem.active = false;
         }
@@ -136,7 +170,12 @@ export default class GamePanel extends BaseUI {
         }.bind(this), 3000);
         this.checkpointIndex ++;
         var seq = cc.sequence(cc.moveBy(1.33,cc.v2(1600, 0)), cc.callFunc(function(){
-            this.kaoxiangNode.runAction(cc.moveBy(1.33, cc.v2(-1600, 0)));
+            this.guoNode.setPosition(cc.v2(1797, -215));
+            this.kaoxiangNode.runAction(cc.sequence(cc.moveBy(1.33, cc.v2(-1600, 0)), cc.callFunc(function(){
+                this.stopAll();
+                AudioManager.getInstance().playSound('能做几个烤面包',false,1,function(id){this.audioArr.push(id)}.bind(this), function(id){this.audioArr.filter(item =>item !== id); this.audioEnable = true;}.bind(this));
+            }.bind(this))));
+
         }.bind(this)));
         this.guoNode.runAction(seq);
        
@@ -167,27 +206,36 @@ export default class GamePanel extends BaseUI {
             } 
         }.bind(this), 3000);
         this.checkpointIndex ++;
-       
+        var seq = cc.sequence(cc.moveBy(1.33,cc.v2(1600, 0)), cc.callFunc(function(){
+            this.guoNode.runAction(cc.sequence(cc.moveBy(1.33, cc.v2(-1600, 0)), cc.callFunc(function(){
+                this.stopAll();
+                AudioManager.getInstance().playSound('能做几个爆米花',false,1,function(id){this.audioArr.push(id)}.bind(this), function(id){this.audioArr.filter(item =>item !== id); this.audioEnable = true;}.bind(this));
+            }.bind(this))));
+
+        }.bind(this)));
+        this.kaoxiangNode.runAction(seq);
         for(let i = 1; i <= 9; i++) {
             var bgItem : cc.Node = this.itemNode.getChildByName(i.toString());
             if(i <= num) {
                 bgItem.active = true;
                 bgItem.setScale(0);
                 bgItem.runAction(cc.scaleTo(0.2,1,1));
-                bgItem.getComponent(cc.Sprite).spriteFrame = this.bread;
+                bgItem.getComponent(cc.Sprite).spriteFrame = this.corn;
                 this.removeListener(bgItem);
-                this.addListener(bgItem, i, num, this.kaoxiangNode, this.toast);
+                this.addListener(bgItem, i, num, this.guoNode, this.popcorn);
             }else { 
                 bgItem.active = false;
             }
         }
         for(let i = 1; i <= 9; i++) {
-            var guoItem = this.kaoxiangNode.getChildByName(i.toString());
+            var guoItem = this.guoNode.getChildByName(i.toString());
             guoItem.active = false;
         }
     }
 
     round5(num : number) {
+        this.stopAll();
+        AudioManager.getInstance().playSound('能做几个煎鸡蛋',false,1,function(id){this.audioArr.push(id)}.bind(this), function(id){this.audioArr.filter(item =>item !== id); this.audioEnable = true;}.bind(this));
         this.answerNum = 0;
         setTimeout(function(){
             if(this.isTouch == false) {
@@ -195,22 +243,22 @@ export default class GamePanel extends BaseUI {
             } 
         }.bind(this), 3000);
         this.checkpointIndex ++;
-      
+       
         for(let i = 1; i <= 9; i++) {
             var bgItem : cc.Node = this.itemNode.getChildByName(i.toString());
             if(i <= num) {
                 bgItem.active = true;
                 bgItem.setScale(0);
                 bgItem.runAction(cc.scaleTo(0.2,1,1));
-                bgItem.getComponent(cc.Sprite).spriteFrame = this.bread;
+                bgItem.getComponent(cc.Sprite).spriteFrame = this.egg;
                 this.removeListener(bgItem);
-                this.addListener(bgItem, i, num, this.kaoxiangNode, this.toast);
+                this.addListener(bgItem, i, num, this.guoNode, this.omelette);
             }else { 
                 bgItem.active = false;
             }
         }
         for(let i = 1; i <= 9; i++) {
-            var guoItem = this.kaoxiangNode.getChildByName(i.toString());
+            var guoItem = this.guoNode.getChildByName(i.toString());
             guoItem.active = false;
         }
     }
@@ -221,22 +269,27 @@ export default class GamePanel extends BaseUI {
             
         // });
         if(this.checkpointIndex == 1) {
+            AudioManager.getInstance().playSound('“五个爆米花_');
             setTimeout(function(){
                 this.round2(6);
             }.bind(this), 2000);
         }else if(this.checkpointIndex == 2) {
+            AudioManager.getInstance().playSound('六个煎鸡蛋_');
             setTimeout(function(){
                 this.round3(7);
             }.bind(this), 2000);
         }else if(this.checkpointIndex == 3) {
+            AudioManager.getInstance().playSound('七个烤面包_');
             setTimeout(function(){
                 this.round4(8);
             }.bind(this), 2000);
         }else if(this.checkpointIndex == 4) {
+            AudioManager.getInstance().playSound('“八个爆米花_');
             setTimeout(function(){
                 this.round5(9);
             }.bind(this), 2000);
         }else if(this.checkpointIndex == 5) {
+            AudioManager.getInstance().playSound('九个煎鸡蛋_');
             setTimeout(function(){
                 this.gameEnd();
             }.bind(this), 2000);
@@ -248,6 +301,11 @@ export default class GamePanel extends BaseUI {
             courseware.page.sendToParent('clickSubmit', 1);
             courseware.page.sendToParent('addLog', { eventType: 'clickSubmit', eventValue: 1 });
         }
+       
+        UIHelp.showOverTips(2,'闯关成功，棒棒的', function(){
+            this.stopAll();
+            AudioManager.getInstance().playSound('闯关成功，棒棒的');
+        }.bind(this), function(){}.bind(this));
     }
     removeListener(item : cc.Node) {
         item.off(cc.Node.EventType.TOUCH_START);
@@ -258,6 +316,7 @@ export default class GamePanel extends BaseUI {
     addListener(item : cc.Node, IndexNum : number, totalNum : number, dirNode : cc.Node, dirFrame : cc.SpriteFrame) {
         item.on(cc.Node.EventType.TOUCH_START, function(e){
             this.isTouch = true;
+            AudioManager.getInstance().playSound('sfx_catch');
             for(let i = 1; i <= totalNum; i++) {
                 let pos = this.itemNode.getChildByName(i.toString()).getPosition();
                 this.oriPosArr[i - 1] = pos;
@@ -279,10 +338,8 @@ export default class GamePanel extends BaseUI {
                 let delta = e.touch.getDelta();
                 let x = node.x;
                 let y = node.y;
-
                 node.setPosition(cc.v2(x+delta.x, y+delta.y));
-            }
-           
+            }  
         }.bind(this));
         item.on(cc.Node.EventType.TOUCH_END, function(e){
             if(dirNode.getChildByName('boundingbox').getBoundingBox().contains(dirNode.convertToNodeSpaceAR(e.currentTouch._point))) {
@@ -291,20 +348,29 @@ export default class GamePanel extends BaseUI {
                         let dirnode = dirNode.getChildByName(i.toString());
                         dirnode.getComponent(cc.Sprite).spriteFrame = item.getComponent(cc.Sprite).spriteFrame;
                         dirnode.active = true;
-                        // dirnode.runAction(cc.sequence(cc.scaleTo(0.133, 0, 0), cc.callFunc(function(){
-                        //     dirnode.getComponent(cc.Sprite).spriteFrame = dirFrame;
-                        // }.bind(this)), cc.scaleTo(0.3, 1.3, 1.3),cc.scaleTo(0.433, 1, 1)));
                         let node = this.itemNode.getChildByName(i.toString());
                         node.setPosition(this.oriPosArr[i - 1]);
-                        node.active = false
+                        node.active = false;
                         this.answerNum ++;
                     }
                     if(this.answerNum == totalNum) {
                         for(let i = 1; i <= totalNum; i++) {
                             let itemNode = dirNode.getChildByName(i.toString());
-                            itemNode.runAction(cc.sequence(cc.scaleTo(0.133, 0, 0), cc.callFunc(function(){
+                            if(this.checkpointIndex != 3) {
+                                AudioManager.getInstance().playSound('sfx_fry');
+                            }else {
+                                AudioManager.getInstance().playSound('sfx_bake');
+                            }
+                            itemNode.runAction(cc.sequence(cc.delayTime(1), cc.scaleTo(0.133, 0, 0), cc.callFunc(function(){
                                 itemNode.getComponent(cc.Sprite).spriteFrame = dirFrame;
-                            }.bind(this)), cc.scaleTo(0.3, 1.3, 1.3),cc.scaleTo(0.433, 1, 1)));
+                               
+                            }.bind(this)), cc.scaleTo(0.3, 1.3, 1.3), cc.callFunc(function() {
+                                if(this.checkpointIndex != 3) {
+                                    AudioManager.getInstance().playSound('sfx_fried');
+                                }else {
+                                    AudioManager.getInstance().playSound('sfx_baked');
+                                }
+                            }.bind(this)), cc.scaleTo(0.433, 1, 1)));
                         }
                         this.success();
                     }
@@ -313,18 +379,31 @@ export default class GamePanel extends BaseUI {
                     let dirnode = dirNode.getChildByName(IndexNum.toString());
                     dirnode.getComponent(cc.Sprite).spriteFrame = item.getComponent(cc.Sprite).spriteFrame;
                     dirnode.active = true;
-                    // dirnode.runAction(cc.sequence(cc.scaleTo(0.133, 0, 0), cc.callFunc(function(){
-                    //     dirnode.getComponent(cc.Sprite).spriteFrame = dirFrame;
-                    // }.bind(this)), cc.scaleTo(0.3, 1.3, 1.3),cc.scaleTo(0.433, 1, 1)));
                     let node = this.itemNode.getChildByName(IndexNum.toString());
                     node.setPosition(this.oriPosArr[IndexNum - 1]);
                     node.active = false;
                     if(this.answerNum == totalNum) {
                         for(let i = 1; i <= totalNum; i++) {
+                            if(i == totalNum) {
+                                if(this.checkpointIndex != 3) {
+                                    AudioManager.getInstance().playSound('sfx_fry');
+                                }else {
+                                    AudioManager.getInstance().playSound('sfx_bake');
+                                }
+                            }
                             let itemNode = dirNode.getChildByName(i.toString());
-                            itemNode.runAction(cc.sequence(cc.scaleTo(0.133, 0, 0), cc.callFunc(function(){
+                            itemNode.runAction(cc.sequence(cc.delayTime(1), cc.scaleTo(0.133, 0, 0), cc.callFunc(function(){
                                 itemNode.getComponent(cc.Sprite).spriteFrame = dirFrame;
-                            }.bind(this)), cc.scaleTo(0.3, 1.3, 1.3),cc.scaleTo(0.433, 1, 1)));
+                               
+                            }.bind(this)), cc.scaleTo(0.3, 1.3, 1.3),  cc.callFunc(function(){
+                                if(i == totalNum) {
+                                    if(this.checkpointIndex != 3) {
+                                        AudioManager.getInstance().playSound('sfx_fried');
+                                    }else {
+                                        AudioManager.getInstance().playSound('sfx_baked');
+                                    }
+                                }
+                            }.bind(this)),cc.scaleTo(0.433, 1, 1)));
                         }
                         this.success();
                     }

@@ -42,7 +42,7 @@ export class AudioManager
                 audioIdCbk(audioID)
             }
             if(endCbk){
-                cc.audioEngine.setFinishCallback(audioID, endCbk)
+                cc.audioEngine.setFinishCallback(audioID, endCbk(audioID))
             }
 		});
     }
@@ -101,6 +101,7 @@ export class AudioManager
             if(err)
             {
                 cc.error(err);
+              
                 return;
             }
 		    cc.audioEngine.playMusic(clip, true);

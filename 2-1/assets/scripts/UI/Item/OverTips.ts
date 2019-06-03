@@ -20,7 +20,8 @@ export class OverTips extends BaseUI {
 
     @property (cc.Node)
     private node_close:cc.Node = null;
-
+    private closeCallback = null;
+    private finishCallback = null;
     constructor() {
         super();
     }
@@ -38,12 +39,15 @@ export class OverTips extends BaseUI {
      @param {number} type          0: 错误  1：答对了  2：闯关成功(一直显示不会关闭)
      @param {string} str           提示内容
      */
-    init(type:number, str:string=""):void {
+    init(type:number, str:string="",finishCallback?:any,closeCallback?:any):void {
         this.spine_false.node.active = type == 0;
         this.spine_true.node.active = type == 1;
         this.spine_complete.node.active = type == 2;
         this.label_tip.string = str;
         this.label_tip.node.active = type != 2;
+        this.finishCallback = finishCallback;
+        this.closeCallback = closeCallback;
+        this.finishCallback();
         switch (type) {
             case 0:
                 Tools.playSpine(this.spine_false, "false", false, this.delayClose.bind(this));
@@ -67,10 +71,14 @@ export class OverTips extends BaseUI {
     }
 
     delayClose():void {
-        this.scheduleOnce(function () {this.onClickClose()}.bind(this), 0);
+       
+        this.scheduleOnce(function () {this.onClickClose();
+            this.closeCallback();
+        }.bind(this), 0);
     }
 
     onClickClose():void {
+        this.closeCallback();
         UIManager.getInstance().closeUI(OverTips);
     }
 }

@@ -44,6 +44,7 @@ export default class GamePanel extends BaseUI {
     private answerNum : number = 0;
     private audioEnable : boolean = false;
     private timeoutIndex : number = 0;
+    private fiveAlready: boolean = false;
     private eventvalue = {
         isResult: 1,
         isLevel: 1,
@@ -135,6 +136,7 @@ export default class GamePanel extends BaseUI {
     }
 
     round1(num : number) {
+        this.fiveAlready = false;
         this.answerNum = 0;
         clearTimeout(this.timeoutIndex);
         this.timeoutIndex = setTimeout(function(){
@@ -165,6 +167,7 @@ export default class GamePanel extends BaseUI {
     }
 
     round2(num : number) {
+        this.fiveAlready = false;
         this.stopAll();
         clearTimeout(this.timeoutIndex);
         AudioManager.getInstance().playSound('能做几个煎鸡蛋',false,1,function(id){this.audioArr.push(id)}.bind(this), function(id){this.audioArr.filter(item =>item !== id); this.audioEnable = true;}.bind(this));
@@ -196,6 +199,7 @@ export default class GamePanel extends BaseUI {
     }
 
     round3(num : number) {
+        this.fiveAlready = false;
         this.answerNum = 0;
         clearTimeout(this.timeoutIndex);
         this.timeoutIndex = setTimeout(function(){
@@ -234,6 +238,7 @@ export default class GamePanel extends BaseUI {
     }
 
     round4(num : number) {
+        this.fiveAlready = false;
         this.answerNum = 0;
         clearTimeout(this.timeoutIndex);
         this.timeoutIndex = setTimeout(function(){
@@ -270,6 +275,7 @@ export default class GamePanel extends BaseUI {
     }
 
     round5(num : number) {
+        this.fiveAlready = false;
         this.stopAll();
         clearTimeout(this.timeoutIndex);
         AudioManager.getInstance().playSound('能做几个煎鸡蛋',false,1,function(id){this.audioArr.push(id)}.bind(this), function(id){this.audioArr.filter(item =>item !== id); this.audioEnable = true;}.bind(this));
@@ -372,6 +378,9 @@ export default class GamePanel extends BaseUI {
     }
     addListener(item : cc.Node, IndexNum : number, totalNum : number, dirNode : cc.Node, dirFrame : cc.SpriteFrame) {
         item.on(cc.Node.EventType.TOUCH_START, function(e){
+            if(!this.fiveAlready&&IndexNum > 5) {
+                return;
+            }
             this.isTouch = true;
             AudioManager.getInstance().playSound('sfx_catch');
             for(let i = 1; i <= totalNum; i++) {
@@ -391,6 +400,9 @@ export default class GamePanel extends BaseUI {
                   
                 }
             }else {
+                if(!this.fiveAlready) {
+                    return;
+                }
                 let node = this.itemNode.getChildByName(IndexNum.toString());
                 let delta = e.touch.getDelta();
                 let x = node.x;
@@ -401,6 +413,7 @@ export default class GamePanel extends BaseUI {
         item.on(cc.Node.EventType.TOUCH_END, function(e){
             if(dirNode.getChildByName('boundingbox').getBoundingBox().contains(dirNode.convertToNodeSpaceAR(e.currentTouch._point))) {
                 if(IndexNum <= 5) {
+                    this.fiveAlready = true;
                     for(let i = 1; i <= 5; i++) {
                         let dirnode = dirNode.getChildByName(i.toString());
                         dirnode.getComponent(cc.Sprite).spriteFrame = item.getComponent(cc.Sprite).spriteFrame;
@@ -432,6 +445,9 @@ export default class GamePanel extends BaseUI {
                         this.success();
                     }
                 }else {
+                    if(!this.fiveAlready) {
+                        return;
+                    }
                     this.answerNum++;
                     let dirnode = dirNode.getChildByName(IndexNum.toString());
                     dirnode.getComponent(cc.Sprite).spriteFrame = item.getComponent(cc.Sprite).spriteFrame;

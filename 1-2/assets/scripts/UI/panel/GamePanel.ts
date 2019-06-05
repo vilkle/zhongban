@@ -84,6 +84,7 @@ export default class GamePanel extends BaseUI {
     }
 
     gameStart() {
+        AudioManager.getInstance().playSound('小仓鼠要吃哪堆食物', false);
         this.addListener();
         for(let i = 1; i <= 10; i++) {
             var pos1 = this.box1.getChildByName(i.toString()).getPosition();
@@ -147,6 +148,7 @@ export default class GamePanel extends BaseUI {
     }
 
     round2() {
+        AudioManager.getInstance().playSound('sfx_olnmOpn', false);
         this.miya.setAnimation(0, 'jupaizi2', false);
         this.miya.setCompleteListener(trackEntry=>{
             if(trackEntry.animation.name == 'jupaizi2') {
@@ -183,6 +185,7 @@ export default class GamePanel extends BaseUI {
     }
 
     round3() {
+        AudioManager.getInstance().playSound('sfx_olnmOpn', false);
         this.miya.setAnimation(0, 'jupaizi3', false);
         this.miya.setCompleteListener(trackEntry=>{
             if(trackEntry.animation.name == 'jupaizi3') {
@@ -219,6 +222,7 @@ export default class GamePanel extends BaseUI {
     }
 
     round4() {
+        AudioManager.getInstance().playSound('sfx_olnmOpn', false);
         this.miya.setAnimation(0, 'jupaizi4', false);
         this.miya.setCompleteListener(trackEntry=>{
             if(trackEntry.animation.name == 'jupaizi4') {
@@ -299,12 +303,12 @@ export default class GamePanel extends BaseUI {
     isRight(boxNum : number, roundNum : number):boolean {
         if(roundNum == 1) {
             if(boxNum == 1) {
+                AudioManager.getInstance().playSound('耶');
                 this.eventvalue.levelData[this.checkpointIndex-1].result = 1;
                 this.enableClick = false;
                 for(let i = 1; i <= 5; i++) {
                     this.box1.getChildByName(i.toString()).runAction(cc.sequence(cc.callFunc(function(){
                         if(i == 5) {
-                            AudioManager.getInstance().stopAll();
                             AudioManager.getInstance().playSound('sfx_blueeat', false);
                             this.mouse.setAnimation(0, 'idle2', false);
                             this.mouse.setCompleteListener(
@@ -324,16 +328,18 @@ export default class GamePanel extends BaseUI {
                 }
                 return true;
             }else {
+                AudioManager.getInstance().stopAll();
+                AudioManager.getInstance().playSound('阿欧');
                 return false;
             }
         }else if(roundNum == 2) {
             if(boxNum == 3) {
+                AudioManager.getInstance().playSound('耶');
                 this.eventvalue.levelData[this.checkpointIndex-1].result = 1;
                 this.enableClick = false;
                 for(let i = 1; i <= 6; i++) {
                     this.box3.getChildByName(i.toString()).runAction(cc.sequence(cc.callFunc(function(){
                         if(i == 6) {
-                            AudioManager.getInstance().stopAll();
                             AudioManager.getInstance().playSound('sfx_blueeat', false);
                             this.mouse.setAnimation(0, 'idle2', false);
                             this.mouse.setCompleteListener(
@@ -353,17 +359,19 @@ export default class GamePanel extends BaseUI {
                 }
                 return true;
             }else {
+                AudioManager.getInstance().stopAll();
+                AudioManager.getInstance().playSound('阿欧');
                 return false;
             }
         }
         else if(roundNum == 3) {
             if(boxNum == 2) {
+                AudioManager.getInstance().playSound('耶');
                 this.eventvalue.levelData[this.checkpointIndex-1].result = 1;
                 this.enableClick = false;
                 for(let i = 1; i <= 7; i++) {
                     this.box2.getChildByName(i.toString()).runAction(cc.sequence(cc.callFunc(function(){
                         if(i == 7) {
-                            AudioManager.getInstance().stopAll();
                             AudioManager.getInstance().playSound('sfx_blueeat', false);
                             this.mouse.setAnimation(0, 'idle2', false);
                             this.mouse.setCompleteListener(
@@ -383,17 +391,19 @@ export default class GamePanel extends BaseUI {
                 }
                 return true;
             }else {
+                AudioManager.getInstance().stopAll();
+                AudioManager.getInstance().playSound('阿欧');
                 return false;
             }
         }
         else if(roundNum == 4) {
             if(boxNum == 1) {
+                AudioManager.getInstance().playSound('耶');
                 this.eventvalue.levelData[this.checkpointIndex-1].result = 1;
                 this.enableClick = false;
                 for(let i = 1; i <= 8; i++) {
                     this.box1.getChildByName(i.toString()).runAction(cc.sequence(cc.callFunc(function(){
                         if(i == 8) {
-                            AudioManager.getInstance().stopAll();
                             AudioManager.getInstance().playSound('sfx_blueeat', false);
                             this.mouse.setAnimation(0, 'idle2', false);
                             this.mouse.setCompleteListener(
@@ -413,6 +423,8 @@ export default class GamePanel extends BaseUI {
                 }
                 return true;
             }else {
+                AudioManager.getInstance().stopAll();
+                AudioManager.getInstance().playSound('阿欧');
                 return false;
             }
         }else {

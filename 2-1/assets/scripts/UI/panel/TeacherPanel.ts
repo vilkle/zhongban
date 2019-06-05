@@ -24,8 +24,9 @@ export default class TeacherPanel extends BaseUI {
 
     //上传课件按钮
     onBtnSaveClicked() {
-        UIManager.getInstance().openUI(GamePanel);
-        ListenerManager.getInstance().trigger(ListenerType.OnEditStateSwitching, {state: 1});
+        UIManager.getInstance().openUI(SubmissionPanel);
+        // UIManager.getInstance().openUI(GamePanel);
+        // ListenerManager.getInstance().trigger(ListenerType.OnEditStateSwitching, {state: 1});
     }
 
     getNet() {

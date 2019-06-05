@@ -42,7 +42,9 @@ export class AudioManager
                 audioIdCbk(audioID)
             }
             if(endCbk){
-                cc.audioEngine.setFinishCallback(audioID, endCbk(audioID));
+                cc.audioEngine.setFinishCallback(audioID, ()=>{
+                    endCbk(audioID);
+                });
             }
             return audioID;
         });

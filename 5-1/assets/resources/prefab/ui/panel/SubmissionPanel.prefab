@@ -271,9 +271,9 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "763a51d6-31b6-42ef-9274-5d54a2ddd819"
+      "__uuid__": "9be27a7b-b122-4c1c-b381-66ce18a3b703"
     },
-    "_type": 0,
+    "_type": 1,
     "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {
@@ -427,8 +427,8 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 8,
-      "g": 0,
+      "r": 255,
+      "g": 255,
       "b": 255,
       "a": 255
     },
@@ -548,7 +548,7 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_N$horizontalAlign": 0,
+    "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 0,
@@ -575,9 +575,9 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "763a51d6-31b6-42ef-9274-5d54a2ddd819"
+      "__uuid__": "78fdd712-a3f2-4475-a7d2-0215c24cce9e"
     },
-    "_type": 0,
+    "_type": 1,
     "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {
@@ -611,8 +611,8 @@
     ],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
-    "_N$transition": 0,
-    "transition": 0,
+    "_N$transition": 3,
+    "transition": 3,
     "_N$normalColor": {
       "__type__": "cc.Color",
       "r": 214,
@@ -672,7 +672,7 @@
       "__id__": 1
     },
     "component": "",
-    "_componentId": "c86edYXj+pHpLl28M0XU7d6",
+    "_componentId": "bdbeagD9lJH1p1yPQBbNwPK",
     "handler": "onQueDingBtnClick",
     "customEventData": ""
   },
@@ -716,8 +716,8 @@
     "_color": {
       "__type__": "cc.Color",
       "r": 255,
-      "g": 0,
-      "b": 0,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_contentSize": {
@@ -836,7 +836,7 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_N$horizontalAlign": 0,
+    "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 0,
@@ -863,9 +863,9 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "763a51d6-31b6-42ef-9274-5d54a2ddd819"
+      "__uuid__": "31772398-84ae-431f-ac6d-2b57b0d66762"
     },
-    "_type": 0,
+    "_type": 1,
     "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {
@@ -960,7 +960,7 @@
       "__id__": 1
     },
     "component": "",
-    "_componentId": "c86edYXj+pHpLl28M0XU7d6",
+    "_componentId": "bdbeagD9lJH1p1yPQBbNwPK",
     "handler": "onQuXiaoBtnClick",
     "customEventData": ""
   },

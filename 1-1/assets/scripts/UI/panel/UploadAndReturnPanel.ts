@@ -4,6 +4,8 @@ import GamePanel from "./GamePanel";
 import SubmissionPanel from "./SubmissionPanel";
 import {ListenerManager} from "../../Manager/ListenerManager"
 import {ListenerType} from "../../Data/ListenerType"
+import { AudioManager } from "../../Manager/AudioManager";
+import { OverTips } from "../Item/OverTips";
 
 
 const { ccclass, property } = cc._decorator;
@@ -20,10 +22,12 @@ export default class UploadAndReturnPanel extends BaseUI {
     onFanHui() {
         UIManager.getInstance().closeUI(GamePanel);
         UIManager.getInstance().closeUI(UploadAndReturnPanel);
+        UIManager.getInstance().closeUI(OverTips);
+        AudioManager.getInstance().stopAll();
         ListenerManager.getInstance().trigger(ListenerType.OnEditStateSwitching, {state: 0})
     }
 
     onTiJiao() {
-        //UIManager.getInstance().showUI(SubmissionPanel);
+        UIManager.getInstance().openUI(SubmissionPanel,201);
     }
 }

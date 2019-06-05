@@ -37,12 +37,16 @@ export class AudioManager
                 return;
             }
             let audioID = cc.audioEngine.play(clip, loop?loop:false, volume?volume:1);
+            cc.log('======', audioID);
             //LogWrap.log('playSound: ', path)
             if(audioIdCbk){
                 audioIdCbk(audioID)
             }
             if(endCbk){
-                cc.audioEngine.setFinishCallback(audioID, endCbk(audioID))
+                cc.log('=======', audioID);
+                cc.audioEngine.setFinishCallback(audioID, ()=>{
+                    endCbk(audioID)
+                })
             }
 		});
     }

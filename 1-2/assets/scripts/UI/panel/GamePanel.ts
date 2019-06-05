@@ -4,6 +4,9 @@ import {ConstValue} from "../../Data/ConstValue"
 import { UIManager } from "../../Manager/UIManager";
 import UploadAndReturnPanel from "../panel/UploadAndReturnPanel"
 import {AudioManager} from "../../Manager/AudioManager"
+import { OverTips } from "../Item/OverTips";
+import {UIHelp} from "../../Utils/UIHelp";
+import DataReporting from "../../Data/DataReporting";
 
 const { ccclass, property } = cc._decorator;
 
@@ -39,7 +42,15 @@ export default class GamePanel extends BaseUI {
     private pos1Arr : Array<cc.Vec2> = Array<cc.Vec2>();
     private pos2Arr : Array<cc.Vec2> = Array<cc.Vec2>();
     private pos3Arr : Array<cc.Vec2> = Array<cc.Vec2>();
+    private answerArr : Array<number> = [1,3,2,1]; 
+    private eventvalue = {
+        isResult: 1,
+        isLevel: 1,
+        levelData: [
 
+        ],
+        result: 2
+    }
 
     onLoad() {
         if(ConstValue.IS_TEACHER) {
@@ -49,6 +60,27 @@ export default class GamePanel extends BaseUI {
 
     start() {
         this.gameStart();
+        DataReporting.getInstance().addEvent('end_game', this.onEndGame.bind(this));
+        for(let i = 0; i < 4; i++) {
+            this.eventvalue.levelData.push({
+                subject: null,
+                answer: null,
+                result: 4
+            });
+        }
+    }
+
+    onEndGame() {
+        //如果已经上报过数据 则不再上报数据
+        if (DataReporting.isRepeatReport) {
+            DataReporting.getInstance().dispatchEvent('addLog', {
+                eventType: 'clickSubmit',
+                eventValue: JSON.stringify(this.eventvalue)
+            });
+            DataReporting.isRepeatReport = false;
+        }
+        //eventValue  0为未答题   1为答对了    2为答错了或未完成
+        DataReporting.getInstance().dispatchEvent('end_finished', { eventType: 'activity', eventValue: 0 });
     }
 
     gameStart() {
@@ -63,10 +95,6 @@ export default class GamePanel extends BaseUI {
         } 
         this.round1();
         AudioManager.getInstance().playSound('sfx_olnmOpn', false);
-        if (ConstValue.IS_EDITIONS) {
-            courseware.page.sendToParent('clickSubmit', 2);
-            courseware.page.sendToParent('addLog', { eventType: 'clickSubmit', eventValue: 2 });
-        }
     }
 
     onDestroy() {
@@ -232,14 +260,23 @@ export default class GamePanel extends BaseUI {
                 return;
             }
             if(this.box1.getBoundingBox().contains(this.node.convertToNodeSpaceAR(e.currentTouch._point))){
+                this.eventvalue.levelData[this.checkpointIndex-1].answer = this.answerArr[this.checkpointIndex-1];
+                this.eventvalue.levelData[this.checkpointIndex-1].subject = 1;
+                this.eventvalue.levelData[this.checkpointIndex-1].result = 2;
                AudioManager.getInstance().stopAll();
                AudioManager.getInstance().playSound('sfx_touch', false);
                this.box1.runAction(cc.sequence(cc.scaleTo(0.1, 0.9), cc.scaleTo(0.1, 1)));
             }else if(this.box2.getBoundingBox().contains(this.node.convertToNodeSpaceAR(e.currentTouch._point))) {
+                this.eventvalue.levelData[this.checkpointIndex-1].answer = this.answerArr[this.checkpointIndex-1];
+                this.eventvalue.levelData[this.checkpointIndex-1].subject = 2;
+                this.eventvalue.levelData[this.checkpointIndex-1].result = 2;
                 AudioManager.getInstance().stopAll();
                AudioManager.getInstance().playSound('sfx_touch', false);
                this.box2.runAction(cc.sequence(cc.scaleTo(0.1, 0.9), cc.scaleTo(0.1, 1)));
             }else if(this.box3.getBoundingBox().contains(this.node.convertToNodeSpaceAR(e.currentTouch._point))) {
+                this.eventvalue.levelData[this.checkpointIndex-1].answer = this.answerArr[this.checkpointIndex-1];
+                this.eventvalue.levelData[this.checkpointIndex-1].subject = 3;
+                this.eventvalue.levelData[this.checkpointIndex-1].result = 2;
                 AudioManager.getInstance().stopAll();
                AudioManager.getInstance().playSound('sfx_touch', false);
                this.box3.runAction(cc.sequence(cc.scaleTo(0.1, 0.9), cc.scaleTo(0.1, 1)));
@@ -262,6 +299,7 @@ export default class GamePanel extends BaseUI {
     isRight(boxNum : number, roundNum : number):boolean {
         if(roundNum == 1) {
             if(boxNum == 1) {
+                this.eventvalue.levelData[this.checkpointIndex-1].result = 1;
                 this.enableClick = false;
                 for(let i = 1; i <= 5; i++) {
                     this.box1.getChildByName(i.toString()).runAction(cc.sequence(cc.callFunc(function(){
@@ -290,6 +328,7 @@ export default class GamePanel extends BaseUI {
             }
         }else if(roundNum == 2) {
             if(boxNum == 3) {
+                this.eventvalue.levelData[this.checkpointIndex-1].result = 1;
                 this.enableClick = false;
                 for(let i = 1; i <= 6; i++) {
                     this.box3.getChildByName(i.toString()).runAction(cc.sequence(cc.callFunc(function(){
@@ -319,6 +358,7 @@ export default class GamePanel extends BaseUI {
         }
         else if(roundNum == 3) {
             if(boxNum == 2) {
+                this.eventvalue.levelData[this.checkpointIndex-1].result = 1;
                 this.enableClick = false;
                 for(let i = 1; i <= 7; i++) {
                     this.box2.getChildByName(i.toString()).runAction(cc.sequence(cc.callFunc(function(){
@@ -348,6 +388,7 @@ export default class GamePanel extends BaseUI {
         }
         else if(roundNum == 4) {
             if(boxNum == 1) {
+                this.eventvalue.levelData[this.checkpointIndex-1].result = 1;
                 this.enableClick = false;
                 for(let i = 1; i <= 8; i++) {
                     this.box1.getChildByName(i.toString()).runAction(cc.sequence(cc.callFunc(function(){
@@ -381,10 +422,15 @@ export default class GamePanel extends BaseUI {
     }
 
     gameEnd() {
-        if (ConstValue.IS_EDITIONS) {
-            courseware.page.sendToParent('clickSubmit', 1);
-            courseware.page.sendToParent('addLog', { eventType: 'clickSubmit', eventValue: 1 });
-        }
+        UIHelp.showOverTips(2,'闯关成功，棒棒的', function(){
+            AudioManager.getInstance().playSound('闯关成功，棒棒的');
+        }.bind(this), function(){}.bind(this));
+        this.eventvalue.result = 1;
+        DataReporting.getInstance().dispatchEvent('addLog', {
+            eventType: 'clickSubmit',
+            eventValue: JSON.stringify(this.eventvalue)
+        });
+        cc.log(this.eventvalue);
     }
 
     success() {

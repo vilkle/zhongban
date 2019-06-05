@@ -5,6 +5,8 @@ import {AudioManager} from "../../Manager/AudioManager"
 import {ConstValue} from "../../Data/ConstValue"
 import { UIManager } from "../../Manager/UIManager";
 import UploadAndReturnPanel from "../panel/UploadAndReturnPanel"
+import DataReporting from "../../Data/DataReporting";
+import { Tools } from "../../UIComm/Tools";
 
 const { ccclass, property } = cc._decorator;
 
@@ -41,24 +43,37 @@ export default class GamePanel extends BaseUI {
     private isTouch : boolean = false;
     private answerNum : number = 0;
     private audioEnable : boolean = false;
+    private timeoutIndex : number = 0;
+    private eventvalue = {
+        isResult: 1,
+        isLevel: 1,
+        levelData: [
+
+        ],
+        result: 2
+    }
+
     onLoad() {
         if(ConstValue.IS_TEACHER) {
             UIManager.getInstance().openUI(UploadAndReturnPanel);
         }
         AudioManager.getInstance().playBGM('bgm_kitchen');
-        AudioManager.getInstance().playSound('我们来做点吃的吧：', false, 1, function(){}, function(){
-            AudioManager.getInstance().playSound('能做几个爆米花',false,1,function(id){this.audioArr.push(id)}.bind(this), function(id){this.audioArr.filter(item =>item !== id); this.audioEnable = true;}.bind(this));
-        }.bind(this));
+        AudioManager.getInstance().playSound('我们来做点吃的吧', false, 1, (id)=>{this.audioArr.push(id) }, (id)=>{
+            this.audioArr.filter(item => item !== id); 
+            this.audioEnable = true;
+            AudioManager.getInstance().playSound('能做几个爆米花', false, 1, (id)=>{ this.audioArr.push(id) }, (id)=>{ this.audioArr.filter(item => item !== id); this.audioEnable = true;});
+        });
         this.round1(5);
         this.mouseBoundingBox.on(cc.Node.EventType.TOUCH_START, function(e){
             if(this.mouseBoundingBox.getBoundingBox().contains(this.node.convertToNodeSpaceAR(e.currentTouch._point))) {
+                this.isTouch = true;
                 this.mouse.setAnimation(0, 'talk', false);
                 if(!this.audioEnable) {
                     return;
                 }
                 if(this.checkpointIndex == 1) {
                     this.stopAll();
-                    AudioManager.getInstance().playSound('能做几个爆米花',false,1,function(id){this.audioArr.push(id)}.bind(this), function(id){this.audioArr.filter(item =>item !== id); this.audioEnable = true;}.bind(this));
+                    AudioManager.getInstance().playSound('能做几个爆米花',false,1,(id)=>{this.audioArr.push(id)}, function(id){this.audioArr.filter(item =>item !== id); this.audioEnable = true;}.bind(this));
                 }else if(this.checkpointIndex == 2) {
                     this.stopAll();
                     AudioManager.getInstance().playSound('能做几个煎鸡蛋',false,1,function(id){this.audioArr.push(id)}.bind(this), function(id){this.audioArr.filter(item =>item !== id); this.audioEnable = true;}.bind(this));
@@ -85,15 +100,31 @@ export default class GamePanel extends BaseUI {
     }
 
     start() {
-       
-        if (ConstValue.IS_EDITIONS) {
-            courseware.page.sendToParent('clickSubmit', 2);
-            courseware.page.sendToParent('addLog', { eventType: 'clickSubmit', eventValue: 2 });
+        DataReporting.getInstance().addEvent('end_game', this.onEndGame.bind(this));
+        for(let i = 0; i < 5; i++) {
+            this.eventvalue.levelData.push({
+                subject: null,
+                answer: null,
+                result: 4
+            });
         }
     }
 
-    onDestroy() {
+    onEndGame() {
+        //如果已经上报过数据 则不再上报数据
+        if (DataReporting.isRepeatReport) {
+            DataReporting.getInstance().dispatchEvent('addLog', {
+                eventType: 'clickSubmit',
+                eventValue: JSON.stringify(this.eventvalue)
+            });
+            DataReporting.isRepeatReport = false;
+        }
+        //eventValue  0为未答题   1为答对了    2为答错了或未完成
+        DataReporting.getInstance().dispatchEvent('end_finished', { eventType: 'activity', eventValue: 0 });
+    }
 
+    onDestroy() {
+        clearTimeout(this.timeoutIndex);
     }
 
     onShow() {
@@ -105,11 +136,13 @@ export default class GamePanel extends BaseUI {
 
     round1(num : number) {
         this.answerNum = 0;
-        setTimeout(function(){
+        clearTimeout(this.timeoutIndex);
+        this.timeoutIndex = setTimeout(function(){
             if(this.isTouch == false) {
-            
+                AudioManager.getInstance().playSound('记得数全哦',false,1,(id)=>{this.audioArr.push(id)}, function(id){this.audioArr.filter(item =>item !== id); this.audioEnable = true;}.bind(this));
             } 
-        }.bind(this), 3000);
+        }.bind(this), 9000);
+    
         this.checkpointIndex ++;
         this.guoNode.runAction(cc.moveBy(1.33, cc.v2(-1600, 0)));
         for(let i = 1; i <= 9; i++) {
@@ -133,13 +166,14 @@ export default class GamePanel extends BaseUI {
 
     round2(num : number) {
         this.stopAll();
+        clearTimeout(this.timeoutIndex);
         AudioManager.getInstance().playSound('能做几个煎鸡蛋',false,1,function(id){this.audioArr.push(id)}.bind(this), function(id){this.audioArr.filter(item =>item !== id); this.audioEnable = true;}.bind(this));
         this.answerNum = 0;
-        setTimeout(function(){
+        this.timeoutIndex = setTimeout(function(){
             if(this.isTouch == false) {
-            
+                AudioManager.getInstance().playSound('记得数全哦',false,1,(id)=>{this.audioArr.push(id)}, function(id){this.audioArr.filter(item =>item !== id); this.audioEnable = true;}.bind(this));
             } 
-        }.bind(this), 3000);
+        }.bind(this), 6000);
         this.checkpointIndex ++;
     
         for(let i = 1; i <= 9; i++) {
@@ -163,11 +197,12 @@ export default class GamePanel extends BaseUI {
 
     round3(num : number) {
         this.answerNum = 0;
-        setTimeout(function(){
+        clearTimeout(this.timeoutIndex);
+        this.timeoutIndex = setTimeout(function(){
             if(this.isTouch == false) {
-                
+                AudioManager.getInstance().playSound('记得数全哦',false,1,(id)=>{this.audioArr.push(id)}, function(id){this.audioArr.filter(item =>item !== id); this.audioEnable = true;}.bind(this));
             } 
-        }.bind(this), 3000);
+        }.bind(this), 9000);
         this.checkpointIndex ++;
         var seq = cc.sequence(cc.moveBy(1.33,cc.v2(1600, 0)), cc.callFunc(function(){
             this.guoNode.setPosition(cc.v2(1797, -215));
@@ -200,11 +235,12 @@ export default class GamePanel extends BaseUI {
 
     round4(num : number) {
         this.answerNum = 0;
-        setTimeout(function(){
+        clearTimeout(this.timeoutIndex);
+        this.timeoutIndex = setTimeout(function(){
             if(this.isTouch == false) {
-               
+                AudioManager.getInstance().playSound('记得数全哦',false,1,(id)=>{this.audioArr.push(id)}, function(id){this.audioArr.filter(item =>item !== id); this.audioEnable = true;}.bind(this));
             } 
-        }.bind(this), 3000);
+        }.bind(this), 9000);
         this.checkpointIndex ++;
         var seq = cc.sequence(cc.moveBy(1.33,cc.v2(1600, 0)), cc.callFunc(function(){
             this.guoNode.runAction(cc.sequence(cc.moveBy(1.33, cc.v2(-1600, 0)), cc.callFunc(function(){
@@ -235,13 +271,14 @@ export default class GamePanel extends BaseUI {
 
     round5(num : number) {
         this.stopAll();
+        clearTimeout(this.timeoutIndex);
         AudioManager.getInstance().playSound('能做几个煎鸡蛋',false,1,function(id){this.audioArr.push(id)}.bind(this), function(id){this.audioArr.filter(item =>item !== id); this.audioEnable = true;}.bind(this));
         this.answerNum = 0;
-        setTimeout(function(){
+        this.timeoutIndex = setTimeout(function(){
             if(this.isTouch == false) {
-               
+                AudioManager.getInstance().playSound('记得数全哦',false,1,(id)=>{this.audioArr.push(id)}, function(id){this.audioArr.filter(item =>item !== id); this.audioEnable = true;}.bind(this));
             } 
-        }.bind(this), 3000);
+        }.bind(this), 6000);
         this.checkpointIndex ++;
        
         for(let i = 1; i <= 9; i++) {
@@ -264,44 +301,64 @@ export default class GamePanel extends BaseUI {
     }
 
     success() {
+        clearTimeout(this.timeoutIndex);
         this.isTouch = false;
         // UIHelp.showOverTips(1,"闯关成功！",true,function(){
             
         // });
         if(this.checkpointIndex == 1) {
+            this.stopAll();
             AudioManager.getInstance().playSound('“五个爆米花_');
+            this.eventvalue.levelData[0].subject = '';
+            this.eventvalue.levelData[0].answer = '';
+            this.eventvalue.levelData[0].result = 1;
             setTimeout(function(){
                 this.round2(6);
             }.bind(this), 2000);
         }else if(this.checkpointIndex == 2) {
+            this.stopAll();
             AudioManager.getInstance().playSound('六个煎鸡蛋_');
+            this.eventvalue.levelData[1].subject = '';
+            this.eventvalue.levelData[1].answer = '';
+            this.eventvalue.levelData[1].result = 1;
             setTimeout(function(){
                 this.round3(7);
             }.bind(this), 2000);
         }else if(this.checkpointIndex == 3) {
+            this.stopAll();
             AudioManager.getInstance().playSound('七个烤面包_');
+            this.eventvalue.levelData[2].subject = '';
+            this.eventvalue.levelData[2].answer = '';
+            this.eventvalue.levelData[2].result = 1;
             setTimeout(function(){
                 this.round4(8);
             }.bind(this), 2000);
         }else if(this.checkpointIndex == 4) {
+            this.stopAll();
             AudioManager.getInstance().playSound('“八个爆米花_');
+            this.eventvalue.levelData[3].subject = '';
+            this.eventvalue.levelData[3].answer = '';
+            this.eventvalue.levelData[3].result = 1;
             setTimeout(function(){
                 this.round5(9);
             }.bind(this), 2000);
         }else if(this.checkpointIndex == 5) {
+            this.stopAll();
             AudioManager.getInstance().playSound('九个煎鸡蛋_');
+            this.eventvalue.levelData[4].subject = '';
+            this.eventvalue.levelData[4].answer = '';
+            this.eventvalue.levelData[4].result = 1;
+            DataReporting.getInstance().dispatchEvent('addLog', {
+                eventType: 'clickSubmit',
+                eventValue: JSON.stringify(this.eventvalue)
+            });
             setTimeout(function(){
                 this.gameEnd();
             }.bind(this), 2000);
         }
     }
 
-    gameEnd() {
-        if (ConstValue.IS_EDITIONS) {
-            courseware.page.sendToParent('clickSubmit', 1);
-            courseware.page.sendToParent('addLog', { eventType: 'clickSubmit', eventValue: 1 });
-        }
-       
+    gameEnd() {  
         UIHelp.showOverTips(2,'闯关成功，棒棒的', function(){
             this.stopAll();
             AudioManager.getInstance().playSound('闯关成功，棒棒的');

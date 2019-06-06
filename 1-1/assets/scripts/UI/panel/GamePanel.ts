@@ -138,13 +138,7 @@ export default class GamePanel extends BaseUI {
     round1(num : number) {
         this.fiveAlready = false;
         this.answerNum = 0;
-        clearTimeout(this.timeoutIndex);
-        this.timeoutIndex = setTimeout(function(){
-            if(this.isTouch == false) {
-                AudioManager.getInstance().playSound('记得数全哦',false,1,(id)=>{this.audioArr.push(id)}, function(id){this.audioArr.filter(item =>item !== id); this.audioEnable = true;}.bind(this));
-            } 
-        }.bind(this), 9000);
-    
+        clearTimeout(this.timeoutIndex);    
         this.checkpointIndex ++;
         this.guoNode.runAction(cc.moveBy(1.33, cc.v2(-1600, 0)));
         for(let i = 1; i <= 9; i++) {
@@ -172,13 +166,7 @@ export default class GamePanel extends BaseUI {
         clearTimeout(this.timeoutIndex);
         AudioManager.getInstance().playSound('能做几个煎鸡蛋',false,1,function(id){this.audioArr.push(id)}.bind(this), function(id){this.audioArr.filter(item =>item !== id); this.audioEnable = true;}.bind(this));
         this.answerNum = 0;
-        this.timeoutIndex = setTimeout(function(){
-            if(this.isTouch == false) {
-                AudioManager.getInstance().playSound('记得数全哦',false,1,(id)=>{this.audioArr.push(id)}, function(id){this.audioArr.filter(item =>item !== id); this.audioEnable = true;}.bind(this));
-            } 
-        }.bind(this), 6000);
         this.checkpointIndex ++;
-    
         for(let i = 1; i <= 9; i++) {
             var bgItem : cc.Node = this.itemNode.getChildByName(i.toString());
             if(i <= num) {
@@ -202,11 +190,6 @@ export default class GamePanel extends BaseUI {
         this.fiveAlready = false;
         this.answerNum = 0;
         clearTimeout(this.timeoutIndex);
-        this.timeoutIndex = setTimeout(function(){
-            if(this.isTouch == false) {
-                AudioManager.getInstance().playSound('记得数全哦',false,1,(id)=>{this.audioArr.push(id)}, function(id){this.audioArr.filter(item =>item !== id); this.audioEnable = true;}.bind(this));
-            } 
-        }.bind(this), 9000);
         this.checkpointIndex ++;
         var seq = cc.sequence(cc.moveBy(1.33,cc.v2(1600, 0)), cc.callFunc(function(){
             this.guoNode.setPosition(cc.v2(1797, -215));
@@ -241,11 +224,6 @@ export default class GamePanel extends BaseUI {
         this.fiveAlready = false;
         this.answerNum = 0;
         clearTimeout(this.timeoutIndex);
-        this.timeoutIndex = setTimeout(function(){
-            if(this.isTouch == false) {
-                AudioManager.getInstance().playSound('记得数全哦',false,1,(id)=>{this.audioArr.push(id)}, function(id){this.audioArr.filter(item =>item !== id); this.audioEnable = true;}.bind(this));
-            } 
-        }.bind(this), 9000);
         this.checkpointIndex ++;
         var seq = cc.sequence(cc.moveBy(1.33,cc.v2(1600, 0)), cc.callFunc(function(){
             this.guoNode.runAction(cc.sequence(cc.moveBy(1.33, cc.v2(-1600, 0)), cc.callFunc(function(){
@@ -280,13 +258,7 @@ export default class GamePanel extends BaseUI {
         clearTimeout(this.timeoutIndex);
         AudioManager.getInstance().playSound('能做几个煎鸡蛋',false,1,function(id){this.audioArr.push(id)}.bind(this), function(id){this.audioArr.filter(item =>item !== id); this.audioEnable = true;}.bind(this));
         this.answerNum = 0;
-        this.timeoutIndex = setTimeout(function(){
-            if(this.isTouch == false) {
-                AudioManager.getInstance().playSound('记得数全哦',false,1,(id)=>{this.audioArr.push(id)}, function(id){this.audioArr.filter(item =>item !== id); this.audioEnable = true;}.bind(this));
-            } 
-        }.bind(this), 6000);
         this.checkpointIndex ++;
-       
         for(let i = 1; i <= 9; i++) {
             var bgItem : cc.Node = this.itemNode.getChildByName(i.toString());
             if(i <= num) {
@@ -381,6 +353,10 @@ export default class GamePanel extends BaseUI {
             if(!this.fiveAlready&&IndexNum > 5) {
                 return;
             }
+            clearTimeout(this.timeoutIndex);
+            this.timeoutIndex = setTimeout(function(){
+                    AudioManager.getInstance().playSound('记得数全哦',false,1,(id)=>{this.audioArr.push(id)}, function(id){this.audioArr.filter(item =>item !== id); this.audioEnable = true;}.bind(this));
+            }.bind(this), 3000);
             this.isTouch = true;
             AudioManager.getInstance().playSound('sfx_catch');
             for(let i = 1; i <= totalNum; i++) {

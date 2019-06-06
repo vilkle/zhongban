@@ -28,14 +28,8 @@ export default class GamePanel extends BaseUI {
     private mouse : sp.Skeleton = null;
     @property(sp.Skeleton)
     private miya : sp.Skeleton = null;
-    @property(cc.SpriteFrame)
-    private five : cc.SpriteFrame = null;
-    @property(cc.SpriteFrame)
-    private six : cc.SpriteFrame = null;
-    @property(cc.SpriteFrame)
-    private seven : cc.SpriteFrame = null;
-    @property(cc.SpriteFrame)
-    private eight : cc.SpriteFrame = null;
+    @property(cc.Node)
+    private miyaBox : cc.Node = null;
     private checkpointIndex = 1;
     private checkpointNum = 4;
     private enableClick : boolean = false;
@@ -56,6 +50,7 @@ export default class GamePanel extends BaseUI {
         if(ConstValue.IS_TEACHER) {
             UIManager.getInstance().openUI(UploadAndReturnPanel);
         }
+        this.getOriginPos();
     }
 
     start() {
@@ -86,16 +81,18 @@ export default class GamePanel extends BaseUI {
     gameStart() {
         AudioManager.getInstance().playSound('小仓鼠要吃哪堆食物', false);
         this.addListener();
+        this.round1();
+    }
+
+    getOriginPos() {
         for(let i = 1; i <= 10; i++) {
             var pos1 = this.box1.getChildByName(i.toString()).getPosition();
             this.pos1Arr[i - 1] = pos1;
-            var pos2 = this.box1.getChildByName(i.toString()).getPosition();
+            var pos2 = this.box2.getChildByName(i.toString()).getPosition();
             this.pos2Arr[i - 1] = pos2;
-            var pos3 = this.box1.getChildByName(i.toString()).getPosition();
+            var pos3 = this.box3.getChildByName(i.toString()).getPosition();
             this.pos3Arr[i - 1] = pos3;
         } 
-        this.round1();
-        AudioManager.getInstance().playSound('sfx_olnmOpn', false);
     }
 
     onDestroy() {
@@ -110,6 +107,7 @@ export default class GamePanel extends BaseUI {
     }
 
     round1() {
+        AudioManager.getInstance().playSound('sfx_olnmOpn', false);
         this.miya.setAnimation(0, 'jupaizi1', false);
         this.miya.setCompleteListener(trackEntry=>{
             if(trackEntry.animation.name == 'jupaizi1') {
@@ -259,6 +257,12 @@ export default class GamePanel extends BaseUI {
     }
 
     addListener() {
+        this.miyaBox.on(cc.Node.EventType.TOUCH_START, (e)=>{
+            //this.miya.setAnimation(0, 'idle1', false);
+            AudioManager.getInstance().stopAll();
+            AudioManager.getInstance().playSound('小仓鼠要吃哪堆食物', false);
+        });
+
         this.bg.on(cc.Node.EventType.TOUCH_START, function(e){
             if(!this.enableClick) {
                 return;

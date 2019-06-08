@@ -50,10 +50,10 @@ export class OverTips extends BaseUI {
         this.finishCallback();
         switch (type) {
             case 0:
-                Tools.playSpine(this.spine_false, "false", false, this.delayClose.bind(this));
+                //Tools.playSpine(this.spine_false, "false", false, this.delayClose.bind(this));
             break;
             case 1:
-                Tools.playSpine(this.spine_true, "true", false, this.delayClose.bind(this));
+                //Tools.playSpine(this.spine_true, "true", false, this.delayClose.bind(this));
             break;
             case 2:
                 Tools.playSpine(this.spine_complete, "in", false, function(){

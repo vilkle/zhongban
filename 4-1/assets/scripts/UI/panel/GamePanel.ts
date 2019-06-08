@@ -157,6 +157,7 @@ export default class GamePanel extends BaseUI {
                                 this.yige.setPosition(cc.v2(95, -90));
                                 this.yige.getComponent(sp.Skeleton).setAnimation(0, 'daiji', true);
                                 //this.yige.opacity = 0;
+                                //AudioManager.getInstance().playSound('阿欧', false);
                                 this.mask._graphics.clear();
                             }
                         }
@@ -168,13 +169,17 @@ export default class GamePanel extends BaseUI {
                         
                         if(this.isOver1 == false) {
                             if(this.judge) {
-                                AudioManager.getInstance().playSound('sfx_run',true,1,(id)=>{this.runAudioId = id}, null);
+                                AudioManager.getInstance().playSound('sfx_run',true,1,(id)=>{this.runAudioId = id; cc.log('id is ', this.runAudioId)}, null);
                                 this.yige.getComponent(sp.Skeleton).addAnimation(0, 'pao', true);
                                 this.judge = false;
                             }
                             this.yige.setPosition(posInBg);
                         }
                         if(this.end1.getBoundingBox().contains(this.node.convertToNodeSpaceAR(e.currentTouch._point))) {
+                            AudioManager.getInstance().stopAll();
+                            AudioManager.getInstance().playSound('不是这条路', false);
+                            this.yige.setPosition(cc.v2(95, -90));
+                            this.yige.getComponent(sp.Skeleton).setAnimation(0, 'daiji', true);
                             this.isOver = true;
                         }
                     }
@@ -219,6 +224,7 @@ export default class GamePanel extends BaseUI {
                             this.yige.setPosition(cc.v2(95, -90));
                             this.yige.getComponent(sp.Skeleton).setAnimation(0, 'daiji', true);
                             //this.yige.opacity = 0;
+                            //AudioManager.getInstance().playSound('阿欧', false);
                             this.mask1._graphics.clear();
                         }
                     }
@@ -255,17 +261,17 @@ export default class GamePanel extends BaseUI {
         this.bg.on(cc.Node.EventType.TOUCH_END, function(e) {
             if(this.isOver == false && this.isOver1 == false) {
                 this.isBreak = true;
+                AudioManager.getInstance().stopAudio(this.runAudioId); 
                 this.runAudioId = 0;
-                AudioManager.getInstance().stopAll();
                 this.judge = true;
                 this.mask._graphics.clear();
                 //this.yige.setPosition(cc.v2(95, -90));
             }
             if(this.isOver1 == false) {
                 this.isBreak1 = true;
-                this.runAudioId = 0;
-                AudioManager.getInstance().stopAll();
                 this.judge = true;
+                AudioManager.getInstance().stopAudio(this.runAudioId);
+                this.runAudioId = 0;
                 this.mask1._graphics.clear();
                 this.yige.setPosition(cc.v2(95, -90));
                 this.yige.getComponent(sp.Skeleton).setAnimation(0, 'daiji', true);

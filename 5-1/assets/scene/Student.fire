@@ -253,7 +253,7 @@
       "height": 960
     },
     "_fitWidth": true,
-    "_fitHeight": true,
+    "_fitHeight": false,
     "_id": "ea74M/Ku5NubbBBQaVntDi"
   },
   {
@@ -393,7 +393,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -257,
+      "y": -332,
       "z": 0
     },
     "_scale": {
@@ -726,7 +726,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 324,
-      "y": -255,
+      "y": -330,
       "z": 0
     },
     "_scale": {
@@ -824,7 +824,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": 0,
+      "y": -75,
       "z": 0
     },
     "_scale": {

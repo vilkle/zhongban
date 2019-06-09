@@ -223,6 +223,9 @@ export default class GamePanel extends BaseUI {
         for(let i = 0; i < this.placementArr.length; i++) {
             let answerNode = this.placementArr[i].getChildByName('answer');
             answerNode.on(cc.Node.EventType.TOUCH_START, (e)=>{
+                if(answerNode.opacity == 0) {
+                    return;
+                }
                 this.bubble.opacity = 255;
                 this.bubble.getComponent(cc.Sprite).spriteFrame = answerNode.getComponent(cc.Sprite).spriteFrame;
                 this.bubble.setPosition(this.node.convertToNodeSpaceAR(e.currentTouch._point));
@@ -230,6 +233,9 @@ export default class GamePanel extends BaseUI {
                 answerNode.parent.getChildByName('none').opacity = 255;
             });
             answerNode.on(cc.Node.EventType.TOUCH_MOVE, (e)=>{
+                if(this.bubble.opacity == 0) {
+                    return;
+                }
                 var location = this.node.convertToNodeSpaceAR(e.currentTouch._point);
                 if(location.x > this.node.width /2 - this.bubble.width / 2) {
                     this.bubble.x = this.node.width /2 - this.bubble.width / 2;
@@ -247,6 +253,9 @@ export default class GamePanel extends BaseUI {
                 }
             });
             answerNode.on(cc.Node.EventType.TOUCH_END, (e)=>{
+                if(this.bubble.opacity == 0) {
+                    return;
+                }
                 this.bubble.opacity = 0;
                 answerNode.opacity = 255;
                 answerNode.parent.getChildByName('none').opacity = 0;

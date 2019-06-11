@@ -40,13 +40,14 @@ export default class GamePanel extends BaseUI {
     private checkpointIndex : number = 0;
     private randomNum : number = 0;
     private intervalIndex = 0;
+    private isOver : number = 0;
     private eventvalue = {
         isResult: 1,
         isLevel: 1,
         levelData: [
 
         ],
-        result: 2
+        result: 4
     }
     onLoad() {
         this.initAnswerArr();
@@ -101,7 +102,7 @@ export default class GamePanel extends BaseUI {
             DataReporting.isRepeatReport = false;
         }
         //eventValue  0为未答题   1为答对了    2为答错了或未完成
-        DataReporting.getInstance().dispatchEvent('end_finished', { eventType: 'activity', eventValue: 0 });
+        DataReporting.getInstance().dispatchEvent('end_finished', { eventType: 'activity', eventValue: this.isOver });
     }
 
     onDestroy() {
@@ -168,55 +169,46 @@ export default class GamePanel extends BaseUI {
         this.boardNode.getChildByName('answer3').active = false;
         AudioManager.getInstance().playSound('sfx_ccopn', false);
         this.plateNode1.runAction(cc.sequence( cc.moveBy(0.6, cc.v2(0, 800)), cc.callFunc(function(){
-            //this.round2();
             this.enableSelect = true;
             this.mask.active = false;
         }.bind(this))));
-
-
     }
 
     round2() {
-        this.checkpointIndex = 2;
-        this.mask.active = true;
-        this.ovenNode.runAction(cc.sequence(cc.moveBy(0.3, cc.v2(0, 210)),cc.callFunc(function(){
-            AudioManager.getInstance().playSound('sfx_mcrwvopn', false);
-            this.plateNode1.runAction(cc.sequence(cc.moveBy(0.6, cc.v2(0, 970)),cc.callFunc(function(){
-                this.ovenNode.runAction(cc.sequence(cc.moveBy(0.3, cc.v2(0, -210)), cc.callFunc(function(){
-                    AudioManager.getInstance().playSound('sfx_ccopn', false);
-                    this.plateNode2.runAction(cc.sequence( cc.moveBy(0.6, cc.v2(0, 800)), cc.callFunc(function(){
-                        this.boardNode.getChildByName('pic3').active = true;
-                        this.boardNode.getChildByName('answer3').active = true;
-                        this.reset();
-                        //this.round3();
-                        this.mask.active = false;
-                        this.enableSelect = true;
-                        cc.log('action over');
-                    }.bind(this))));
+        setTimeout(() => {
+            this.checkpointIndex = 2;
+            this.mask.active = true;
+    
+            this.boardNode.getChildByName('pic3').active = true;
+            this.boardNode.getChildByName('answer3').active = true;
+            this.reset();
+            AudioManager.getInstance().playSound('sfx_ccopn');
+            this.plateNode1.runAction(cc.sequence(cc.moveBy(0.6, cc.v2(0, -800)), cc.callFunc(()=>{
+                AudioManager.getInstance().playSound('sfx_ccopn');
+                this.plateNode2.runAction(cc.sequence( cc.moveBy(0.6, cc.v2(0, 800)), cc.callFunc(function(){
+                    this.enableSelect = true;
+                    this.mask.active = false;
                 }.bind(this))));
-            }.bind(this))));
-        }.bind(this))));
+            }) ));
+        }, 2000);
     }
 
     round3() {
-        this.mask.active = true;
-        this.checkpointIndex = 3;
-        this.ovenNode.runAction(cc.sequence(cc.moveBy(0.3, cc.v2(0, 210)),cc.callFunc(function(){
-            AudioManager.getInstance().playSound('sfx_mcrwvopn', false);
-            this.plateNode2.runAction(cc.sequence(cc.moveBy(0.6, cc.v2(0, 970)),cc.callFunc(function(){
-                this.ovenNode.runAction(cc.sequence(cc.moveBy(0.3, cc.v2(0, -210)), cc.callFunc(function(){
-                    AudioManager.getInstance().playSound('sfx_ccopn', false);
-                    this.plateNode3.runAction(cc.sequence( cc.moveBy(0.6, cc.v2(0, 800)), cc.callFunc(function(){
-                        this.boardNode.getChildByName('pic3').active = true;
-                        this.boardNode.getChildByName('answer3').active = true;
-                        this.reset();
-                        this.mask.active = false;
-                        this.enableSelect = true;
-                        cc.log('action over');
-                    }.bind(this))));
+        setTimeout(() => {
+            this.checkpointIndex = 3;
+            this.mask.active = true;
+            this.boardNode.getChildByName('pic3').active = true;
+            this.boardNode.getChildByName('answer3').active = true;
+            this.reset();
+            AudioManager.getInstance().playSound('sfx_ccopn');
+            this.plateNode2.runAction(cc.sequence(cc.moveBy(0.6, cc.v2(0, -800)), cc.callFunc(()=>{
+                AudioManager.getInstance().playSound('sfx_ccopn');
+                this.plateNode3.runAction(cc.sequence( cc.moveBy(0.6, cc.v2(0, 800)), cc.callFunc(function(){
+                    this.enableSelect = true;
+                    this.mask.active = false;
                 }.bind(this))));
-            }.bind(this))));
-        }.bind(this))));
+            }) ));
+        }, 2000);
     }
 
     addListenerOnAnswer() { 
@@ -364,7 +356,21 @@ export default class GamePanel extends BaseUI {
         if(this.checkpointIndex == 1) {
             if(this.boardNode.getChildByName('answer1').getChildByName('answer').getComponent(cc.Sprite).spriteFrame == this.answerNode.getChildByName('3').getComponent(cc.Sprite).spriteFrame&&this.boardNode.getChildByName('answer1').getChildByName('answer').opacity == 255) {
                 if(this.boardNode.getChildByName('answer2').getChildByName('answer').getComponent(cc.Sprite).spriteFrame == this.answerNode.getChildByName('2').getComponent(cc.Sprite).spriteFrame&&this.boardNode.getChildByName('answer2').getChildByName('answer').opacity == 255) {
-                    this.plateNode1.getChildByName('right').active = true;
+                    AudioManager.getInstance().playSound('答对啦你真棒');
+                    this.ovenNode.runAction(cc.sequence(cc.moveBy(0.3, cc.v2(0, 210)),cc.callFunc(function(){
+                        AudioManager.getInstance().playSound('sfx_ccopn', false);
+                        this.plateNode1.runAction(cc.sequence(cc.moveBy(0.6, cc.v2(0, 970)),cc.callFunc(function(){
+                            this.ovenNode.runAction(cc.sequence(cc.moveBy(0.3, cc.v2(0, -210)), cc.callFunc(()=>{AudioManager.getInstance().playSound('sfx_mcrwvopn')}), cc.moveBy(0.3, cc.v2(0, 210)),cc.callFunc(function(){
+                                this.plateNode1.getChildByName('right').active = true;
+                                AudioManager.getInstance().playSound('sfx_ccopn');
+                                this.plateNode1.runAction(cc.sequence(cc.moveBy(0.6, cc.v2(0, -970)), cc.callFunc(()=>{
+                                    this.ovenNode.runAction(cc.sequence(cc.moveBy(0.3, cc.v2(0, -210)), cc.callFunc(()=>{
+                                       this.round2();
+                                    }) ));
+                                })));     
+                            }.bind(this))));
+                        }.bind(this))));
+                    }.bind(this))));
                     this.submitButton.interactable = false;
                     return true;
                 }else {
@@ -381,7 +387,21 @@ export default class GamePanel extends BaseUI {
             if(this.boardNode.getChildByName('answer1').getChildByName('answer').getComponent(cc.Sprite).spriteFrame == this.answerNode.getChildByName('3').getComponent(cc.Sprite).spriteFrame&&this.boardNode.getChildByName('answer1').getChildByName('answer').opacity == 255) {
                 if(this.boardNode.getChildByName('answer2').getChildByName('answer').getComponent(cc.Sprite).spriteFrame == this.answerNode.getChildByName('3').getComponent(cc.Sprite).spriteFrame&&this.boardNode.getChildByName('answer2').getChildByName('answer').opacity == 255) {
                     if(this.boardNode.getChildByName('answer3').getChildByName('answer').getComponent(cc.Sprite).spriteFrame == this.answerNode.getChildByName('5').getComponent(cc.Sprite).spriteFrame&&this.boardNode.getChildByName('answer3').getChildByName('answer').opacity == 255) {
-                        this.plateNode2.getChildByName('right').active = true;
+                        AudioManager.getInstance().playSound('答对啦你真棒');
+                        this.ovenNode.runAction(cc.sequence(cc.moveBy(0.3, cc.v2(0, 210)),cc.callFunc(function(){
+                            AudioManager.getInstance().playSound('sfx_ccopn', false);
+                            this.plateNode2.runAction(cc.sequence(cc.moveBy(0.6, cc.v2(0, 970)),cc.callFunc(function(){
+                                this.ovenNode.runAction(cc.sequence(cc.moveBy(0.3, cc.v2(0, -210)), cc.callFunc(()=>{AudioManager.getInstance().playSound('sfx_mcrwvopn')}), cc.moveBy(0.3, cc.v2(0, 210)),cc.callFunc(function(){
+                                    this.plateNode2.getChildByName('right').active = true;
+                                    AudioManager.getInstance().playSound('sfx_ccopn');
+                                    this.plateNode2.runAction(cc.sequence(cc.moveBy(0.6, cc.v2(0, -970)), cc.callFunc(()=>{
+                                        this.ovenNode.runAction(cc.sequence(cc.moveBy(0.3, cc.v2(0, -210)), cc.callFunc(()=>{
+                                           this.round3();
+                                        }) ));
+                                    })));     
+                                }.bind(this))));
+                            }.bind(this))));
+                        }.bind(this))));
                         this.submitButton.interactable = false;
                         return true;
                     }else {
@@ -403,7 +423,21 @@ export default class GamePanel extends BaseUI {
             if(this.boardNode.getChildByName('answer1').getChildByName('answer').getComponent(cc.Sprite).spriteFrame == this.answerNode.getChildByName('3').getComponent(cc.Sprite).spriteFrame&&this.boardNode.getChildByName('answer1').getChildByName('answer').opacity == 255) {
                 if(this.boardNode.getChildByName('answer2').getChildByName('answer').getComponent(cc.Sprite).spriteFrame == this.answerNode.getChildByName('2').getComponent(cc.Sprite).spriteFrame&&this.boardNode.getChildByName('answer2').getChildByName('answer').opacity == 255) {
                     if(this.boardNode.getChildByName('answer3').getChildByName('answer').getComponent(cc.Sprite).spriteFrame == this.answerNode.getChildByName('7').getComponent(cc.Sprite).spriteFrame&&this.boardNode.getChildByName('answer3').getChildByName('answer').opacity == 255) {
-                        this.plateNode3.getChildByName('right').active = true;
+                        AudioManager.getInstance().playSound('答对啦你真棒');
+                        this.ovenNode.runAction(cc.sequence(cc.moveBy(0.3, cc.v2(0, 210)),cc.callFunc(function(){
+                            AudioManager.getInstance().playSound('sfx_ccopn', false);
+                            this.plateNode3.runAction(cc.sequence(cc.moveBy(0.6, cc.v2(0, 970)),cc.callFunc(function(){
+                                this.ovenNode.runAction(cc.sequence(cc.moveBy(0.3, cc.v2(0, -210)), cc.callFunc(()=>{AudioManager.getInstance().playSound('sfx_mcrwvopn')}), cc.moveBy(0.3, cc.v2(0, 210)),cc.callFunc(function(){
+                                    this.plateNode3.getChildByName('right').active = true;
+                                    AudioManager.getInstance().playSound('sfx_ccopn');
+                                    this.plateNode3.runAction(cc.sequence(cc.moveBy(0.6, cc.v2(0, -970)), cc.callFunc(()=>{
+                                        this.ovenNode.runAction(cc.sequence(cc.moveBy(0.3, cc.v2(0, -210)), cc.callFunc(()=>{
+                                           this.success();
+                                        }) ));
+                                    })));     
+                                }.bind(this))));
+                            }.bind(this))));
+                        }.bind(this))));
                         this.submitButton.interactable = false;
                         return true;
                     }else {
@@ -425,33 +459,31 @@ export default class GamePanel extends BaseUI {
     }
 
     submit() {
-        cc.log('------------');
         if(this.enableSelect) {
             if(this.isRight()) {
                 this.enableSelect = false;
-                if(this.checkpointIndex == 1){
-                    setTimeout(() => {
-                        this.round2();
-                    }, 2000);
-                }else if(this.checkpointIndex == 2) {
-                    setTimeout(() => {
-                        this.round3();
-                    }, 2000);
-                }else if(this.checkpointIndex == 3) {
-                    this.success();
-                }
+               this.isOver = 2;
+               this.eventvalue.result = 2;
+               this.eventvalue.levelData[this.checkpointIndex-1].result = 1;
             }else {
                 this.enableSelect = true;
+                this.isOver = 2;
+               this.eventvalue.result = 2;
+               this.eventvalue.levelData[this.checkpointIndex-1].result = 2;
             }
         }
     }
 
     success() {
-        UIHelp.showOverTips(2,'闯关成功，棒棒的', function(){
-            AudioManager.getInstance().playSound('闯关成功，棒棒的');
-        }.bind(this), function(){}.bind(this));
-        this.mask.active = true;
+        setTimeout(() => {
+            UIHelp.showOverTips(2,'闯关成功，棒棒的', function(){
+                AudioManager.getInstance().playSound('闯关成功，棒棒的');
+            }.bind(this), function(){}.bind(this));
+            this.mask.active = true;
+        }, 2000);
+      
         this.eventvalue.result = 1;
+        this.isOver = 1;
         DataReporting.getInstance().dispatchEvent('addLog', {
             eventType: 'clickSubmit',
             eventValue: JSON.stringify(this.eventvalue)

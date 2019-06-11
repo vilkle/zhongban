@@ -45,13 +45,15 @@ export default class GamePanel extends BaseUI {
     private audioEnable : boolean = false;
     private timeoutIndex : number = 0;
     private fiveAlready: boolean = false;
+    private touchEnd : boolean = true;
+    private isOver : number = 0;
     private eventvalue = {
         isResult: 1,
         isLevel: 1,
         levelData: [
 
         ],
-        result: 2
+        result: 4
     }
 
     onLoad() {
@@ -121,7 +123,7 @@ export default class GamePanel extends BaseUI {
             DataReporting.isRepeatReport = false;
         }
         //eventValue  0为未答题   1为答对了    2为答错了或未完成
-        DataReporting.getInstance().dispatchEvent('end_finished', { eventType: 'activity', eventValue: 0 });
+        DataReporting.getInstance().dispatchEvent('end_finished', { eventType: 'activity', eventValue: this.isOver });
     }
 
     onDestroy() {
@@ -290,6 +292,8 @@ export default class GamePanel extends BaseUI {
             this.eventvalue.levelData[0].subject = '';
             this.eventvalue.levelData[0].answer = '';
             this.eventvalue.levelData[0].result = 1;
+            this.eventvalue.result = 2;
+            this.isOver = 2;
             setTimeout(function(){
                 this.round2(6);
             }.bind(this), 2000);
@@ -299,6 +303,8 @@ export default class GamePanel extends BaseUI {
             this.eventvalue.levelData[1].subject = '';
             this.eventvalue.levelData[1].answer = '';
             this.eventvalue.levelData[1].result = 1;
+            this.eventvalue.result = 2;
+            this.isOver = 2;
             setTimeout(function(){
                 this.round3(7);
             }.bind(this), 2000);
@@ -308,6 +314,8 @@ export default class GamePanel extends BaseUI {
             this.eventvalue.levelData[2].subject = '';
             this.eventvalue.levelData[2].answer = '';
             this.eventvalue.levelData[2].result = 1;
+            this.eventvalue.result = 2;
+            this.isOver = 2;
             setTimeout(function(){
                 this.round4(8);
             }.bind(this), 2000);
@@ -317,6 +325,8 @@ export default class GamePanel extends BaseUI {
             this.eventvalue.levelData[3].subject = '';
             this.eventvalue.levelData[3].answer = '';
             this.eventvalue.levelData[3].result = 1;
+            this.eventvalue.result = 2;
+            this.isOver = 2;
             setTimeout(function(){
                 this.round5(9);
             }.bind(this), 2000);
@@ -326,6 +336,8 @@ export default class GamePanel extends BaseUI {
             this.eventvalue.levelData[4].subject = '';
             this.eventvalue.levelData[4].answer = '';
             this.eventvalue.levelData[4].result = 1;
+            this.eventvalue.result = 1;
+            this.isOver = 1;
             DataReporting.getInstance().dispatchEvent('addLog', {
                 eventType: 'clickSubmit',
                 eventValue: JSON.stringify(this.eventvalue)
@@ -358,6 +370,10 @@ export default class GamePanel extends BaseUI {
                     AudioManager.getInstance().playSound('记得数全哦',false,1,(id)=>{this.audioArr.push(id)}, function(id){this.audioArr.filter(item =>item !== id); this.audioEnable = true;}.bind(this));
             }.bind(this), 3000);
             this.isTouch = true;
+            if(!this.touchEnd) {
+                return;
+            }
+            this.touchEnd = false;
             AudioManager.getInstance().playSound('sfx_catch');
             for(let i = 1; i <= totalNum; i++) {
                 let pos = this.itemNode.getChildByName(i.toString()).getPosition();
@@ -387,6 +403,7 @@ export default class GamePanel extends BaseUI {
             }  
         }.bind(this));
         item.on(cc.Node.EventType.TOUCH_END, function(e){
+            this.touchEnd = true;
             if(dirNode.getChildByName('boundingbox').getBoundingBox().contains(dirNode.convertToNodeSpaceAR(e.currentTouch._point))) {
                 if(IndexNum <= 5) {
                     this.fiveAlready = true;
@@ -458,6 +475,7 @@ export default class GamePanel extends BaseUI {
                     }
                 }   
             }else {
+                
                 if(IndexNum <= 5) {
                     for(let i = 1; i <= 5; i++) {
                         let node = this.itemNode.getChildByName(i.toString());

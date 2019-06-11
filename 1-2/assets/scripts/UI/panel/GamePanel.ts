@@ -37,13 +37,14 @@ export default class GamePanel extends BaseUI {
     private pos2Arr : Array<cc.Vec2> = Array<cc.Vec2>();
     private pos3Arr : Array<cc.Vec2> = Array<cc.Vec2>();
     private answerArr : Array<number> = [1,3,2,1]; 
+    private isOver : number = 0;
     private eventvalue = {
         isResult: 1,
         isLevel: 1,
         levelData: [
 
         ],
-        result: 2
+        result: 4
     }
 
     onLoad() {
@@ -75,7 +76,7 @@ export default class GamePanel extends BaseUI {
             DataReporting.isRepeatReport = false;
         }
         //eventValue  0为未答题   1为答对了    2为答错了或未完成
-        DataReporting.getInstance().dispatchEvent('end_finished', { eventType: 'activity', eventValue: 0 });
+        DataReporting.getInstance().dispatchEvent('end_finished', { eventType: 'activity', eventValue: this.isOver });
     }
 
     gameStart() {
@@ -146,6 +147,7 @@ export default class GamePanel extends BaseUI {
     }
 
     round2() {
+        AudioManager.getInstance().playSound('小仓鼠要吃哪堆食物', false);
         AudioManager.getInstance().playSound('sfx_olnmOpn', false);
         this.miya.setAnimation(0, 'jupaizi2', false);
         this.miya.setCompleteListener(trackEntry=>{
@@ -183,6 +185,7 @@ export default class GamePanel extends BaseUI {
     }
 
     round3() {
+        AudioManager.getInstance().playSound('小仓鼠要吃哪堆食物', false);
         AudioManager.getInstance().playSound('sfx_olnmOpn', false);
         this.miya.setAnimation(0, 'jupaizi3', false);
         this.miya.setCompleteListener(trackEntry=>{
@@ -220,6 +223,7 @@ export default class GamePanel extends BaseUI {
     }
 
     round4() {
+        AudioManager.getInstance().playSound('小仓鼠要吃哪堆食物', false);
         AudioManager.getInstance().playSound('sfx_olnmOpn', false);
         this.miya.setAnimation(0, 'jupaizi4', false);
         this.miya.setCompleteListener(trackEntry=>{
@@ -270,21 +274,18 @@ export default class GamePanel extends BaseUI {
             if(this.box1.getBoundingBox().contains(this.node.convertToNodeSpaceAR(e.currentTouch._point))){
                 this.eventvalue.levelData[this.checkpointIndex-1].answer = this.answerArr[this.checkpointIndex-1];
                 this.eventvalue.levelData[this.checkpointIndex-1].subject = 1;
-                this.eventvalue.levelData[this.checkpointIndex-1].result = 2;
                AudioManager.getInstance().stopAll();
                AudioManager.getInstance().playSound('sfx_touch', false);
                this.box1.runAction(cc.sequence(cc.scaleTo(0.1, 0.9), cc.scaleTo(0.1, 1)));
             }else if(this.box2.getBoundingBox().contains(this.node.convertToNodeSpaceAR(e.currentTouch._point))) {
                 this.eventvalue.levelData[this.checkpointIndex-1].answer = this.answerArr[this.checkpointIndex-1];
                 this.eventvalue.levelData[this.checkpointIndex-1].subject = 2;
-                this.eventvalue.levelData[this.checkpointIndex-1].result = 2;
                 AudioManager.getInstance().stopAll();
                AudioManager.getInstance().playSound('sfx_touch', false);
                this.box2.runAction(cc.sequence(cc.scaleTo(0.1, 0.9), cc.scaleTo(0.1, 1)));
             }else if(this.box3.getBoundingBox().contains(this.node.convertToNodeSpaceAR(e.currentTouch._point))) {
                 this.eventvalue.levelData[this.checkpointIndex-1].answer = this.answerArr[this.checkpointIndex-1];
                 this.eventvalue.levelData[this.checkpointIndex-1].subject = 3;
-                this.eventvalue.levelData[this.checkpointIndex-1].result = 2;
                 AudioManager.getInstance().stopAll();
                AudioManager.getInstance().playSound('sfx_touch', false);
                this.box3.runAction(cc.sequence(cc.scaleTo(0.1, 0.9), cc.scaleTo(0.1, 1)));
@@ -306,7 +307,10 @@ export default class GamePanel extends BaseUI {
 
     isRight(boxNum : number, roundNum : number):boolean {
         if(roundNum == 1) {
+            this.isOver = 2;
+            this.eventvalue.result = 2;
             if(boxNum == 1) {
+                
                 AudioManager.getInstance().playSound('耶');
                 this.eventvalue.levelData[this.checkpointIndex-1].result = 1;
                 this.enableClick = false;
@@ -330,13 +334,17 @@ export default class GamePanel extends BaseUI {
                         }
                     }.bind(this))));
                 }
+                this.eventvalue.levelData[0].result = 1;
                 return true;
             }else {
+                this.eventvalue.levelData[0].result = 2;
                 AudioManager.getInstance().stopAll();
                 AudioManager.getInstance().playSound('阿欧');
                 return false;
             }
         }else if(roundNum == 2) {
+            this.isOver = 2;
+            this.eventvalue.result = 2;
             if(boxNum == 3) {
                 AudioManager.getInstance().playSound('耶');
                 this.eventvalue.levelData[this.checkpointIndex-1].result = 1;
@@ -361,14 +369,18 @@ export default class GamePanel extends BaseUI {
                         }
                     }.bind(this))));
                 }
+                this.eventvalue.levelData[1].result = 1;
                 return true;
             }else {
+                this.eventvalue.levelData[1].result = 2;
                 AudioManager.getInstance().stopAll();
                 AudioManager.getInstance().playSound('阿欧');
                 return false;
             }
         }
         else if(roundNum == 3) {
+            this.isOver = 2;
+            this.eventvalue.result = 2;
             if(boxNum == 2) {
                 AudioManager.getInstance().playSound('耶');
                 this.eventvalue.levelData[this.checkpointIndex-1].result = 1;
@@ -393,14 +405,18 @@ export default class GamePanel extends BaseUI {
                         }
                     }.bind(this))));
                 }
+                this.eventvalue.levelData[2].result = 1;
                 return true;
             }else {
+                this.eventvalue.levelData[2].result = 2;
                 AudioManager.getInstance().stopAll();
                 AudioManager.getInstance().playSound('阿欧');
                 return false;
             }
         }
         else if(roundNum == 4) {
+            this.isOver = 1;
+            this.eventvalue.result = 1;
             if(boxNum == 1) {
                 AudioManager.getInstance().playSound('耶');
                 this.eventvalue.levelData[this.checkpointIndex-1].result = 1;
@@ -425,8 +441,10 @@ export default class GamePanel extends BaseUI {
                         }
                     }.bind(this))));
                 }
+                this.eventvalue.levelData[3].result = 1;
                 return true;
             }else {
+                this.eventvalue.levelData[3].result = 2;
                 AudioManager.getInstance().stopAll();
                 AudioManager.getInstance().playSound('阿欧');
                 return false;

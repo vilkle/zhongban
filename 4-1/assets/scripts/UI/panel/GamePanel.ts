@@ -46,12 +46,13 @@ export default class GamePanel extends BaseUI {
     private layout : cc.Node = null;
     private runAudioId : number = 0;
     private judge : boolean = true;
+    private isEnd : number = 0;
     private eventvalue = {
         isResult: 1,
         isLevel: 0,
         levelData: [
         ],
-        result: 2
+        result: 4
     }
 
     _textureIdMapRenderTexture = {}
@@ -73,7 +74,6 @@ export default class GamePanel extends BaseUI {
         this.yige.getComponent(sp.Skeleton).setCompleteListener(trackEntry=>{
             if(trackEntry.animation.name == 'tiao') {
                 AudioManager.getInstance().playSound('帮我找到出口吧', false);
-                cc.log('bangwozhaodaochukouba');
             }
         });
         this.addListenerOnRound1();
@@ -90,7 +90,7 @@ export default class GamePanel extends BaseUI {
             DataReporting.isRepeatReport = false;
         }
         //eventValue  0为未答题   1为答对了    2为答错了或未完成
-        DataReporting.getInstance().dispatchEvent('end_finished', { eventType: 'activity', eventValue: 0 });
+        DataReporting.getInstance().dispatchEvent('end_finished', { eventType: 'activity', eventValue: this.isEnd });
     }
 
     initBackground() {
@@ -99,22 +99,24 @@ export default class GamePanel extends BaseUI {
     }
 
     addListenerOnRound1() {
-        this.yige.on(cc.Node.EventType.TOUCH_START, (e)=>{
-            if(this.yige.getBoundingBox().contains(this.bg.convertToNodeSpaceAR(e.currentTouch._point))) {
-                if(!this.isOver1) {
-                    AudioManager.getInstance().stopAll();
-                    AudioManager.getInstance().playSound('帮我找到出口吧', false);
-                    cc.log('bangwozhaodaochukouba');
-                }
-            }
-        });
         this.bg.on(cc.Node.EventType.TOUCH_START, function(e) {
             if(this.start1.getBoundingBox().contains(this.node.convertToNodeSpaceAR(e.currentTouch._point))) {
+                cc.log('isbreak is false');
                 this.isBreak = false;
             }else if(this.start2.getBoundingBox().contains(this.node.convertToNodeSpaceAR(e.currentTouch._point))) {
                 this.isBreak1 = false;
+                cc.log('isbreak1 is false');
             }
-        }.bind(this));
+            if(this.yige.getBoundingBox().contains(this.bg.convertToNodeSpaceAR(e.currentTouch._point))) {
+                if(!this.start2.getBoundingBox().contains(this.node.convertToNodeSpaceAR(e.currentTouch._point))) {
+                    if(!this.isOver1) {
+                        AudioManager.getInstance().stopAll();
+                        AudioManager.getInstance().playSound('帮我找到出口吧', false);
+                        cc.log('bangwozhaodaochukouba');
+                    }
+                }
+            }
+        }.bind(this), this, true);
         this.bg.on(cc.Node.EventType.TOUCH_MOVE, function(e) {
             let posInBg = this.node.convertToNodeSpaceAR(e.currentTouch._point);
             //round1
@@ -154,7 +156,7 @@ export default class GamePanel extends BaseUI {
                                 AudioManager.getInstance().stopAll();
                                 this.runAudioId = 0;
                                 this.judge = true;
-                                this.yige.setPosition(cc.v2(95, -90));
+                                this.yige.setPosition(cc.v2(28, -132));
                                 this.yige.getComponent(sp.Skeleton).setAnimation(0, 'daiji', true);
                                 //this.yige.opacity = 0;
                                 //AudioManager.getInstance().playSound('阿欧', false);
@@ -176,9 +178,11 @@ export default class GamePanel extends BaseUI {
                             this.yige.setPosition(posInBg);
                         }
                         if(this.end1.getBoundingBox().contains(this.node.convertToNodeSpaceAR(e.currentTouch._point))) {
+                            this.isEnd = 2;
+                            this.eventvalue.result = 2;
                             AudioManager.getInstance().stopAll();
                             AudioManager.getInstance().playSound('不是这条路', false);
-                            this.yige.setPosition(cc.v2(95, -90));
+                            this.yige.setPosition(cc.v2(28, -132));
                             this.yige.getComponent(sp.Skeleton).setAnimation(0, 'daiji', true);
                             this.isOver = true;
                         }
@@ -221,7 +225,7 @@ export default class GamePanel extends BaseUI {
                             this.runAudioId = 0;
                             AudioManager.getInstance().stopAll();
                             this.judge = true;
-                            this.yige.setPosition(cc.v2(95, -90));
+                            this.yige.setPosition(cc.v2(28, -132));
                             this.yige.getComponent(sp.Skeleton).setAnimation(0, 'daiji', true);
                             //this.yige.opacity = 0;
                             //AudioManager.getInstance().playSound('阿欧', false);
@@ -244,10 +248,10 @@ export default class GamePanel extends BaseUI {
                             this.isOver1 = true;
                             AudioManager.getInstance().stopAudio(this.runAudioId);
                             this.runAudioId = 0;
-                            //AudioManager.getInstance().playSound('谢谢你帮我找到出口',false, 1,(id)=>{},()=>{this.success();});
                             AudioManager.getInstance().playSound('sfx_winnerrun', false,1,(id)=>{},()=>{AudioManager.getInstance().playSound('谢谢你帮我找到出口',false, 1,(id)=>{},()=>{this.success();});});
                             this.yige.getComponent(sp.Skeleton).setAnimation(0, 'daiji', false);
                             this.eventvalue.result = 1;
+                            this.isEnd = 1;
                             DataReporting.getInstance().dispatchEvent('addLog', {
                                 eventType: 'clickSubmit',
                                 eventValue: JSON.stringify(this.eventvalue)
@@ -256,7 +260,7 @@ export default class GamePanel extends BaseUI {
                     }
             }
         }
-        }.bind(this));
+        }.bind(this), this, true);
 
         this.bg.on(cc.Node.EventType.TOUCH_END, function(e) {
             if(this.isOver == false && this.isOver1 == false) {
@@ -273,12 +277,12 @@ export default class GamePanel extends BaseUI {
                 AudioManager.getInstance().stopAudio(this.runAudioId);
                 this.runAudioId = 0;
                 this.mask1._graphics.clear();
-                this.yige.setPosition(cc.v2(95, -90));
+                this.yige.setPosition(cc.v2(28, -132));
                 this.yige.getComponent(sp.Skeleton).setAnimation(0, 'daiji', true);
                 //this.yige.opacity = 0;
             }
            
-        }.bind(this));
+        }.bind(this), this, true);
         this.round1.node.on(cc.Node.EventType.TOUCH_CANCEL, function(e) {
             
         }.bind(this));

@@ -51,6 +51,11 @@ export default class GamePanel extends BaseUI {
         isResult: 1,
         isLevel: 0,
         levelData: [
+            {
+                subject: null,
+                answer: null,
+                result: 4
+            }
         ],
         result: 4
     }
@@ -101,11 +106,9 @@ export default class GamePanel extends BaseUI {
     addListenerOnRound1() {
         this.bg.on(cc.Node.EventType.TOUCH_START, function(e) {
             if(this.start1.getBoundingBox().contains(this.node.convertToNodeSpaceAR(e.currentTouch._point))) {
-                cc.log('isbreak is false');
                 this.isBreak = false;
             }else if(this.start2.getBoundingBox().contains(this.node.convertToNodeSpaceAR(e.currentTouch._point))) {
                 this.isBreak1 = false;
-                cc.log('isbreak1 is false');
             }
             if(this.yige.getBoundingBox().contains(this.bg.convertToNodeSpaceAR(e.currentTouch._point))) {
                 if(!this.start2.getBoundingBox().contains(this.node.convertToNodeSpaceAR(e.currentTouch._point))) {
@@ -252,6 +255,8 @@ export default class GamePanel extends BaseUI {
                             this.yige.getComponent(sp.Skeleton).setAnimation(0, 'daiji', false);
                             this.eventvalue.result = 1;
                             this.isEnd = 1;
+                            this.eventvalue.levelData[0].result = 1;
+                            cc.log('----eventvalue', this.eventvalue);
                             DataReporting.getInstance().dispatchEvent('addLog', {
                                 eventType: 'clickSubmit',
                                 eventValue: JSON.stringify(this.eventvalue)

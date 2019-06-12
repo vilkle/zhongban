@@ -59,8 +59,8 @@ export default class GamePanel extends BaseUI {
         DataReporting.getInstance().addEvent('end_game', this.onEndGame.bind(this));
         for(let i = 0; i < 4; i++) {
             this.eventvalue.levelData.push({
-                subject: null,
-                answer: null,
+                subject: 'null',
+                answer: 'null',
                 result: 4
             });
         }

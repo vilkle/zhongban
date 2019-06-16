@@ -362,6 +362,8 @@ export default class GamePanel extends BaseUI {
     }
     addListener(item : cc.Node, IndexNum : number, totalNum : number, dirNode : cc.Node, dirFrame : cc.SpriteFrame) {
         item.on(cc.Node.EventType.TOUCH_START, function(e){
+            this.eventvalue.result = 2;
+            this.isOver = 2;
             if(!this.fiveAlready&&IndexNum > 5) {
                 return;
             }

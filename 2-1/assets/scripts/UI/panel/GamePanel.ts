@@ -34,6 +34,8 @@ export default class GamePanel extends BaseUI {
     private four :cc.SpriteFrame = null;
     @property(cc.Node)
     private boundingbox :cc.Node = null;
+    @property(cc.Node)
+    private bg :cc.Node = null;
     private answerArr : Array<cc.Sprite> = Array<cc.Sprite>();
     private checkpointNum : number = 0;
     private enableClick : boolean = false;
@@ -68,6 +70,14 @@ export default class GamePanel extends BaseUI {
     }
 
     start() {
+        this.bg.on(cc.Node.EventType.TOUCH_START, (e)=>{
+            if(this.isOver != 1) {
+                this.isOver = 2;
+                this.eventvalue.result = 2;
+                this.eventvalue.levelData[this.checkpointNum -1].result = 2;
+            }
+        });
+
         DataReporting.getInstance().addEvent('end_game', this.onEndGame.bind(this));
         for(let i = 0; i < 5; i++) {
             this.eventvalue.levelData.push({
@@ -88,7 +98,7 @@ export default class GamePanel extends BaseUI {
 
     onEndGame() {
         //如果已经上报过数据 则不再上报数据
-        if (DataReporting.isRepeatReport) {
+        if (DataReporting.isRepeatReport && this.eventvalue.result != 1) {
             DataReporting.getInstance().dispatchEvent('addLog', {
                 eventType: 'clickSubmit',
                 eventValue: JSON.stringify(this.eventvalue)
@@ -240,6 +250,12 @@ export default class GamePanel extends BaseUI {
         var startPos: cc.Vec2 = cc.v2(0, 0);
         for(let i = 0; i < this.answerArr.length; i++) {
             this.answerArr[i].node.on(cc.Node.EventType.TOUCH_START, function(e){
+                if(this.isOver != 1) {
+                    this.isOver = 2;
+                    this.eventvalue.result = 2;
+                    this.eventvalue.levelData[this.checkpointNum-1].result = 2
+                }
+    
                 if(!this.enableClick) {
                     return;
                 }
@@ -369,7 +385,8 @@ export default class GamePanel extends BaseUI {
     }
 
     onDestroy() {
-
+        cc.audioEngine.stopAll();
+        cc.audioEngine.stopMusic();
     }
 
     onShow() {

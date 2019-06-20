@@ -67,6 +67,14 @@ export default class GamePanel extends BaseUI {
     isOver1 : boolean = false;
 
     start() {
+        this.bg.on(cc.Node.EventType.TOUCH_START, (e)=>{
+            if(this.isEnd != 1) {
+                this.isEnd = 2;
+                this.eventvalue.result = 2;
+                this.eventvalue.levelData[0].result = 2;
+            }
+        });
+
         DataReporting.getInstance().addEvent('end_game', this.onEndGame.bind(this));
         if(ConstValue.IS_TEACHER) {
             UIManager.getInstance().openUI(UploadAndReturnPanel);
@@ -87,7 +95,7 @@ export default class GamePanel extends BaseUI {
 
     onEndGame() {
         //如果已经上报过数据 则不再上报数据
-        if (DataReporting.isRepeatReport) {
+        if (DataReporting.isRepeatReport && this.eventvalue.result != 1) {
             DataReporting.getInstance().dispatchEvent('addLog', {
                 eventType: 'clickSubmit',
                 eventValue: JSON.stringify(this.eventvalue)
@@ -105,6 +113,11 @@ export default class GamePanel extends BaseUI {
 
     addListenerOnRound1() {
         this.bg.on(cc.Node.EventType.TOUCH_START, function(e) {
+            if(this.isEnd != 1) {
+                this.isEnd = 2;
+                this.eventvalue.result = 2;
+                this.eventvalue.levelData[0].result = 2;
+            }
             if(this.start1.getBoundingBox().contains(this.node.convertToNodeSpaceAR(e.currentTouch._point))) {
                 this.isBreak = false;
             }else if(this.start2.getBoundingBox().contains(this.node.convertToNodeSpaceAR(e.currentTouch._point))) {

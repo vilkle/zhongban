@@ -36,6 +36,8 @@ export default class GamePanel extends BaseUI {
     private guoNode : cc.Node = null;
     @property(cc.Node)
     private mouseBoundingBox : cc.Node = null;
+    @property(cc.Node)
+    private bg : cc.Node = null;
     private oriPosArr : Array<cc.Vec2> = Array<cc.Vec2>();
     private audioArr : Array<number> = Array<number>();
     private checkpointIndex : number = 0;
@@ -103,6 +105,14 @@ export default class GamePanel extends BaseUI {
     }
 
     start() {
+        this.bg.on(cc.Node.EventType.TOUCH_START, (e)=>{
+            if(this.isOver != 1) {
+                this.isOver = 2;
+                this.eventvalue.result = 2;
+                this.eventvalue.levelData[this.checkpointIndex-1].result = 2;
+            }
+        });
+
         DataReporting.getInstance().addEvent('end_game', this.onEndGame.bind(this));
         for(let i = 0; i < 5; i++) {
             this.eventvalue.levelData.push({
@@ -115,7 +125,7 @@ export default class GamePanel extends BaseUI {
 
     onEndGame() {
         //如果已经上报过数据 则不再上报数据
-        if (DataReporting.isRepeatReport) {
+        if (DataReporting.isRepeatReport && this.eventvalue.result != 1) {
             DataReporting.getInstance().dispatchEvent('addLog', {
                 eventType: 'clickSubmit',
                 eventValue: JSON.stringify(this.eventvalue)
@@ -127,6 +137,8 @@ export default class GamePanel extends BaseUI {
     }
 
     onDestroy() {
+        cc.audioEngine.stopAll();
+        cc.audioEngine.stopMusic();
         clearTimeout(this.timeoutIndex);
     }
 
@@ -362,8 +374,12 @@ export default class GamePanel extends BaseUI {
     }
     addListener(item : cc.Node, IndexNum : number, totalNum : number, dirNode : cc.Node, dirFrame : cc.SpriteFrame) {
         item.on(cc.Node.EventType.TOUCH_START, function(e){
-            this.eventvalue.result = 2;
-            this.isOver = 2;
+            if(this.isOver != 1) {
+                this.isOver = 2;
+                this.eventvalue.result = 2;
+                this.eventvalue.levelData[this.checkpointIndex-1].result = 2;
+                cc.log('---------', this.eventvalue);
+            }
             if(!this.fiveAlready&&IndexNum > 5) {
                 return;
             }

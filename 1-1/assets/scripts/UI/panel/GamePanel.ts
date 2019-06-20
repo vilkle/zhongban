@@ -7,7 +7,7 @@ import { UIManager } from "../../Manager/UIManager";
 import UploadAndReturnPanel from "../panel/UploadAndReturnPanel"
 import DataReporting from "../../Data/DataReporting";
 import { Tools } from "../../UIComm/Tools";
-
+//cloudestudio好使么?
 const { ccclass, property } = cc._decorator;
 
 @ccclass
@@ -199,7 +199,6 @@ export default class GamePanel extends BaseUI {
             guoItem.active = false;
         }
     }
-
     round3(num : number) {
         this.fiveAlready = false;
         this.answerNum = 0;

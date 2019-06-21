@@ -37,11 +37,13 @@ export default class GamePanel extends BaseUI {
     @property(cc.Node)
     private bg :cc.Node = null;
     private answerArr : Array<cc.Sprite> = Array<cc.Sprite>();
+    private startPosArr : Array<cc.Vec2> = Array<cc.Vec2>();
     private checkpointNum : number = 0;
     private enableClick : boolean = false;
     private audioArr : Array<number> = Array<number>();
     private miyaSound : boolean = false;
     private isOver : number = 0;
+    private touchNum : number = 0;
     private eventvalue = {
         isResult: 1,
         isLevel: 1,
@@ -59,6 +61,9 @@ export default class GamePanel extends BaseUI {
         this.answerArr[0] = this.a;
         this.answerArr[1] = this.b;
         this.answerArr[2] = this.c;
+        this.startPosArr[0] = this.a.node.getPosition();
+        this.startPosArr[1] = this.b.node.getPosition();
+        this.startPosArr[2] = this.c.node.getPosition();
         this.addListenerOnAnswer();
         this.piaochong.node.zIndex = 1;
         this.miya.setAnimation(0, 'in', false);
@@ -247,7 +252,6 @@ export default class GamePanel extends BaseUI {
             }
            
         }.bind(this));
-        var startPos: cc.Vec2 = cc.v2(0, 0);
         for(let i = 0; i < this.answerArr.length; i++) {
             this.answerArr[i].node.on(cc.Node.EventType.TOUCH_START, function(e){
                 if(this.isOver != 1) {
@@ -255,13 +259,19 @@ export default class GamePanel extends BaseUI {
                     this.eventvalue.result = 2;
                     this.eventvalue.levelData[this.checkpointNum-1].result = 2
                 }
-    
                 if(!this.enableClick) {
                     return;
                 }
+                // for(let i = 0; i < this.answerArr.length; i++) {
+                //     this.answerArr[i].node.setPosition(this.startPosArr[i]);
+                //     this.answerArr[i].node.getChildByName('box').active = false;
+                // }
+                if(this.touchNum > 0) {
+                    return;
+                }
+                this.touchNum += 1;
                 this.eventvalue.levelData[this.checkpointNum-1].subject = i+1;
                 AudioManager.getInstance().playSound('sfx_selwing', false);
-                startPos = this.answerArr[i].node.getPosition();
                 this.answerArr[i].node.getChildByName('box').active = true;
                 this.answerArr[i].node.zIndex = 100;
             }.bind(this));
@@ -269,24 +279,38 @@ export default class GamePanel extends BaseUI {
                 if(!this.enableClick) {
                     return;
                 }
+                if(this.touchNum != 1) {
+                    return;
+                }
                 var point = this.node.convertToNodeSpaceAR(e.currentTouch._point);
                 this.answerArr[i].node.setPosition(point);
             }.bind(this));
             this.answerArr[i].node.on(cc.Node.EventType.TOUCH_END, function(e){
-                if(!this.enableClick) {
+                if(!this.enableClick || this.touchNum == 0) {
                     return;
                 }
                 if(this.boundingbox.getBoundingBox().contains(this.node.convertToNodeSpaceAR(e.currentTouch._point))) {
                     this.isRight(i+1);
                 }
-                this.answerArr[i].node.setPosition(startPos);
-                this.answerArr[i].node.getChildByName('box').active = false;
-                this.answerArr[i].node.zIndex = 0;
+                if(this.touchNum > 0) {
+                    this.touchNum -= 1;
+                    this.answerArr[i].node.setPosition(this.startPosArr[i]);
+                    this.answerArr[i].node.getChildByName('box').active = false;
+                    this.answerArr[i].node.zIndex = 0;
+                    this.isTouching = false;
+                }
             }.bind(this));
             this.answerArr[i].node.on(cc.Node.EventType.TOUCH_CANCEL, function(e){
-                this.answerArr[i].node.setPosition(startPos);
-                this.answerArr[i].node.getChildByName('box').active = false;
-                this.answerArr[i].node.zIndex = 0;
+                if(this.touchNum > 0) {
+                    this.answerArr[i].node.setPosition(this.startPosArr[i]);
+                    this.answerArr[i].node.getChildByName('box').active = false;
+                    this.answerArr[i].node.zIndex = 0;
+                    this.isTouching = false;
+                    this.touchNum -= 1;
+                }
+                else {
+                    return ;
+                }
             }.bind(this));
         }
     }

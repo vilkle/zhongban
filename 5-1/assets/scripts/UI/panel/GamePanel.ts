@@ -180,6 +180,7 @@ export default class GamePanel extends BaseUI {
         this.plateNode1.runAction(cc.sequence( cc.moveBy(0.6, cc.v2(0, 800)), cc.callFunc(function(){
             this.enableSelect = true;
             this.mask.active = false;
+            AudioManager.getInstance().playSound('数饼干',false);
         }.bind(this))));
     }
 
@@ -389,12 +390,12 @@ export default class GamePanel extends BaseUI {
                     return true;
                 }else {
                     AudioManager.getInstance().stopAll();
-                    AudioManager.getInstance().playSound('阿欧', false);
+                    AudioManager.getInstance().playSound('再仔细数一数哦', false);
                     return false;
                 }
             }else {
                 AudioManager.getInstance().stopAll();
-                AudioManager.getInstance().playSound('阿欧', false);
+                AudioManager.getInstance().playSound('再仔细数一数哦', false);
                 return false;
             }
         }else if(this.checkpointIndex ==2) {
@@ -420,17 +421,17 @@ export default class GamePanel extends BaseUI {
                         return true;
                     }else {
                         AudioManager.getInstance().stopAll();
-                        AudioManager.getInstance().playSound('阿欧', false);
+                        AudioManager.getInstance().playSound('再仔细数一数哦', false);
                         return false;
                     }
                 }else {
                     AudioManager.getInstance().stopAll();
-                    AudioManager.getInstance().playSound('阿欧', false);
+                    AudioManager.getInstance().playSound('再仔细数一数哦', false);
                     return false;
                 }
             }else {
                 AudioManager.getInstance().stopAll();
-                AudioManager.getInstance().playSound('阿欧', false);
+                AudioManager.getInstance().playSound('再仔细数一数哦', false);
                 return false;
             }
         }else if(this.checkpointIndex == 3) {
@@ -456,17 +457,17 @@ export default class GamePanel extends BaseUI {
                         return true;
                     }else {
                         AudioManager.getInstance().stopAll();
-                        AudioManager.getInstance().playSound('阿欧', false);
+                        AudioManager.getInstance().playSound('再仔细数一数哦', false);
                         return false;
                     }
                 }else {
                     AudioManager.getInstance().stopAll();
-                    AudioManager.getInstance().playSound('阿欧', false);
+                    AudioManager.getInstance().playSound('再仔细数一数哦', false);
                     return false;
                 }
             }else {
                 AudioManager.getInstance().stopAll();
-                AudioManager.getInstance().playSound('阿欧', false);
+                AudioManager.getInstance().playSound('再仔细数一数哦', false);
                 return false;
             }
         }

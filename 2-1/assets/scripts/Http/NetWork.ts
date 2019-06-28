@@ -4,7 +4,7 @@ import ErrorPanel from "../UI/panel/ErrorPanel";
 export class NetWork {
     private static instance: NetWork;
 
-    public static readonly isOnlineEnv = /\/\/static\.haibian\.com/.test(window['location'].href);
+    public static readonly isOnlineEnv = location.host.indexOf('ceshi-') < 0 && location.host.indexOf('localhost') < 0;
     public static readonly isProtocol = /http:/.test(window['location'].protocol);
     public static readonly isLocal = /localhost/.test(window['location'].href) || NetWork.isProtocol;
     public static readonly BASE = NetWork.isOnlineEnv ? '//courseware.haibian.com' : NetWork.isLocal ? '//ceshi.courseware.haibian.com' : '//ceshi_courseware.haibian.com';
@@ -119,7 +119,7 @@ export class NetWork {
             var str = url.substr(1);
             var strs = str.split("&");
             for (var i = 0; i < strs.length; i++) {
-                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                theRequest[strs[i].split("=")[0]] = decodeURIComponent(strs[i].split("=")[1]);
             }
         }
         NetWork.courseware_id = theRequest["id"];

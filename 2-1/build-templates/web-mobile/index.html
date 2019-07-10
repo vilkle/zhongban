@@ -6,7 +6,8 @@
     <title>Cocos Creator</title>
 
     <!--http://www.html5rocks.com/en/mobile/mobifying/-->
-    <meta name="viewport" content="width=device-width,user-scalable=0,initial-scale=1, minimum-scale=1,maximum-scale=1" />
+    <meta name="viewport"
+        content="width=device-width,user-scalable=0,initial-scale=1, minimum-scale=1,maximum-scale=1" />
 
     <!--https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html-->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -262,7 +263,7 @@
 
     <script>
         var domainName = location.host.indexOf('localhost') < 0 ? location.host : 'ceshi-static.haibian.com';
-        var src = '//'+ domainName +'/courseware/static/sdk/courseware-v1.0.0-alpha.js';
+        var src = '//' + domainName + '/courseware/static/sdk/courseware-v1.0.0-alpha.js';
         document.write('<script src="' + src + '"><\/script>')
     </script>
 
@@ -280,31 +281,80 @@
                 }
 
                 window.addEventListener('error', event => {
-                    console.log(event.error, '       addEventListener');
+                    // console.log(event.error, '       addEventListener');
                     errorLog(event.error.stack.split("\n"));
                 }, true)
 
                 var consoleError = window.console.error;
                 window.console.error = function () {
-                    // alert(JSON.stringify(arguments)); // 自定义处理
-                    console.log(JSON.stringify(arguments), '      window.console.error')
+                    // console.log(JSON.stringify(arguments), '      window.console.error')
                     consoleError && consoleError.apply(window, arguments);
                     errorLog(JSON.stringify(arguments));
                 }
 
                 var errorLog = function (data) {
-                    console.log(data, '             errorLog')
                     var img = new Image();
-                    img.src = (location.host.indexOf('ceshi-') < 0 ? 'https://logserver.haibian.com/statistical/?type=7&' : 'https://ceshi-statistical.haibian.com/?type=7&') +
+                    img.src = (location.host.indexOf('ceshi-') < 0 && location.host.indexOf('localhost') < 0 ? 'https://logserver.haibian.com/statistical/?type=7&' : 'https://ceshi-statistical.haibian.com/?type=7&') +
                         'course_id=' + theRequest["id"] +
                         "&chapter_id=" + theRequest["chapter_id"] +
                         "&user_id=" + theRequest["user_id"] +
                         "&subject=" + theRequest["subject"] +
                         "&event=" + "CoursewareErrorLogEvent" +
                         "&identity=1" +
-                        "&extra=" + JSON.stringify({ ErrorLog: data, CoursewareName: "中班2-1", url: location })
+                        "&extra=" + JSON.stringify({ ErrorLog: data, CoursewareName: "2-1", url: location })
                 }
 
+                //加载时间上报
+                var getNowFormatDate = function () {
+                    var date = new Date();
+                    var seperator1 = ":";
+                    var year = date.getFullYear();
+                    var month = date.getMonth() + 1;
+                    var strDate = date.getDate();
+                    if (month >= 1 && month <= 9) {
+                        month = "0" + month;
+                    }
+                    if (strDate >= 0 && strDate <= 9) {
+                        strDate = "0" + strDate;
+                    }
+
+                    var hours = date.getHours();       //获取当前小时数(0-23)
+                    var minutes = date.getMinutes();     //获取当前分钟数(0-59)
+                    var seconds = date.getSeconds();     //获取当前秒数(0-59)
+                    var milliSceonds = date.getMilliseconds();    //获取当前毫秒数(0-999)
+                    if (hours >= 0 && hours <= 9) {
+                        hours = "0" + hours;
+                    }
+                    if (minutes >= 0 && minutes <= 9) {
+                        minutes = "0" + minutes;
+                    }
+                    if (seconds >= 0 && seconds <= 9) {
+                        seconds = "0" + seconds;
+                    }
+                    if (milliSceonds >= 0 && milliSceonds <= 9) {
+                        milliSceonds = "00" + milliSceonds;
+                    }
+                    if (milliSceonds >= 10 && milliSceonds <= 90) {
+                        milliSceonds = "0" + milliSceonds;
+                    }
+
+                    var currentdate = year + seperator1 + month + seperator1 + strDate + seperator1 + hours + seperator1 + minutes + seperator1 + seconds + seperator1 + milliSceonds;
+                    return currentdate;
+                }
+
+                var reportCurTime = function (eventName, gameName) {
+                    var img = new Image();
+                    img.src = (location.host.indexOf('ceshi-') < 0 ? 'https://logserver.haibian.com/statistical/?type=7&' : 'https://ceshi-statistical.haibian.com/?type=7&') +
+                        'course_id=' + theRequest["id"] +
+                        "&chapter_id=" + theRequest["chapter_id"] +
+                        "&user_id=" + theRequest["user_id"] +
+                        "&subject=" + theRequest["subject"] +
+                        "&event=" + eventName +
+                        "&identity=1" +
+                        "&extra=" + JSON.stringify({ curTime: getNowFormatDate(), curGame: gameName })
+                }
+                reportCurTime("engineLoadStart", "2-1");
+                //引擎加载
                 var splash = document.getElementById('splash');
                 splash.style.display = 'block';
 
@@ -313,6 +363,7 @@
                 cocos2d.src = window._CCSettings.debug ? 'cocos2d-js.js' : 'cocos2d-js-min.js';
 
                 var engineLoaded = function () {
+                    reportCurTime("engineLoadEnd", "2-1");
                     document.body.removeChild(cocos2d);
                     cocos2d.removeEventListener('load', engineLoaded, false);
                     window.boot();

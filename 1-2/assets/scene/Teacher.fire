@@ -44,8 +44,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.4433098591549296,
-      "y": 0.4433098591549296,
+      "x": 0.4431631455399061,
+      "y": 0.4431631455399061,
       "z": 1
     },
     "_quat": {
@@ -1318,7 +1318,7 @@
     "_id": "4aSb7NLPRHma8jZJCNCDqQ"
   },
   {
-    "__type__": "cf8a66RO2hJWJN7q1dt4/zn",
+    "__type__": "9ce86g/CLNKhqJgrFmc+XQb",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -1334,7 +1334,7 @@
     "dragonNode": {
       "__id__": 22
     },
-    "_id": "2fUb4CD2BB47bbtWt7bKbh"
+    "_id": "f3BitXYj5F05IMaqzTShWp"
   },
   {
     "__type__": "cc.PrefabInfo",

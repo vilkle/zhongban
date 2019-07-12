@@ -84,18 +84,17 @@ export default class GamePanel extends BaseUI {
         });
 
         DataReporting.getInstance().addEvent('end_game', this.onEndGame.bind(this));
-        for(let i = 0; i < 5; i++) {
+        for(let i = 0; i < 3; i++) {
             this.eventvalue.levelData.push({
                 subject: 'null',
                 answer: 'null',
                 result: 4
             });
         }
-        this.eventvalue.levelData[0].answer = 1;
+        this.eventvalue.levelData[0].answer = 3;
         this.eventvalue.levelData[1].answer = 3;
-        this.eventvalue.levelData[2].answer = 2;
-        this.eventvalue.levelData[3].answer = 3;
-        this.eventvalue.levelData[4].answer = 1;
+        this.eventvalue.levelData[2].answer = 1;
+      
         AudioManager.getInstance().playSound('sfx_lbugopn', false);
         AudioManager.getInstance().playBGM('bgm_laydbug');
         this.round1();
@@ -116,34 +115,13 @@ export default class GamePanel extends BaseUI {
 
     round1() {
         this.checkpointNum = 1;
-        this.piaochong.setSkin('1_2');
-        this.piaochong.setAnimation(0, 'in_left', false);
-        this.piaochong.setCompleteListener(trackEntry=>{
-            if(trackEntry.animation.name == 'in_left') {
-                this.enableClick = true;
-                this.piaochong.setAnimation(0, 'stand_left', true);
-                
-                AudioManager.getInstance().playSound('point1', false, 1,function(id) {this.audioArr.push(id)}.bind(this), function(id){this.audioArr.filter(item=>item!==id);}.bind(this));
-                for(let i = 0; i < this.answerArr.length; i++) {
-                    this.answerArr[i].node.runAction(cc.fadeIn(0.2));
-                }
-            }
-        });
-        this.a.spriteFrame = this.two;
-        this.b.spriteFrame = this.one;
-        this.c.spriteFrame = this.three;
-    }
-
-    round2() {
-        this.checkpointNum = 2;
         this.piaochong.setSkin('3_1');
         this.piaochong.setAnimation(0, 'in_left', false);
         this.piaochong.setCompleteListener(trackEntry=>{
             if(trackEntry.animation.name == 'in_left') {
                 this.enableClick = true;
                 this.piaochong.setAnimation(0, 'stand_left', true);
-               
-                AudioManager.getInstance().playSound('point2', false, 1,function(id) {this.audioArr.push(id)}.bind(this), function(id){this.audioArr.filter(item=>item!==id);}.bind(this));
+                AudioManager.getInstance().playSound('point1', false,1, (id)=>{},(id)=>{AudioManager.getInstance().playSound('point2', false, 1,(id)=> {this.audioArr.push(id)}, (id)=>{this.audioArr.filter(item=>item!==id);});});
                 for(let i = 0; i < this.answerArr.length; i++) {
                     this.answerArr[i].node.runAction(cc.fadeIn(0.2));
                 }
@@ -154,28 +132,8 @@ export default class GamePanel extends BaseUI {
         this.b.spriteFrame = this.three;
     }
 
-    round3() {
-        this.checkpointNum = 3;
-        this.piaochong.setSkin('2_3');
-        this.piaochong.setAnimation(0, 'in_left', false);
-        this.piaochong.setCompleteListener(trackEntry=>{
-            if(trackEntry.animation.name == 'in_left') {
-                this.enableClick = true;
-                this.piaochong.setAnimation(0, 'stand_left', true);
-                
-                AudioManager.getInstance().playSound('point3', false, 1,function(id) {this.audioArr.push(id)}.bind(this), function(id){this.audioArr.filter(item=>item!==id);}.bind(this));
-                for(let i = 0; i < this.answerArr.length; i++) {
-                    this.answerArr[i].node.runAction(cc.fadeIn(0.2));
-                }
-            }
-        });
-        this.b.spriteFrame = this.three;
-        this.a.spriteFrame = this.two;
-        this.c.spriteFrame = this.four;
-    }
-
-    round4() {
-        this.checkpointNum = 4;
+    round2() {
+        this.checkpointNum = 2;
         this.piaochong.setSkin('2_4');
         this.piaochong.setAnimation(0, 'in_left', false);
         this.piaochong.setCompleteListener(trackEntry=>{
@@ -194,8 +152,8 @@ export default class GamePanel extends BaseUI {
         this.b.spriteFrame = this.two;
     }
 
-    round5() {
-        this.checkpointNum = 5;
+    round3() {
+        this.checkpointNum = 3;
         this.piaochong.setSkin('4_3');
         this.piaochong.setAnimation(0, 'in_left', false);
         this.piaochong.setCompleteListener(trackEntry=>{
@@ -236,21 +194,14 @@ export default class GamePanel extends BaseUI {
             this.miyaSound = true;
             if(this.checkpointNum == 1) {
                 this.stopAllSound();
-                AudioManager.getInstance().playSound('point0', false, 1,function(id) {this.audioArr.push(id)}.bind(this), function(id){this.audioArr.filter(item=>item!==id);this.miyaSound=false;}.bind(this));
+                AudioManager.getInstance().playSound('point2', false, 1,function(id) {this.audioArr.push(id)}.bind(this), function(id){this.audioArr.filter(item=>item!==id);this.miyaSound=false;}.bind(this));
             }else if(this.checkpointNum == 2) {
                 this.stopAllSound();
-                AudioManager.getInstance().playSound('point2', false, 1,function(id) {this.audioArr.push(id)}.bind(this), function(id){this.audioArr.filter(item=>item!==id);this.miyaSound=false;}.bind(this));
-            }else if(this.checkpointNum == 3) {
-                this.stopAllSound();
-                AudioManager.getInstance().playSound('point3', false, 1,function(id) {this.audioArr.push(id)}.bind(this), function(id){this.audioArr.filter(item=>item!==id);this.miyaSound=false;}.bind(this));
-            }else if(this.checkpointNum == 4) {
-                this.stopAllSound();
                 AudioManager.getInstance().playSound('point4', false, 1,function(id) {this.audioArr.push(id)}.bind(this), function(id){this.audioArr.filter(item=>item!==id);this.miyaSound=false;}.bind(this));
-            }else if(this.checkpointNum == 5) {
+            }else if(this.checkpointNum == 3) {
                 this.stopAllSound();
                 AudioManager.getInstance().playSound('point5', false, 1,function(id) {this.audioArr.push(id)}.bind(this), function(id){this.audioArr.filter(item=>item!==id);this.miyaSound=false;}.bind(this));
             }
-           
         }.bind(this));
         for(let i = 0; i < this.answerArr.length; i++) {
             this.answerArr[i].node.on(cc.Node.EventType.TOUCH_START, function(e){
@@ -262,10 +213,7 @@ export default class GamePanel extends BaseUI {
                 if(!this.enableClick) {
                     return;
                 }
-                // for(let i = 0; i < this.answerArr.length; i++) {
-                //     this.answerArr[i].node.setPosition(this.startPosArr[i]);
-                //     this.answerArr[i].node.getChildByName('box').active = false;
-                // }
+              
                 if(this.touchNum > 0) {
                     return;
                 }
@@ -319,13 +267,13 @@ export default class GamePanel extends BaseUI {
         if(this.checkpointNum == 1) {
             this.eventvalue.result = 2;
             this.isOver = 2;
-            if(index == 1) {
+            if(index == 3) {
                 AudioManager.getInstance().playSound('谢谢你');
                 this.success();
                 this.eventvalue.levelData[0].result = 1;
             }else {
-                AudioManager.getInstance().stopAll();
-                AudioManager.getInstance().playSound('point0');
+                //AudioManager.getInstance().stopAll();
+                AudioManager.getInstance().playSound('point2');
                 this.eventvalue.levelData[0].result = 2;
             }
         }else if(this.checkpointNum == 2) {
@@ -334,45 +282,24 @@ export default class GamePanel extends BaseUI {
                 this.success();
                 this.eventvalue.levelData[1].result = 1;
             }else {
-                AudioManager.getInstance().stopAll();
-                AudioManager.getInstance().playSound('point2');
+                //AudioManager.getInstance().stopAll();
+                AudioManager.getInstance().playSound('point4');
                 this.eventvalue.levelData[1].result = 2;
             }
         }else if(this.checkpointNum == 3) {
-            if(index == 2) {
+            if(index == 1) {
                 AudioManager.getInstance().playSound('谢谢你');
                 this.success();
                 this.eventvalue.levelData[2].result = 1;
             }else {
-                AudioManager.getInstance().stopAll();
-                AudioManager.getInstance().playSound('point3');
-                this.eventvalue.levelData[2].result = 2;
-            }
-        }else if(this.checkpointNum == 4) {
-            if(index == 3) {
-                AudioManager.getInstance().playSound('谢谢你');
-                this.success();
-                this.eventvalue.levelData[3].result = 1;
-            }else {
-                AudioManager.getInstance().stopAll();
-                AudioManager.getInstance().playSound('point4');
-                this.eventvalue.levelData[3].result = 2;
-            }
-        }else if(this.checkpointNum == 5) {
-            if(index == 1) {
-                AudioManager.getInstance().playSound('谢谢你');
-                this.success();
-                this.eventvalue.levelData[4].result = 1;
-            }else {
-                AudioManager.getInstance().stopAll();
+                //AudioManager.getInstance().stopAll();
                 AudioManager.getInstance().playSound('point5');
-                this.eventvalue.levelData[4].result = 2;
+                this.eventvalue.levelData[2].result = 2;
             }
         }
     }
 
     success() {
-       
         this.enableClick = false;
         for(let i = 0; i < this.answerArr.length; i++) {
             this.answerArr[i].node.runAction(cc.fadeOut(0.2));
@@ -385,10 +312,6 @@ export default class GamePanel extends BaseUI {
             }else if(this.checkpointNum == 2) {
                 this.round3();
             }else if(this.checkpointNum == 3) {
-                this.round4();
-            }else if(this.checkpointNum == 4) {
-                this.round5();
-            }else if(this.checkpointNum == 5) {
                 this.gameEnd();
             }
         });

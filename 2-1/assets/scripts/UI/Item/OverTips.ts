@@ -79,6 +79,6 @@ export class OverTips extends BaseUI {
 
     onClickClose():void {
         this.closeCallback();
-        UIManager.getInstance().closeUI(OverTips);
+        //UIManager.getInstance().closeUI(OverTips);
     }
 }

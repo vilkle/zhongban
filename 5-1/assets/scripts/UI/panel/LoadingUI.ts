@@ -44,7 +44,7 @@ export class LoadingUI extends BaseUI {
         DataReporting.getInstance().dispatchEvent('load start');
 
         let openPanel: UIClass<BaseUI> = ConstValue.IS_TEACHER ? TeacherPanel : GamePanel;
-        UIManager.getInstance().openUI(openPanel, 0, () => {
+        UIManager.getInstance().openUI(openPanel, null, 0, () => {
             NetWork.getInstance().LogJournalReport("ResLoadEnd", { curTime: TimeManager.getInstance().getNowFormatDate() });
             DataReporting.getInstance().dispatchEvent('load end');
             DataReporting.getInstance().dispatchEvent('start');

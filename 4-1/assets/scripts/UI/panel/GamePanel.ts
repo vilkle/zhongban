@@ -164,6 +164,7 @@ export default class GamePanel extends BaseUI {
                 else{
                     data = rt.readPixels(null, rect.x + posInRect.x, rect.y + rect.height - posInRect.y, 1, 1)
                 }
+                console.log(data)
                 if (data[3] <= 0) {
                     if(!this.isOver) {
                         if(!this.isOver1) {

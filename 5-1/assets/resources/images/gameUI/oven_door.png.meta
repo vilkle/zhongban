@@ -1,13 +1,14 @@
 {
-  "ver": "2.2.0",
+  "ver": "2.3.1",
   "uuid": "a6d236c6-b2a7-4e82-a078-9b84375e304e",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
+  "platformSettings": {},
   "subMetas": {
     "oven_door": {
-      "ver": "1.0.3",
+      "ver": "1.0.4",
       "uuid": "21b634e8-a833-4049-a655-cb7db8bf1ea6",
       "rawTextureUuid": "a6d236c6-b2a7-4e82-a078-9b84375e304e",
       "trimType": "auto",

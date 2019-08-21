@@ -166,7 +166,7 @@ export class NetWork {
                 "&subject=" + this.GetRequest()["subject"] +
                 "&event=" + errorType +
                 "&identity=1" +
-                "&extra=" + JSON.stringify({ url: location, CoursewareKey: ConstValue.CoursewareKey, empty: this.GetRequest()["empty"], CoursewareName: '此处需修改为自己的项目名字  拼音', data: data });
+                "&extra=" + JSON.stringify({ url: location, CoursewareKey: ConstValue.CoursewareKey, empty: this.GetRequest()["empty"], CoursewareName: '5-1', data: data });
         }
     }
 }

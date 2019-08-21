@@ -1,45 +1,35 @@
 import { BaseUI, UIClass } from "../UI/BaseUI";
 
-export class UIManager
-{
+export class UIManager {
     private static instance: UIManager;
     private uiList: BaseUI[] = [];
     private uiRoot: cc.Node = null;
-    
-    public static getInstance(): UIManager
-    {
-        if(this.instance == null)
-        {
+
+    public static getInstance(): UIManager {
+        if (this.instance == null) {
             this.instance = new UIManager();
         }
         return this.instance;
     }
 
-    constructor()
-    {
+    constructor() {
         this.uiRoot = cc.find("Canvas");
     }
 
-    public openUI<T extends BaseUI>(uiClass: UIClass<T>, zOrder?: number, callback?: Function, onProgress?: Function, ...args: any[])
-    {
-        if(this.getUI(uiClass))
-        {
+    public openUI<T extends BaseUI>(uiClass: UIClass<T>, data?: any, zOrder?: number, callback?: Function, onProgress?: Function, ...args: any[]) {
+        if (this.getUI(uiClass)) {
             return;
         }
-        cc.loader.loadRes(uiClass.getUrl(),(completedCount: number, totalCount: number, item: any)=>{
-            if(onProgress)
-            {
+        cc.loader.loadRes(uiClass.getUrl(), (completedCount: number, totalCount: number, item: any) => {
+            if (onProgress) {
                 onProgress(completedCount, totalCount, item);
             }
-        }, (error, prefab)=>
-        {
-            if(error)
-            {
+        }, (error, prefab) => {
+            if (error) {
                 cc.log(error);
                 return;
             }
-            if(this.getUI(uiClass))
-            {
+            if (this.getUI(uiClass)) {
                 return;
             }
             let uiNode: cc.Node = cc.instantiate(prefab);
@@ -47,21 +37,18 @@ export class UIManager
             //zOrder && uiNode.setLocalZOrder(zOrder);
             if (zOrder) { uiNode.zIndex = zOrder; }
             let ui = uiNode.getComponent(uiClass) as BaseUI;
+            ui.data = data;
             ui.tag = uiClass;
             this.uiList.push(ui);
-            if(callback)
-            {
+            if (callback) {
                 callback(args);
             }
         });
     }
 
-    public closeUI<T extends BaseUI>(uiClass: UIClass<T>)
-    {
-        for(let i = 0; i < this.uiList.length; ++i)
-        {
-            if(this.uiList[i].tag === uiClass)
-            {
+    public closeUI<T extends BaseUI>(uiClass: UIClass<T>) {
+        for (let i = 0; i < this.uiList.length; ++i) {
+            if (this.uiList[i].tag === uiClass) {
                 this.uiList[i].node.destroy();
                 this.uiList.splice(i, 1);
                 return;
@@ -69,43 +56,35 @@ export class UIManager
         }
     }
 
-    public showUI<T extends BaseUI>(uiClass: UIClass<T>, callback?: Function)
-    {
+    public showUI<T extends BaseUI>(uiClass: UIClass<T>, data?: any, callback?: Function) {
         let ui = this.getUI(uiClass);
-        if(ui)
-        {
+        if (ui) {
+            ui.data = data;
             ui.node.active = true;
             ui.onShow();
-            if(callback)
-            {
+            if (callback) {
                 callback();
             }
         }
-        else
-        {
-            this.openUI(uiClass, 0, ()=>{
-                callback&&callback();
+        else {
+            this.openUI(uiClass, data, 0, () => {
+                callback && callback();
                 let ui = this.getUI(uiClass);
                 ui.onShow();
             });
         }
     }
 
-    public hideUI<T extends BaseUI>(uiClass: UIClass<T>)
-    {
+    public hideUI<T extends BaseUI>(uiClass: UIClass<T>) {
         let ui = this.getUI(uiClass);
-        if(ui)
-        {
+        if (ui) {
             ui.node.active = false;
         }
     }
 
-    public getUI<T extends BaseUI>(uiClass: UIClass<T>): BaseUI
-    {
-        for(let i = 0; i < this.uiList.length; ++i)
-        {
-            if(this.uiList[i].tag === uiClass)
-            {
+    public getUI<T extends BaseUI>(uiClass: UIClass<T>): BaseUI {
+        for (let i = 0; i < this.uiList.length; ++i) {
+            if (this.uiList[i].tag === uiClass) {
                 return this.uiList[i];
             }
         }

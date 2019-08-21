@@ -26,7 +26,7 @@ export default class SubmissionPanel extends BaseUI {
     //提交或者修改答案
     DetectionNet() {
         if (!NetWork.title_id) {
-            UIManager.getInstance().openUI(ErrorPanel, 1000, () => {
+            UIManager.getInstance().openUI(ErrorPanel, null, 1000, () => {
                 (UIManager.getInstance().getUI(ErrorPanel) as ErrorPanel).setPanel("titleId为空,请联系技术老师解决！\ntitleId=" + NetWork.title_id, "", "", "确定");
             });
             return;
@@ -43,7 +43,7 @@ export default class SubmissionPanel extends BaseUI {
                         if (res.CoursewareKey == ConstValue.CoursewareKey) {
                             this.ModifyNet(data);
                         } else {
-                            UIManager.getInstance().openUI(ErrorPanel, 1000, () => {
+                            UIManager.getInstance().openUI(ErrorPanel, null, 1000, () => {
                                 (UIManager.getInstance().getUI(ErrorPanel) as ErrorPanel).setPanel("该titleId已被使用,请联系技术老师解决！\ntitleId=" + NetWork.title_id, "", "", "确定");
                             });
                         }

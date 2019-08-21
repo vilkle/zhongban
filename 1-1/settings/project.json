@@ -30,7 +30,10 @@
     "NodePool",
     "StudioComponent",
     "Intersection",
-    "Native Socket"
+    "Native Socket",
+    "Geom Utils",
+    "3D",
+    "3D Primitive"
   ],
   "facebook": {
     "appID": "",
@@ -47,7 +50,7 @@
   "group-list": [
     "default"
   ],
-  "last-module-event-record-time": 1562069870001,
+  "last-module-event-record-time": 1566370031410,
   "simulator-orientation": false,
   "simulator-resolution": {
     "height": 640,

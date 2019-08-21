@@ -71,13 +71,13 @@ export  class AffirmTips extends BaseUI {
     OnClickOk(){
         console.log("确认");
         UIManager.getInstance().closeUI(AffirmTips);
-        this.callback(1);
+        this.callbackOk(1);
     }
 
     OnClickCancel(){
         console.log("取消");
         UIManager.getInstance().closeUI(AffirmTips);
-        this.callback(0);
+        this.callbackClose(0);
     }
 
     // update (dt) {}

@@ -1,13 +1,14 @@
 {
-  "ver": "2.2.0",
+  "ver": "2.3.1",
   "uuid": "54bacd99-9834-4f99-aea8-9c93040abe19",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
+  "platformSettings": {},
   "subMetas": {
     "yizhige": {
-      "ver": "1.0.3",
+      "ver": "1.0.4",
       "uuid": "5017fdb2-9b65-47ba-8440-8e61b54ff561",
       "rawTextureUuid": "54bacd99-9834-4f99-aea8-9c93040abe19",
       "trimType": "auto",

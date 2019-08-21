@@ -1,13 +1,14 @@
 {
-  "ver": "2.2.0",
+  "ver": "2.3.1",
   "uuid": "59b37b43-bd03-4466-85cf-f11150291671",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
+  "platformSettings": {},
   "subMetas": {
     "yumili": {
-      "ver": "1.0.3",
+      "ver": "1.0.4",
       "uuid": "816d32ee-2e0d-4854-b040-7d3b518a8a38",
       "rawTextureUuid": "59b37b43-bd03-4466-85cf-f11150291671",
       "trimType": "auto",

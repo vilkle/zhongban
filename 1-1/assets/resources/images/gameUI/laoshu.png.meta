@@ -1,13 +1,14 @@
 {
-  "ver": "2.2.0",
+  "ver": "2.3.1",
   "uuid": "dfe399de-62e6-46c5-8486-37a0f8966bfe",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
+  "platformSettings": {},
   "subMetas": {
     "laoshu": {
-      "ver": "1.0.3",
+      "ver": "1.0.4",
       "uuid": "61ccf249-94a6-4163-865a-584c83810507",
       "rawTextureUuid": "dfe399de-62e6-46c5-8486-37a0f8966bfe",
       "trimType": "auto",

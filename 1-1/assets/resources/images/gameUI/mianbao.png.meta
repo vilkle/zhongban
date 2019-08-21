@@ -1,13 +1,14 @@
 {
-  "ver": "2.2.0",
+  "ver": "2.3.1",
   "uuid": "dd18042b-0a45-4b93-96fd-028cabb45db0",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
+  "platformSettings": {},
   "subMetas": {
     "mianbao": {
-      "ver": "1.0.3",
+      "ver": "1.0.4",
       "uuid": "29bc0f11-b7a8-41d5-a851-ce2304935f28",
       "rawTextureUuid": "dd18042b-0a45-4b93-96fd-028cabb45db0",
       "trimType": "auto",

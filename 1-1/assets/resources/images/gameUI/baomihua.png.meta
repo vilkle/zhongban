@@ -1,13 +1,14 @@
 {
-  "ver": "2.2.0",
+  "ver": "2.3.1",
   "uuid": "87f56685-4695-4ade-bccb-1c02bfef5339",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
+  "platformSettings": {},
   "subMetas": {
     "baomihua": {
-      "ver": "1.0.3",
+      "ver": "1.0.4",
       "uuid": "97927c01-4436-4437-9718-51b2e34f14d8",
       "rawTextureUuid": "87f56685-4695-4ade-bccb-1c02bfef5339",
       "trimType": "auto",

@@ -1,13 +1,14 @@
 {
-  "ver": "2.2.0",
+  "ver": "2.3.1",
   "uuid": "2b668214-36f2-4ad1-8e3c-c86233bfc359",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
+  "platformSettings": {},
   "subMetas": {
     "ico_wing3_right": {
-      "ver": "1.0.3",
+      "ver": "1.0.4",
       "uuid": "201a6578-9d2f-44ef-a4a5-36e14cf973bf",
       "rawTextureUuid": "2b668214-36f2-4ad1-8e3c-c86233bfc359",
       "trimType": "auto",

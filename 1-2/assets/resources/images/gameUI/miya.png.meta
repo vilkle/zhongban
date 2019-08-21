@@ -1,13 +1,14 @@
 {
-  "ver": "2.2.0",
+  "ver": "2.3.1",
   "uuid": "41681127-327f-4d0e-aa05-898ea5c9cee4",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
+  "platformSettings": {},
   "subMetas": {
     "miya": {
-      "ver": "1.0.3",
+      "ver": "1.0.4",
       "uuid": "1890baf0-b9fa-4656-b11f-989c34961d7a",
       "rawTextureUuid": "41681127-327f-4d0e-aa05-898ea5c9cee4",
       "trimType": "auto",

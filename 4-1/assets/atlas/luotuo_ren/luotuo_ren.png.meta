@@ -1,13 +1,14 @@
 {
-  "ver": "2.2.0",
+  "ver": "2.3.1",
   "uuid": "5741b1e0-5377-4466-ad53-e0bd279c017f",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
+  "platformSettings": {},
   "subMetas": {
     "luotuo_ren": {
-      "ver": "1.0.3",
+      "ver": "1.0.4",
       "uuid": "ef90f24e-19ab-44cd-9349-a034042af4ec",
       "rawTextureUuid": "5741b1e0-5377-4466-ad53-e0bd279c017f",
       "trimType": "auto",

@@ -30,7 +30,10 @@
     "NodePool",
     "StudioComponent",
     "Intersection",
-    "Native Socket"
+    "Native Socket",
+    "Geom Utils",
+    "3D",
+    "3D Primitive"
   ],
   "facebook": {
     "appID": "",

@@ -70,7 +70,7 @@
     }
   },
   {
-    "__type__": "04f62OpblhMYb6+AOI+oOHr",
+    "__type__": "0f5b0gMsqpLuqIno7urpKt7",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -78,7 +78,7 @@
     },
     "_enabled": true,
     "tipPrefab": {
-      "__uuid__": "72a8ec1d-fb25-4108-a8fc-c2cd0872e2f6"
+      "__uuid__": "e3609968-cb6b-43b4-b44a-b5bcef770b04"
     },
     "_id": ""
   },
@@ -88,7 +88,7 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "95b2391b-716d-4af5-94e5-04a4f623f404"
+      "__uuid__": "7d0805ce-0492-4508-82f3-e04c8ac99371"
     },
     "fileId": "fcB6rBhYZGhaPZVu4gftH3",
     "sync": false

@@ -24,6 +24,6 @@ export default class UploadAndReturnPanel extends BaseUI {
     }
 
     onTiJiao() {
-        UIManager.getInstance().openUI(SubmissionPanel, 201);
+        UIManager.getInstance().openUI(SubmissionPanel, null , 201);
     }
 }

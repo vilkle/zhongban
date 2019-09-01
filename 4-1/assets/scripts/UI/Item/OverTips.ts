@@ -73,7 +73,7 @@ export class OverTips extends BaseUI {
     delayClose():void {
        
         this.scheduleOnce(function () {this.onClickClose();
-            this.closeCallback();
+            //this.closeCallback();
         }.bind(this), 0);
     }
 

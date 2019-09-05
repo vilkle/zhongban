@@ -1,4 +1,5 @@
 import { ListenerManager } from "../../Manager/ListenerManager";
+import { AudioManager } from "../../Manager/AudioManager"
 
 const {ccclass, property} = cc._decorator;
 
@@ -14,9 +15,8 @@ export default class NewClass extends cc.Component {
     start () {
         this.clickNode.on(cc.Node.EventType.TOUCH_START, (e)=>{
             if(!this.ellipse.active) {
+                AudioManager.getInstance().playSound('dianji', false)
                 this.ellipse.active = true
-            }else {
-                this.ellipse.active = false
             }
         })
     }

@@ -80,7 +80,7 @@ export class OverTips extends BaseUI {
         this.spine_true.node.active = type == 1;
         this.spine_complete.node.active = type == 2;
         this.label_tip.string = str;
-        this.label_tip.node.active = type != 2;
+        this.label_tip.node.active =true;
         switch (type) {
             case 0:
                 Tools.playSpine(this.spine_false, "false", false, this.delayClose.bind(this));

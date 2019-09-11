@@ -8,20 +8,24 @@
   "design-resolution-height": 960,
   "design-resolution-width": 1994,
   "excluded-modules": [
+    "Canvas Renderer",
     "Renderer Texture",
     "Dynamic Atlas",
     "Label Effect",
+    "Mask",
+    "Graphics",
     "ParticleSystem",
     "TiledMap",
     "DragonBones",
     "RichText",
     "MotionStreak",
-    "ProgressBar",
     "ScrollBar",
     "ScrollView",
+    "Toggle",
     "PageView",
     "PageViewIndicator",
     "Slider",
+    "EditBox",
     "VideoPlayer",
     "WebView",
     "Animation",
@@ -57,7 +61,6 @@
     "height": 640,
     "width": 960
   },
-  "start-scene": "current",
   "use-customize-simulator": true,
   "use-project-simulator-setting": false
 }

@@ -16,12 +16,11 @@
     "DragonBones",
     "RichText",
     "MotionStreak",
-    "ProgressBar",
     "ScrollBar",
     "ScrollView",
     "PageView",
     "PageViewIndicator",
-    "Slider",
+    "EditBox",
     "VideoPlayer",
     "WebView",
     "Animation",
@@ -51,7 +50,7 @@
   "group-list": [
     "default"
   ],
-  "last-module-event-record-time": 1565318679645,
+  "last-module-event-record-time": 1568105191925,
   "simulator-orientation": false,
   "simulator-resolution": {
     "height": 640,

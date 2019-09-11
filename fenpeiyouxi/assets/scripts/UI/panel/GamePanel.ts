@@ -293,6 +293,10 @@ export default class GamePanel extends BaseUI {
                         this.curtain.stopAllActions()
                         this.eventvalue.result = 1
                         this.isOver = 1
+                        DataReporting.getInstance().dispatchEvent('addLog', {
+                            eventType: 'clickSubmit',
+                            eventValue: JSON.stringify(this.eventvalue)
+                        });
                         UIHelp.showOverTip(2, '闯关成功！', null, '闯关成功')
                         break
                     default:

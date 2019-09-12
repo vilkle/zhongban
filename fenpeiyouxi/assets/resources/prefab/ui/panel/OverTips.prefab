@@ -572,7 +572,7 @@
       "__id__": 1
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_level": 2,
     "_components": [
       {
@@ -663,9 +663,7 @@
     "_headAniInfo": null,
     "_playTimes": 0,
     "_isAniComplete": true,
-    "_N$skeletonData": {
-      "__uuid__": "c06fb1a8-12c0-4b58-a3c2-5995fb4219aa"
-    },
+    "_N$skeletonData": null,
     "_N$_defaultCacheMode": 0,
     "_N$debugSlots": false,
     "_N$debugBones": false,
@@ -692,7 +690,7 @@
       "__id__": 1
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_level": 2,
     "_components": [
       {
@@ -782,9 +780,7 @@
     "_headAniInfo": null,
     "_playTimes": 0,
     "_isAniComplete": true,
-    "_N$skeletonData": {
-      "__uuid__": "516fd1df-745b-4f40-8398-07fc8457b639"
-    },
+    "_N$skeletonData": null,
     "_N$_defaultCacheMode": 0,
     "_N$debugSlots": false,
     "_N$debugBones": false,

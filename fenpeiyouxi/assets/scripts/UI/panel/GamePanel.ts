@@ -75,6 +75,16 @@ export default class GamePanel extends BaseUI {
             }
         });
         DataReporting.getInstance().addEvent('end_game', this.onEndGame.bind(this));
+        this.titleNode.getChildByName('bounding').on(cc.Node.EventType.TOUCH_START, (e)=>{
+            e.target.parent.scale = 0.9
+            this.playQuestion()
+        })
+        this.titleNode.getChildByName('bounding').on(cc.Node.EventType.TOUCH_END, (e)=>{
+            e.target.parent.scale = 1
+        })
+        this.titleNode.getChildByName('bounding').on(cc.Node.EventType.TOUCH_CANCEL, (e)=>{
+            e.target.parent.scale = 1
+        })
         this.curtain.zIndex = 6
         this.garland.zIndex = 8
         this.titleNode.zIndex = 9
@@ -92,6 +102,19 @@ export default class GamePanel extends BaseUI {
         }
         //eventValue  0为未答题   1为答对了    2为答错了或未完成
         DataReporting.getInstance().dispatchEvent('end_finished', { eventType: 'activity', eventValue: this.isOver });
+    }
+
+    playQuestion() {
+        if(this.checkpoint == 1 || this.checkpoint == 2 || this.checkpoint == 3) {
+            AudioManager.getInstance().stopAll()
+            AudioManager.getInstance().playSound('猜一猜幕后有几只鸡' , false)
+        }else if(this.checkpoint == 4 || this.checkpoint == 5) {
+            AudioManager.getInstance().stopAll()
+            AudioManager.getInstance().playSound('猜一猜幕后有几匹马' , false)
+        }else if(this.checkpoint == 6) {
+            AudioManager.getInstance().stopAll()
+            AudioManager.getInstance().playSound('猜一猜幕后有几只羊' , false)
+        }
     }
 
     question1() {
@@ -197,9 +220,9 @@ export default class GamePanel extends BaseUI {
         for(let i = 0; i < optionArr.length; ++i) {
             optionArr[i].on(cc.Node.EventType.TOUCH_START, (e)=>{
                 this.touchEnable = this.countOver(this.animalNodeArr)
-                if(!this.touchEnable) {
-                    return
-                }
+                // if(!this.touchEnable) {
+                //     return
+                // }
                 if(this.isRight) {
                     return
                 }
@@ -268,26 +291,30 @@ export default class GamePanel extends BaseUI {
         if(this.answerNum == this.animalNum) {  
             this.isRight = true 
             AudioManager.getInstance().stopAll()
-            AudioManager.getInstance().playSound('right3', false)
+            AudioManager.getInstance().playSound('你真棒', false)
             this.eventvalue.levelData[this.checkpoint-1].result = 1
             this.touchEnable = false  
             let func = cc.callFunc(()=>{ 
-                this.isRight = false
                 switch(checkpoint) {
                     case 1:
+                        this.isRight = false
                         this.question2()
                         break
                     case 2:
-                            this.question3()
+                        this.isRight = false
+                        this.question3()
                         break
                     case 3:
-                            this.question4()
+                        this.isRight = false
+                        this.question4()
                         break
                     case 4:
-                            this.question5()
+                        this.isRight = false
+                        this.question5()
                         break
                     case 5:
-                            this.question6()
+                        this.isRight = false
+                        this.question6()
                         break
                     case 6:
                         this.curtain.stopAllActions()
@@ -297,7 +324,14 @@ export default class GamePanel extends BaseUI {
                             eventType: 'clickSubmit',
                             eventValue: JSON.stringify(this.eventvalue)
                         });
-                        UIHelp.showOverTip(2, '闯关成功！', null, '闯关成功')
+                        setTimeout(() => {
+                            for(let i = 0; i < this.optionNodeArr.length; ++i) {
+                                this.optionNodeArr[i].runAction(cc.fadeOut(0.3))
+                            }
+                        }, 1500);
+                        setTimeout(() => {
+                            UIHelp.showOverTip(2, '闯关成功，棒棒哒～', null, '闯关成功')
+                        }, 2000);
                         break
                     default:
                         break

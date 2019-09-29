@@ -31,6 +31,8 @@ export default class GamePanel extends BaseUI {
     private title3: cc.SpriteFrame = null
     @property(cc.SpriteFrame)
     private title4: cc.SpriteFrame = null
+    @property(cc.Node)
+    private titleNode: cc.Node = null
     private checkpoint: number = null
     private optionArr: cc.Node[] = []
     private isOver : number = 0;
@@ -59,6 +61,17 @@ export default class GamePanel extends BaseUI {
                 this.eventvalue.levelData[this.checkpoint - 1].result = 2;
             }   
         })
+        this.titleNode.on(cc.Node.EventType.TOUCH_START, (e)=>{
+            this.titleNode.scale = 0.9
+            AudioManager.getInstance().stopAll()
+            this.playTitle(this.checkpoint)
+        })
+        this.titleNode.on(cc.Node.EventType.TOUCH_END, (e)=>{
+            this.titleNode.scale = 1
+        })
+        this.titleNode.on(cc.Node.EventType.TOUCH_CANCEL, (e)=>{
+            this.titleNode.scale = 1
+        })
         DataReporting.getInstance().addEvent('end_game', this.onEndGame.bind(this));
         this.checkpoint = 1
         this.round(this.checkpoint)
@@ -82,14 +95,10 @@ export default class GamePanel extends BaseUI {
     }
 
     nextCheckPoint() {
-        this.removeListenerOnOption(this.optionArr)
+        //this.removeListenerOnOption(this.optionArr)
         if(this.checkpoint < 4) {
             this.checkpoint++
-            let timeoutIndex = setTimeout(() => {
-                this.round(this.checkpoint)
-                clearTimeout(timeoutIndex)
-            }, 2000);
-            
+            this.round(this.checkpoint)
         }else {
             this.isOver = 1
             this.eventvalue.result = 1 
@@ -97,10 +106,7 @@ export default class GamePanel extends BaseUI {
                 eventType: 'clickSubmit',
                 eventValue: JSON.stringify(this.eventvalue)
             });
-            let timeoutIndex = setTimeout(() => {
-                UIHelp.showOverTip(2,'闯关成功！', null, '闯关成功')
-                clearTimeout(timeoutIndex)
-            }, 2000);
+            UIHelp.showOverTip(2,'闯关成功，棒棒哒～', null, '闯关成功')
         }
     }
 
@@ -160,7 +166,15 @@ export default class GamePanel extends BaseUI {
             }
         }
         if(this.isRight()) {
-            this.nextCheckPoint()
+            for(let i = 0; i < this.optionArr.length; ++i) {
+                let faceNode = this.optionArr[i].getChildByName('frame')
+                faceNode.off(cc.Node.EventType.TOUCH_START)
+                faceNode.off(cc.Node.EventType.TOUCH_END)
+            }
+            let timeoutId = setTimeout(() => {
+                AudioManager.getInstance().playSound('你真棒', false, 1, null, ()=>{this.nextCheckPoint()})
+                clearTimeout(timeoutId)
+            }, 2500);
         }
     }
 
@@ -222,11 +236,24 @@ export default class GamePanel extends BaseUI {
         return audioName
     }
 
+    playTitle(checkpoint: number) {
+        if(checkpoint == 1) {
+            AudioManager.getInstance().playSound('哪些布是二等分', false)
+        }else if(checkpoint == 2) {
+            AudioManager.getInstance().playSound('哪些布是三等分', false)
+        }else if(checkpoint == 3) {
+            AudioManager.getInstance().playSound('哪些布是四等分', false)
+        }else if(checkpoint == 4) {
+            AudioManager.getInstance().playSound('哪些布是六等分', false)
+        }
+    }
+
     round(index: number) {
         for(let i = 0; i < this.roundNode.children.length; ++i) {
             this.roundNode.children[i].active = false
         }
         let node: cc.Node = null
+        this.playTitle(this.checkpoint)
         switch(index) {
             case 1:
                 node = this.round1Node
@@ -251,11 +278,6 @@ export default class GamePanel extends BaseUI {
             default:
                 console.error(`get wrong round index, the index of inputs is ${index}.`)
                 break
-        }
-        for(let i = 0; i < this.optionArr.length; ++i) {
-            let faceNode = this.optionArr[i].getChildByName('frame')
-            faceNode.off(cc.Node.EventType.TOUCH_START)
-            faceNode.off(cc.Node.EventType.TOUCH_END)
         }
         this.optionArr = []
         if(node) {

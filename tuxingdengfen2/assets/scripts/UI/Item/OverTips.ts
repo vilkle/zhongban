@@ -144,6 +144,11 @@ export class OverTips extends BaseUI {
                     this.endInAnimation = false;
                 });
                 AudioManager.getInstance().playSound("sfx_geupgrd", false, 1);
+                let timeoutId = setTimeout(() => {
+                    AudioManager.getInstance().playSound('闯关成功，棒棒的')
+                    clearTimeout(timeoutId)
+                }, 1500);
+                
             }
         }.bind(this));
     }

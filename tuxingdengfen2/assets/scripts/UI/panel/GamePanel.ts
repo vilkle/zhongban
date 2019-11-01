@@ -58,6 +58,9 @@ export default class GamePanel extends BaseUI {
     }
 
     protected static className = "GamePanel";
+    onLoad() {
+        cc.loader.loadRes('prefab/ui/panel/OverTips', cc.Prefab, null); 
+    }
     start() {
         DataReporting.getInstance().addEvent('end_game', this.onEndGame.bind(this));
         for(let i = 0; i < 3; ++i) {

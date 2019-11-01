@@ -1,0 +1,55 @@
+
+shell.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+paopao
+  rotate: false
+  xy: 133, 45
+  size: 19, 19
+  orig: 19, 19
+  offset: 0, 0
+  index: -1
+shellBack
+  rotate: false
+  xy: 2, 2
+  size: 129, 62
+  orig: 129, 62
+  offset: 0, 0
+  index: -1
+shellBall
+  rotate: false
+  xy: 441, 68
+  size: 60, 54
+  orig: 60, 54
+  offset: 0, 0
+  index: -1
+shellBody
+  rotate: false
+  xy: 310, 19
+  size: 107, 54
+  orig: 107, 54
+  offset: 0, 0
+  index: -1
+shellFront
+  rotate: false
+  xy: 310, 75
+  size: 129, 47
+  orig: 129, 47
+  offset: 0, 0
+  index: -1
+shellShadow
+  rotate: false
+  xy: 2, 66
+  size: 176, 56
+  orig: 176, 56
+  offset: 0, 0
+  index: -1
+shellUp
+  rotate: false
+  xy: 180, 38
+  size: 128, 84
+  orig: 128, 84
+  offset: 0, 0
+  index: -1

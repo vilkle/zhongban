@@ -59,6 +59,7 @@ export default class GamePanel extends BaseUI {
     }
 
     onLoad() {
+        cc.loader.loadRes('prefab/ui/panel/OverTips', cc.Prefab, null);
         if(ConstValue.IS_TEACHER) {
             UIManager.getInstance().openUI(UploadAndReturnPanel);
         }

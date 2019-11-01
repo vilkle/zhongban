@@ -284,12 +284,9 @@
             }
         }
         window['isOnline'] = isOnline;
-        var src = '';
-        if (isOwcr) {
-            src = protocol + (isOnline ? location.host : 'ceshi-static.haibian.com') + '/courseware/static/sdk/courseware-v1.0.0-alpha.js';
-        } else {
-            src = "./courseware-v1.0.0-alpha.js";
-        }
+
+        var domainName = isOnline ? 'courseware-vod.haibian.com' : 'ceshi-static.haibian.com';
+        var src = protocol + domainName + '/courseware/static/sdk/courseware-v1.0.0-alpha.js';
         document.write('<script src="' + src + '"><\/script>')
     </script>
 
@@ -324,7 +321,7 @@
                     }
                     consoleError && consoleError.apply(window, arguments);
                 }
-                
+
                 //加载时间上报
                 var getNowFormatDate = function () {
                     var date = new Date();
@@ -363,7 +360,7 @@
                     return currentdate;
                 }
 
-                var upLog = function (eventName, isError=false, log="") {
+                var upLog = function (eventName, isError = false, log = "") {
                     var img = new Image();
                     var data = new Object();
                     data.url = location;

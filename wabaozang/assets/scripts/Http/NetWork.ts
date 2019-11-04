@@ -163,7 +163,7 @@ export class NetWork {
                 "&subject=" + this.GetRequest()["subject"] +
                 "&event=" + errorType +
                 "&identity=1" +
-                "&extra=" + JSON.stringify({ url: location, CoursewareKey: ConstValue.CoursewareKey, empty: this.GetRequest()["empty"], CoursewareName: 'weizhijiyi', data: data });
+                "&extra=" + JSON.stringify({ url: location, CoursewareKey: ConstValue.CoursewareKey, empty: this.GetRequest()["empty"], CoursewareName: 'wabaozang', data: data });
         }
     }
 }

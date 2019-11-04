@@ -1,6 +1,7 @@
 export class DaAnData {
     private static instance: DaAnData;
-   
+    public type: number = 0;
+    public itemArr: number[] = [];
     public submitEnable = false;
    
     static getInstance() {

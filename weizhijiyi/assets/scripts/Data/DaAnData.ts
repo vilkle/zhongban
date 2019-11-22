@@ -1,7 +1,7 @@
 export class DaAnData {
     private static instance: DaAnData;
    
-    public submitEnable = false;
+    public submitEnable = true;
    
     static getInstance() {
         if (this.instance == null) {

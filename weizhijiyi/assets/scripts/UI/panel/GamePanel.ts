@@ -3,6 +3,10 @@ import { NetWork } from "../../Http/NetWork";
 import DataReporting from "../../Data/DataReporting";
 import { UIHelp } from "../../Utils/UIHelp";
 import { AudioManager } from "../../Manager/AudioManager";
+import { ConstValue } from "../../Data/ConstValue";
+import { UIManager } from "../../Manager/UIManager";
+import UploadAndReturnPanel from "./UploadAndReturnPanel";
+import { DaAnData } from "../../Data/DaAnData";
 
 const { ccclass, property } = cc._decorator;
 
@@ -51,6 +55,10 @@ export default class GamePanel extends BaseUI {
     protected static className = "GamePanel";
 
     onLoad() {
+        if(ConstValue.IS_TEACHER) {
+            DaAnData.getInstance().submitEnable = true
+            UIManager.getInstance().openUI(UploadAndReturnPanel, null, 212)
+        }
         cc.loader.loadRes('prefab/ui/panel/OverTips', cc.Prefab, null);
         this.bg.on(cc.Node.EventType.TOUCH_START, (e)=>{
             if(this.isOver != 1) {
@@ -74,7 +82,11 @@ export default class GamePanel extends BaseUI {
 
     start() {
         let id = setTimeout(() => {
-            AudioManager.getInstance().playSound('title')
+            this.laba.addAnimation(0, 'speak', true)
+            AudioManager.getInstance().stopAll()
+            AudioManager.getInstance().playSound('title', false, 1, null, ()=>{
+                this.laba.setAnimation(0, 'null', true)
+            })
             clearTimeout(id)
         }, 500);
         DataReporting.getInstance().addEvent('end_game', this.onEndGame.bind(this));

@@ -14,20 +14,42 @@ const { ccclass, property } = cc._decorator;
 export default class GamePanel extends BaseUI {
 
     @property(cc.Node)
-    private node_test:cc.Node = null;
-    @property(cc.Node)
     private bg: cc.Node = null
     @property(cc.Node)
     private labaBoundingBox: cc.Node = null
     @property(sp.Skeleton)
     private laba: sp.Skeleton = null
+    @property(cc.Node)
+    private chooseNode: cc.Node = null
+    @property(cc.Node)
+    private hand: cc.Node = null 
+    @property(cc.Node)
+    private passerbyA: cc.Node = null
+    @property(cc.Node)
+    private passerbyB: cc.Node = null
+    @property(cc.Node)
+    private passerbyC: cc.Node = null
+    @property(cc.Node)
+    private touchNode: cc.Node = null
+    @property(cc.Node)
+    private customer1: cc.Node = null
+    @property(cc.Node)
+    private customer2: cc.Node = null
+    @property(cc.Node)
+    private customer3: cc.Node = null
+    private touchTarget: any = null
+    private passerbyArr: cc.Node[] = []
     private isOver: number = 0
     private checkpointNum: number = 0
     private eventvalue = {
         isResult: 1,
-        isLevel: 1,
+        isLevel: 0,
         levelData: [
-
+            {
+                subject: [null, null, null],
+                answer: ['A', 'C', 'B'],
+                result: 4
+            }
         ],
         result: 4
     }
@@ -47,31 +69,180 @@ export default class GamePanel extends BaseUI {
                 this.eventvalue.levelData[0].result = 2
             }
         })
-        // this.labaBoundingBox.on(cc.Node.EventType.TOUCH_START, (e)=>{
-        //     this.laba.setAnimation(0, 'click', false)
-        //     this.laba.addAnimation(0, 'speak', true)
-        //     AudioManager.getInstance().stopAll()
-        //     AudioManager.getInstance().playSound('title', false, 1, null, ()=>{
-        //         this.laba.setAnimation(0, 'null', true)
-        //     })
-        // })
+        this.labaBoundingBox.on(cc.Node.EventType.TOUCH_START, (e)=>{
+            this.laba.setAnimation(0, 'click', false)
+            this.laba.addAnimation(0, 'speak', true)
+            AudioManager.getInstance().stopAll()
+            // AudioManager.getInstance().playSound('title', false, 1, null, ()=>{
+            //     this.laba.setAnimation(0, 'null', true)
+            // })
+        })
+        this.passerbyArr[0] = this.passerbyA
+        this.passerbyArr[1] = this.passerbyB
+        this.passerbyArr[2] = this.passerbyC
     }
 
     start() {
         DataReporting.getInstance().addEvent('end_game', this.onEndGame.bind(this));
-    }
-
-    setPanel() {
-        
+        this.addListenerOnPasserby()
     }
 
     addData() {
-        for(let i = 0; i < this.checkpointNum; i++) {
-            this.eventvalue.levelData.push({
-                answer: null,
-                subject: null,
-                result: 4
+        // for(let i = 0; i < this.checkpointNum; i++) {
+        //     this.eventvalue.levelData.push({
+        //         answer: null,
+        //         subject: null,
+        //         result: 4
+        //     })
+        // }
+    }
+
+    addListenerOnPasserby() {
+        for(let i = 0; i < this.passerbyArr.length; ++i) {
+            let node = this.passerbyArr[i]
+            node.on(cc.Node.EventType.TOUCH_START, (e)=>{
+                if(this.touchTarget || e.target.opacity == 0) {
+                    return
+                }
+                this.touchTarget = e.target
+                this.touchNode.active = true
+                this.touchNode.getComponent(sp.Skeleton).skeletonData = e.target.getComponent(sp.Skeleton).skeletonData
+                let spine = this.touchNode.getComponent(sp.Skeleton)
+                if(i == 0) {
+                    spine.setAnimation(0, 'a1', true)
+                }else if(i == 1) {
+                    spine.setAnimation(0, 'b1', true)
+                }else if(i == 2) {  
+                    spine.setAnimation(0, 'c1', true)
+                }
+                e.target.opacity = 0
+                let pos = this.node.convertToNodeSpaceAR(e.currentTouch._point)
+                pos = cc.v2(pos.x, pos.y - e.target.height / 2)
+                this.touchNode.setPosition(pos)
             })
+            node.on(cc.Node.EventType.TOUCH_MOVE, (e)=>{
+                if(this.touchTarget != e.target) {
+                    return
+                }
+                let pos = this.node.convertToNodeSpaceAR(e.currentTouch._point)
+                pos = pos = cc.v2(pos.x, pos.y - this.touchNode.height / 2)
+                this.touchNode.setPosition(pos)
+                let chooseArr = this.chooseNode.children
+                let chooseIndex: number = null
+                for(let n = 0; n < chooseArr.length; ++n) {
+                    if(chooseArr[n].getBoundingBox().contains(this.chooseNode.convertToNodeSpaceAR(e.currentTouch._point))) {
+                        chooseArr[n].getChildByName('box').active = true
+                        chooseIndex = n
+                    }
+                    if(n == chooseArr.length - 1) {
+                        for(let j = 0; j < chooseArr.length; ++j) {
+                            if(j != chooseIndex) {
+                                chooseArr[j].getChildByName('box').active = false
+                            }
+                        }
+                    }
+                }
+
+            })
+            node.on(cc.Node.EventType.TOUCH_END, (e)=>{
+                if(this.touchTarget != e.target) {
+                    return
+                }
+                this.touchNode.active = false
+                this.touchTarget = null
+                e.target.opacity = 255
+                let chooseArr = this.chooseNode.children
+                for(let j = 0; j < chooseArr.length; ++j) {
+                    chooseArr[j].getChildByName('box').active = false
+                }
+
+            })
+            node.on(cc.Node.EventType.TOUCH_CANCEL, (e)=>{
+                if(this.touchTarget != e.target) {
+                    return
+                }
+                let index: string = ''
+                if(i == 0) {
+                    index = 'A'
+                }else if(i== 1) {
+                    index = 'B'
+                }else if(i == 2) {
+                    index = 'C'
+                }
+                let right: boolean = false
+                let chooseArr = this.chooseNode.children
+                for(let i = 0; i < chooseArr.length; ++i) {
+                    if(chooseArr[i].getBoundingBox().contains(this.node.convertToNodeSpaceAR(e.currentTouch._point))) {
+                        if(i == 0 && !this.customer1.active && index == 'A') {    
+                            this.customer1.active = true
+                            this.customer1.getComponent(sp.Skeleton).skeletonData = this.touchNode.getComponent(sp.Skeleton).skeletonData
+                            this.customer1.getComponent(sp.Skeleton).setAnimation(0, 'a1', true)
+                            this.eventvalue.levelData[0].subject[i] = index
+                            right = true
+                        }else if(i == 1 && !this.customer2.active && index == 'C') {
+                            this.customer2.active = true
+                            this.customer2.getComponent(sp.Skeleton).skeletonData = this.touchNode.getComponent(sp.Skeleton).skeletonData
+                            this.customer2.getComponent(sp.Skeleton).setAnimation(0, 'c1', true)
+                            this.eventvalue.levelData[0].subject[i] = index
+                            right = true
+                        }else if(i == 2 && !this.customer3.active && index == 'B') {
+                            this.customer3.active = true
+                            this.customer3.getComponent(sp.Skeleton).skeletonData = this.touchNode.getComponent(sp.Skeleton).skeletonData
+                            this.customer3.getComponent(sp.Skeleton).setAnimation(0, 'b1', true)
+                            this.eventvalue.levelData[0].subject[i] = index
+                            right = true
+                        }else {
+                            right = false
+                        }
+                    }
+                }
+                if(!right) {
+                    e.target.opacity = 255
+                }
+                this.touchNode.active = false
+                this.touchTarget = null
+                this.eventvalue.result = 2
+                this.eventvalue.levelData[0].result = 2
+                this.isOver = 2
+                if(this.isSuccess()) {
+                    this.eventvalue.result = 1
+                    this.eventvalue.levelData[0].result = 1
+                    this.isOver = 1
+                    DataReporting.getInstance().dispatchEvent('addLog', {
+                        eventType: 'clickSubmit',
+                        eventValue: JSON.stringify(this.eventvalue)
+                    })
+                    this.customer1.getComponent(sp.Skeleton).setAnimation(0, 'a2', false)
+                    this.customer2.getComponent(sp.Skeleton).setAnimation(0, 'c2', false)
+                    this.customer3.getComponent(sp.Skeleton).setAnimation(0, 'b2', false)
+                    this.customer3.getComponent(sp.Skeleton).setCompleteListener(trackEntry=>{
+                        if(trackEntry.animation.name == 'b2') {
+                            UIHelp.showOverTip(2, '你真棒，等等还没做完的同学吧。',null, '挑战成功')
+                        }
+                    })  
+                }
+                for(let j = 0; j < chooseArr.length; ++j) {
+                    chooseArr[j].getChildByName('box').active = false
+                }
+            })
+
+
+        }
+    }
+
+    isSuccess(): boolean {
+        let answer = this.eventvalue.levelData[0].answer
+        let subject = this.eventvalue.levelData[0].subject
+        let rightNum = 0
+        for(let i = 0; i < subject.length; ++i) {
+            if(subject[i] == answer[i]) {
+                rightNum++
+            }
+        }   
+        if(rightNum == answer.length) {
+            return true
+        }else {
+            return false
         }
     }
 
@@ -94,8 +265,6 @@ export default class GamePanel extends BaseUI {
 
     onShow() {
     }
-
-   
 
     getNet() {
         NetWork.getInstance().httpRequest(NetWork.GET_QUESTION + "?courseware_id=" + NetWork.courseware_id, "GET", "application/json;charset=utf-8", function (err, response) {

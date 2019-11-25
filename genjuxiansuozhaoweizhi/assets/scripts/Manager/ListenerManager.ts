@@ -36,6 +36,10 @@ export class ListenerManager {
 		return this.instance;
 	}
 
+	public log() {
+		console.log(this.mListenerMap)
+	}
+
 	public has(type: string, caller: any, listener: Function): boolean {
 		return this.find(type, caller, listener) !== null;
 	}

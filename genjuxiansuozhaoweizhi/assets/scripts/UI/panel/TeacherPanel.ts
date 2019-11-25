@@ -32,7 +32,7 @@ export default class TeacherPanel extends BaseUI {
     }
 
     onBtnPreviewClicked() {
-        UIManager.getInstance().showUI(GamePanel, () => {
+        UIManager.getInstance().showUI(GamePanel, null, () => {
             ListenerManager.getInstance().trigger(ListenerType.OnEditStateSwitching, {state: 1}); 
         })
     }

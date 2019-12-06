@@ -1,0 +1,32 @@
+{
+  "ver": "2.3.1",
+  "uuid": "2c882db1-c0f6-4de9-af93-526b46b9a50d",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "platformSettings": {},
+  "subMetas": {
+    "kaola": {
+      "ver": "1.0.4",
+      "uuid": "958a5e6e-bcd0-4b46-b358-7263b8730e67",
+      "rawTextureUuid": "2c882db1-c0f6-4de9-af93-526b46b9a50d",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 91,
+      "height": 98,
+      "rawWidth": 91,
+      "rawHeight": 98,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

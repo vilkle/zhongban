@@ -41,6 +41,8 @@ export default class GamePanel extends BaseUI {
     private passerbyArr: cc.Node[] = []
     private isOver: number = 0
     private checkpointNum: number = 0
+    private timeOutId: number = null
+    private touchMove: boolean = false
     private eventvalue = {
         isResult: 1,
         isLevel: 0,
@@ -60,6 +62,8 @@ export default class GamePanel extends BaseUI {
         if(ConstValue.IS_TEACHER) {
             DaAnData.getInstance().submitEnable = true
             UIManager.getInstance().openUI(UploadAndReturnPanel, null, 212)
+        }else {
+            this.getNet()
         }
         cc.loader.loadRes('prefab/ui/panel/OverTips', cc.Prefab, null);
         this.bg.on(cc.Node.EventType.TOUCH_START, (e)=>{
@@ -69,20 +73,38 @@ export default class GamePanel extends BaseUI {
                 this.eventvalue.levelData[0].result = 2
             }
         })
+        this.timeOutId = setTimeout(() => {
+            this.playSound('title')
+            clearTimeout(this.timeOutId)
+            this.timeOutId = null
+        }, 500);
         this.labaBoundingBox.on(cc.Node.EventType.TOUCH_START, (e)=>{
+            if(this.timeOutId) {
+                clearTimeout(this.timeOutId)
+            }
             this.laba.setAnimation(0, 'click', false)
             this.laba.addAnimation(0, 'speak', true)
             AudioManager.getInstance().stopAll()
-            // AudioManager.getInstance().playSound('title', false, 1, null, ()=>{
-            //     this.laba.setAnimation(0, 'null', true)
-            // })
+            AudioManager.getInstance().playSound('title', false, 1, null, ()=>{
+                this.laba.setAnimation(0, 'null', true)
+            })
         })
         this.passerbyArr[0] = this.passerbyA
         this.passerbyArr[1] = this.passerbyB
         this.passerbyArr[2] = this.passerbyC
     }
 
+    playSound(str: string) {
+        if(this.timeOutId) {
+            clearTimeout(this.timeOutId)
+        }
+        this.laba.setAnimation(0, 'null', true)
+        AudioManager.getInstance().stopAll()
+        AudioManager.getInstance().playSound(str, false)
+    }
+
     start() {
+       
         DataReporting.getInstance().addEvent('end_game', this.onEndGame.bind(this));
         this.addListenerOnPasserby()
     }
@@ -117,15 +139,20 @@ export default class GamePanel extends BaseUI {
                 }
                 e.target.opacity = 0
                 let pos = this.node.convertToNodeSpaceAR(e.currentTouch._point)
-                pos = cc.v2(pos.x, pos.y - e.target.height / 2)
+                //pos = cc.v2(pos.x, pos.y - e.target.height / 2)
+                pos = node.getPosition()
                 this.touchNode.setPosition(pos)
             })
             node.on(cc.Node.EventType.TOUCH_MOVE, (e)=>{
                 if(this.touchTarget != e.target) {
                     return
                 }
-                let pos = this.node.convertToNodeSpaceAR(e.currentTouch._point)
-                pos = pos = cc.v2(pos.x, pos.y - this.touchNode.height / 2)
+                // let pos = this.node.convertToNodeSpaceAR(e.currentTouch._point)
+                // pos = pos = cc.v2(pos.x, pos.y - this.touchNode.height / 2)
+                let deltaPos = e.getDelta()
+                let lastPos = this.touchNode.getPosition()
+                let pos = cc.v2(lastPos.x + deltaPos.x, lastPos.y + deltaPos.y)
+                this.touchMove = true
                 this.touchNode.setPosition(pos)
                 let chooseArr = this.chooseNode.children
                 let chooseIndex: number = null
@@ -148,6 +175,17 @@ export default class GamePanel extends BaseUI {
                 if(this.touchTarget != e.target) {
                     return
                 }
+                console.log(e.getDelta().x, e.getDelta().y)
+                if(!this.touchMove) {
+                    if(i == 0) {
+                        this.playSound('我和C分别进了两家相邻的店')
+                    }else if(i == 1) {
+                        this.playSound('我也和C分别进了两家相邻的店')
+                    }else if(i == 2) {
+                        this.playSound('A不吃火锅')
+                    }
+                }
+                this.touchMove = false
                 this.touchNode.active = false
                 this.touchTarget = null
                 e.target.opacity = 255
@@ -161,6 +199,7 @@ export default class GamePanel extends BaseUI {
                 if(this.touchTarget != e.target) {
                     return
                 }
+                this.touchMove = false
                 let index: string = ''
                 if(i == 0) {
                     index = 'A'
@@ -173,25 +212,29 @@ export default class GamePanel extends BaseUI {
                 let chooseArr = this.chooseNode.children
                 for(let i = 0; i < chooseArr.length; ++i) {
                     if(chooseArr[i].getBoundingBox().contains(this.node.convertToNodeSpaceAR(e.currentTouch._point))) {
-                        if(i == 0 && !this.customer1.active && index == 'A') {    
+                        if(i == 0 && !this.customer1.active && index == 'A') {  
+                            this.playSound('被你发现了')  
                             this.customer1.active = true
                             this.customer1.getComponent(sp.Skeleton).skeletonData = this.touchNode.getComponent(sp.Skeleton).skeletonData
                             this.customer1.getComponent(sp.Skeleton).setAnimation(0, 'a1', true)
                             this.eventvalue.levelData[0].subject[i] = index
                             right = true
                         }else if(i == 1 && !this.customer2.active && index == 'C') {
+                            this.playSound('被你发现了')  
                             this.customer2.active = true
                             this.customer2.getComponent(sp.Skeleton).skeletonData = this.touchNode.getComponent(sp.Skeleton).skeletonData
                             this.customer2.getComponent(sp.Skeleton).setAnimation(0, 'c1', true)
                             this.eventvalue.levelData[0].subject[i] = index
                             right = true
                         }else if(i == 2 && !this.customer3.active && index == 'B') {
+                            this.playSound('被你发现了')  
                             this.customer3.active = true
                             this.customer3.getComponent(sp.Skeleton).skeletonData = this.touchNode.getComponent(sp.Skeleton).skeletonData
                             this.customer3.getComponent(sp.Skeleton).setAnimation(0, 'b1', true)
                             this.eventvalue.levelData[0].subject[i] = index
                             right = true
                         }else {
+                            this.playSound('我不在这')
                             right = false
                         }
                     }
@@ -260,7 +303,9 @@ export default class GamePanel extends BaseUI {
     }
 
     onDestroy() {
-
+        if(this.timeOutId) {
+            clearTimeout(this.timeOutId)
+        }
     }
 
     onShow() {
@@ -275,10 +320,10 @@ export default class GamePanel extends BaseUI {
                 }
                 let content = JSON.parse(response_data.data.courseware_content);
                 if (content != null) {
-                    this.setPanel();
+                    
                 }
             } else {
-                this.setPanel();
+                
             }
         }.bind(this), null);
     }

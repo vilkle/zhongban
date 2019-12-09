@@ -7,6 +7,7 @@ import { UIManager } from "../../Manager/UIManager";
 import UploadAndReturnPanel from "./UploadAndReturnPanel";
 import { UIHelp } from "../../Utils/UIHelp";
 import { AudioManager } from "../../Manager/AudioManager";
+import { OverTips } from "../Item/OverTips";
 
 const { ccclass, property } = cc._decorator;
 
@@ -110,7 +111,6 @@ export default class GamePanel extends BaseUI {
     }
 
     playSound(str: string) {
-      
         AudioManager.getInstance().stopAll()
         AudioManager.getInstance().playSound(str, false)
     }
@@ -217,10 +217,17 @@ export default class GamePanel extends BaseUI {
             case 4:
                 this.round5()
                 break
+            case 5:
+                this.round6()
+                break
             default:
                 break
        }
        
+    }
+
+    success() {
+        UIHelp.showOverTip(2, '你真棒，等等还没做完的同学吧。', '', null, null, '闯关成功')
     }
 
     addListenerOnOption(OptionArr: cc.Node[]) {
@@ -236,14 +243,34 @@ export default class GamePanel extends BaseUI {
                 this.touchTarget = e.target
                 for(let j = 0; j < OptionArr.length; ++j) {
                     let activity = OptionArr[j].getChildByName('box').active
-                    if(activity) {
-                        activity = false
+                    if(j == i) {
+                        if(activity) {
+                            OptionArr[j].getChildByName('box').active = false
+                        }else {
+                            OptionArr[j].getChildByName('box').active = true
+                        }
                     }else {
-                        activity = true
+                        OptionArr[j].getChildByName('box').active = false
                     }
-                    
                 }
-                
+                let select: string = ''
+                if(i == 0) {
+                    select = 'A'
+                }else if(i == 1) {
+                    select = 'B'
+                }else if(i == 2) {
+                    select = 'C'
+                }
+                if(select == this.eventvalue.levelData[this.levelNum].answer) {
+                    if(this.levelNum < 5) {
+                        this.levelNum++
+                        UIHelp.showOverTip(1, '答对了', '下一关', ()=>{this.nextRound()}, null, '')
+                    }else {
+                        this.success()        
+                    }
+                }else {
+                    OptionArr[i].getChildByName('wrong').active = true
+                }
 
             })
             node.on(cc.Node.EventType.TOUCH_MOVE, (e)=>{
@@ -291,7 +318,7 @@ export default class GamePanel extends BaseUI {
     }
 
     onDestroy() {
-       
+      
     }
 
     onShow() {

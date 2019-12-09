@@ -45,11 +45,14 @@ export class OverTips extends BaseUI {
     private spine_complete: sp.Skeleton = null;
     @property(cc.Node)
     private node_close: cc.Node = null;
-
+    @property(cc.Node)
+    private button: cc.Node = null
+    private btnCallback = null
     private callback = null;
     private endInAnimation: boolean = false;
     private img_titles: cc.Node[] = [];
     private bones: any[] = [];
+    private id: number = null
 
     constructor() {
         super();
@@ -60,11 +63,18 @@ export class OverTips extends BaseUI {
     }
 
     start() {
-        this.node_close.on(cc.Node.EventType.TOUCH_END, this.onClickClose, this);
+        //this.node_close.on(cc.Node.EventType.TOUCH_END, this.onClickClose, this);
     }
 
     onDisable() {
-        this.node_close.off(cc.Node.EventType.TOUCH_END, this.onClickClose, this);
+        //this.node_close.off(cc.Node.EventType.TOUCH_END, this.onClickClose, this);
+    }
+
+    onDestroy() {
+        if(this.id) {
+            clearTimeout(this.id)
+        }
+       
     }
 
     /**
@@ -74,13 +84,28 @@ export class OverTips extends BaseUI {
      @param {Function} callback    回调函数
      @param {string} endTitle      end动效提示文字
      */
-    init(type: number, str: string = "", callback: Function, endTitle?: string): void {
+    init(type: number, str: string = "", btnStr: string, btnCallback: Function, callback: Function, endTitle?: string): void {
         this.callback = callback;
         this.spine_false.node.active = type == 0;
         this.spine_true.node.active = type == 1;
         this.spine_complete.node.active = type == 2;
         this.label_tip.string = str;
         this.label_tip.node.active = true;
+        if(btnStr != '') {
+            this.button.active = true
+            this.button.getChildByName('Background').getChildByName('Label').getComponent(cc.Label).string = btnStr
+        }else {
+            this.button.active = false
+        }
+        if(btnCallback) {
+            this.btnCallback = btnCallback
+            this.id = setTimeout(() => {
+                UIManager.getInstance().closeUI(OverTips)
+                btnCallback()
+                clearTimeout(this.id)
+                this.id = null
+            }, 9000)
+        }
         switch (type) {
             case 0:
                 Tools.playSpine(this.spine_false, "false", false, this.delayClose.bind(this));
@@ -114,13 +139,19 @@ export class OverTips extends BaseUI {
     }
 
     delayClose(): void {
-        this.scheduleOnce(function () { this.onClickClose() }.bind(this), 0);
+        this.scheduleOnce(function () {  }.bind(this), 0);
     }
 
     onClickClose(event?, customEventData?): void {
         if (event) AudioManager.getInstance().playSound("sfx_buttn", false, 1);
         if (this.callback) this.callback();
         UIManager.getInstance().closeUI(OverTips);
+    }
+
+    buttonCallback() {
+        AudioManager.getInstance().playSound("sfx_buttn", false, 1)
+        this.btnCallback()
+        UIManager.getInstance().closeUI(OverTips)
     }
 
     createTitleImage(titleName: string) {

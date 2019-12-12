@@ -62,10 +62,15 @@ export default class GamePanel extends BaseUI {
         if(ConstValue.IS_TEACHER) {
             DaAnData.getInstance().submitEnable = true
             UIManager.getInstance().openUI(UploadAndReturnPanel, null, 212)
+            this.initGame()
         }else {
             this.getNet()
         }
         cc.loader.loadRes('prefab/ui/panel/OverTips', cc.Prefab, null);
+      
+    }
+
+    initGame() {
         this.bg.on(cc.Node.EventType.TOUCH_START, (e)=>{
             if(this.isOver != 1) {
                 this.isOver = 2;
@@ -74,7 +79,10 @@ export default class GamePanel extends BaseUI {
             }
         })
         this.timeOutId = setTimeout(() => {
-            this.playSound('title')
+            this.laba.addAnimation(0, 'speak', true)
+            AudioManager.getInstance().playSound('title', false, 1, null, ()=>{
+                this.laba.setAnimation(0, 'null', true)
+            })
             clearTimeout(this.timeOutId)
             this.timeOutId = null
         }, 500);
@@ -92,6 +100,7 @@ export default class GamePanel extends BaseUI {
         this.passerbyArr[0] = this.passerbyA
         this.passerbyArr[1] = this.passerbyB
         this.passerbyArr[2] = this.passerbyC
+        this.addListenerOnPasserby()
     }
 
     playSound(str: string) {
@@ -104,9 +113,7 @@ export default class GamePanel extends BaseUI {
     }
 
     start() {
-       
         DataReporting.getInstance().addEvent('end_game', this.onEndGame.bind(this));
-        this.addListenerOnPasserby()
     }
 
     addData() {
@@ -126,6 +133,7 @@ export default class GamePanel extends BaseUI {
                 if(this.touchTarget || e.target.opacity == 0) {
                     return
                 }
+                this.playSound('sfx_select1')
                 this.touchTarget = e.target
                 this.touchNode.active = true
                 this.touchNode.getComponent(sp.Skeleton).skeletonData = e.target.getComponent(sp.Skeleton).skeletonData
@@ -213,6 +221,7 @@ export default class GamePanel extends BaseUI {
                 for(let i = 0; i < chooseArr.length; ++i) {
                     if(chooseArr[i].getBoundingBox().contains(this.node.convertToNodeSpaceAR(e.currentTouch._point))) {
                         if(i == 0 && !this.customer1.active && index == 'A') {  
+                            this.playSound('sfx_tone1')
                             this.playSound('被你发现了')  
                             this.customer1.active = true
                             this.customer1.getComponent(sp.Skeleton).skeletonData = this.touchNode.getComponent(sp.Skeleton).skeletonData
@@ -220,6 +229,7 @@ export default class GamePanel extends BaseUI {
                             this.eventvalue.levelData[0].subject[i] = index
                             right = true
                         }else if(i == 1 && !this.customer2.active && index == 'C') {
+                            this.playSound('sfx_tone1')
                             this.playSound('被你发现了')  
                             this.customer2.active = true
                             this.customer2.getComponent(sp.Skeleton).skeletonData = this.touchNode.getComponent(sp.Skeleton).skeletonData
@@ -227,6 +237,7 @@ export default class GamePanel extends BaseUI {
                             this.eventvalue.levelData[0].subject[i] = index
                             right = true
                         }else if(i == 2 && !this.customer3.active && index == 'B') {
+                            this.playSound('sfx_tone1')
                             this.playSound('被你发现了')  
                             this.customer3.active = true
                             this.customer3.getComponent(sp.Skeleton).skeletonData = this.touchNode.getComponent(sp.Skeleton).skeletonData
@@ -234,6 +245,7 @@ export default class GamePanel extends BaseUI {
                             this.eventvalue.levelData[0].subject[i] = index
                             right = true
                         }else {
+                            this.playSound('sfx_tone2')
                             this.playSound('我不在这')
                             right = false
                         }
@@ -315,6 +327,7 @@ export default class GamePanel extends BaseUI {
         NetWork.getInstance().httpRequest(NetWork.GET_QUESTION + "?courseware_id=" + NetWork.courseware_id, "GET", "application/json;charset=utf-8", function (err, response) {
             if (!err) {
                 let response_data = response;
+                this.initGame()
                 if (Array.isArray(response_data.data)) {
                     return;
                 }

@@ -149,6 +149,7 @@ export class OverTips extends BaseUI {
     }
 
     buttonCallback() {
+        AudioManager.getInstance().stopAll()
         AudioManager.getInstance().playSound("sfx_buttn", false, 1)
         this.btnCallback()
         UIManager.getInstance().closeUI(OverTips)

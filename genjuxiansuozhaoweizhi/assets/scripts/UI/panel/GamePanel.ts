@@ -101,6 +101,34 @@ export default class GamePanel extends BaseUI {
         this.passerbyArr[1] = this.passerbyB
         this.passerbyArr[2] = this.passerbyC
         this.addListenerOnPasserby()
+        this.addListenerOnCustomer()
+    }
+
+    addListenerOnCustomer() {
+        this.customer1.on(cc.Node.EventType.TOUCH_START, (e)=>{
+            this.playSound('我和C分别进了两家相邻的店')
+        })
+        this.customer2.on(cc.Node.EventType.TOUCH_START, (e)=>{
+            this.playSound('A不吃火锅')
+        })
+        this.customer3.on(cc.Node.EventType.TOUCH_START, (e)=>{
+            this.playSound('我也和C分别进了两家相邻的店')
+        })
+    }
+
+    removeAllListener() {
+        this.customer1.off(cc.Node.EventType.TOUCH_START)
+        this.customer2.off(cc.Node.EventType.TOUCH_START)
+        this.customer3.off(cc.Node.EventType.TOUCH_START)
+        this.labaBoundingBox.off(cc.Node.EventType.TOUCH_START)
+        for(let i = 0; i < this.passerbyArr.length; ++i) {
+            let node = this.passerbyArr[i]
+            node.off(cc.Node.EventType.TOUCH_START)
+            node.off(cc.Node.EventType.TOUCH_MOVE)
+            node.off(cc.Node.EventType.TOUCH_END)
+            node.off(cc.Node.EventType.TOUCH_CANCEL)
+        }
+
     }
 
     playSound(str: string) {
@@ -260,6 +288,7 @@ export default class GamePanel extends BaseUI {
                 this.eventvalue.levelData[0].result = 2
                 this.isOver = 2
                 if(this.isSuccess()) {
+                    this.removeAllListener()
                     this.eventvalue.result = 1
                     this.eventvalue.levelData[0].result = 1
                     this.isOver = 1

@@ -1068,22 +1068,69 @@
     "bg": {
       "__id__": 2
     },
-    "title": null,
-    "actor": null,
-    "beanPrefab": null,
-    "greenBean": null,
-    "yellowBean": null,
-    "redBean": null,
-    "number3": null,
-    "wrong3": null,
-    "number4": null,
-    "wrong4": null,
-    "number5": null,
-    "wrong5": null,
-    "number6": null,
-    "wrong6": null,
-    "number7": null,
-    "wrong7": null,
+    "title": {
+      "__id__": 5
+    },
+    "actor": {
+      "__id__": 9
+    },
+    "a": {
+      "__id__": 11
+    },
+    "b": {
+      "__id__": 17
+    },
+    "c": {
+      "__id__": 23
+    },
+    "beanPrefab": {
+      "__uuid__": "9a72f825-02c0-4942-89df-86fbc387fbfe"
+    },
+    "greenBean": {
+      "__uuid__": "f0d42d6f-6620-4e25-8037-edca4f0eb7f8"
+    },
+    "yellowBean": {
+      "__uuid__": "783804a3-67b9-4528-9e9e-556ca6f7544f"
+    },
+    "redBean": {
+      "__uuid__": "bdf0a8ba-797e-4036-ab73-fd8c7ddb47ba"
+    },
+    "number2": {
+      "__uuid__": "48c963af-54f3-4e21-98ea-adc6e53c93a9"
+    },
+    "wrong2": {
+      "__uuid__": "97430d78-d50b-437b-a450-ea66f89d57be"
+    },
+    "number3": {
+      "__uuid__": "21dc5545-466a-4164-a420-7c8c740915a6"
+    },
+    "wrong3": {
+      "__uuid__": "271fd0a7-f9a2-4af9-8e75-71525ea33c3b"
+    },
+    "number4": {
+      "__uuid__": "89cf5c78-33c4-47de-9c7e-9d85726774bd"
+    },
+    "wrong4": {
+      "__uuid__": "6128c84a-ecce-4e7f-bcb4-f61a40057013"
+    },
+    "number5": {
+      "__uuid__": "50b3524d-42a8-4a01-adf9-5ad967fc0627"
+    },
+    "wrong5": {
+      "__uuid__": "6b6635fd-15d4-4f33-9ec4-cf8225d0dbd1"
+    },
+    "number6": {
+      "__uuid__": "057a3bca-d0ed-4dde-8253-4da63ca0d395"
+    },
+    "wrong6": {
+      "__uuid__": "a9998810-bc65-41da-a9fc-5775609984ba"
+    },
+    "number7": {
+      "__uuid__": "05845d97-cb86-495a-8609-02caa6a37356"
+    },
+    "wrong7": {
+      "__uuid__": "e03ddf08-5478-498f-bef4-5cc4ea81c8f5"
+    },
     "_id": ""
   },
   {

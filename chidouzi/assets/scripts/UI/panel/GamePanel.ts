@@ -106,8 +106,8 @@ export default class GamePanel extends BaseUI {
         })
         this.title.on(cc.Node.EventType.TOUCH_START, (e)=>{
            
-            AudioManager.getInstance().stopAll()
-            AudioManager.getInstance().playSound('title', false, 1, null, ()=>{
+            //AudioManager.getInstance().stopAll()
+            //AudioManager.getInstance().playSound('title', false, 1, null, ()=>{
                
             })
         })

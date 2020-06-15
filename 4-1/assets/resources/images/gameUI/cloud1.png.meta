@@ -1,10 +1,15 @@
 {
-  "ver": "2.2.0",
+  "ver": "2.3.4",
   "uuid": "cebdfe5d-0d4d-4c6c-b3d5-1d4021078ad4",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 190,
+  "height": 53,
+  "platformSettings": {},
   "subMetas": {
     "cloud1": {
       "ver": "1.0.4",

@@ -147,9 +147,13 @@ export default class GamePanel extends BaseUI {
                 let posInRect = cc.v2(posInNode.x - offset.x + rect.width / 2, posInNode.y - offset.y + rect.height / 2)
 
                 let tex = spriteFrame.getTexture()
+                console.log('-------texture', tex)
                 var rt = this._textureIdMapRenderTexture[tex.getId()]
+                console.log('-------rt', rt)
+                console.log('-------readPixels')
                 if (!rt) {
                     rt = new cc.RenderTexture()
+                    console.log('-------readPixels', rt.readPixels())
                     rt.initWithSize(tex.width, tex.height)
                     rt.drawTextureAt(tex, 0, 0)
                     this._textureIdMapRenderTexture[tex.getId()] = rt
@@ -222,6 +226,7 @@ export default class GamePanel extends BaseUI {
                 var rt = this._textureIdMapRenderTexture[tex.getId()]
                 if (!rt) {
                     rt = new cc.RenderTexture()
+                    console.log('-------', rt)
                     rt.initWithSize(tex.width, tex.height)
                     rt.drawTextureAt(tex, 0, 0)
                     this._textureIdMapRenderTexture[tex.getId()] = rt
@@ -235,6 +240,7 @@ export default class GamePanel extends BaseUI {
                 else{
                     data = rt.readPixels(null, rect1.x + posInRect1.x, rect1.y + rect1.height - posInRect1.y, 1, 1)
                 }
+                console.log(data)
                 if (data[3] <= 0) {
                     if(!this.isOver1) {
                         if(!this.isBreak1) {

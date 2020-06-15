@@ -33,7 +33,10 @@
     "Native Socket",
     "Geom Utils",
     "3D",
-    "3D Primitive"
+    "3D Primitive",
+    "3D Physics/cannon.js",
+    "3D Physics/Builtin",
+    "3D Particle"
   ],
   "facebook": {
     "appID": "",
@@ -58,5 +61,6 @@
   },
   "start-scene": "a75e94dc-05bd-44a5-bdab-af7a2bed76a7",
   "use-customize-simulator": true,
-  "use-project-simulator-setting": false
+  "use-project-simulator-setting": false,
+  "migrate-history": []
 }
